@@ -143,6 +143,35 @@ launch.bat breakthrough --batch "problem a/" --iterations 3
 
 ---
 
+## Recommended model configuration
+
+Tested setup that produces strong results. All local models run via Ollama.
+
+| Task | Backend | Model |
+|------|---------|-------|
+| Web Search | Cloud API (Poe) | `Web-Search` |
+| Past-context screening | Ollama | `nemotron-cascade-2:latest` |
+| Hypothesis Formulation | Ollama | `nemotron-cascade-2:latest` or `minimax-m2.7:cloud` |
+| Code Design | Ollama | `qwen3-coder-next:latest` |
+| Evaluation + next problem | Ollama | `glm-4.7-flash:latest` |
+
+Pull the Ollama models before running:
+
+```bash
+ollama pull nemotron-cascade-2
+ollama pull minimax-m2.7
+ollama pull qwen3-coder-next
+ollama pull glm-4.7-flash
+```
+
+Set the context screening model in `.env`:
+
+```env
+CONTEXT_ASSESSMENT_MODEL=nemotron-cascade-2:latest
+```
+
+---
+
 ## Model setup prompt
 
 When you run any mode, AutoResearch asks you to configure models for four tasks:
