@@ -1,10 +1,31 @@
 # AutoResearch
 
-> **Built on the shoulders of giants.** This project is an extended fork of [autoresearch](https://github.com/karpathy/autoresearch) by [Andrej Karpathy](https://github.com/karpathy), whose original idea and architecture form the foundation of everything here. All conceptual credit belongs to him. This fork adds multi-provider API support, OpenRouter compatibility, a configurable local model stack, batch mode, and iterative breakthrough research with HTML reporting.
+> **Built on the shoulders of giants.** This project is an extended fork of [autoresearch](https://github.com/karpathy/autoresearch) by [Andrej Karpathy](https://github.com/karpathy), whose original idea and architecture form the foundation of everything here. All conceptual credit belongs to him.
 
-Autonomous AI research tool that turns a research problem into a complete experiment cycle: web search → hypothesis formulation → Python code generation → local execution → scientific evaluation → iterative refinement.
+AutoResearch is an autonomous AI agent designed to conduct end-to-end scientific research. You provide a research problem in a markdown file, and the agent takes over: it performs live web searches to gather literature, formulates novel hypotheses, writes Python code to test them, runs the experiments locally, mathematically evaluates the results, and iteratively refines its approach across multiple cycles until a breakthrough is achieved. All artifacts—queries, hypotheses, code, logs, and evaluations—are rigorously saved to disk.
 
-Experiments are saved to disk with full artifacts (queries, search results, hypotheses, generated code, run output, evaluation). Breakthrough mode generates a self-contained HTML report after all iterations.
+### What this fork contributes
+While the original project proved the concept of LLM-driven research, this fork transforms it into a flexible, production-ready tool by adding:
+- **Iterative "Breakthrough" Mode:** Instead of stopping after a single pass, the agent runs continuous experiment cycles. It learns from failed runs, reformulates the problem, and loops until it hits a breakthrough, generating a self-contained HTML report of the findings.
+- **Configurable Local & Cloud Model Stack:** Mix and match models to optimize for cost and privacy. For example, use a cloud API (like Poe or OpenRouter) for live web search, but route hypothesis formulation, code generation, and evaluation to local models via Ollama.
+- **Batch Processing:** Point the tool at a folder of `problem.md` files to conduct automated research across multiple domains sequentially.
+
+### Example Use Cases
+
+#### 1. Deep Dive (Breakthrough Mode)
+Imagine you want to discover new patterns in the Riemann Zeta function. You write a brief `problem.md` and launch AutoResearch in **Breakthrough Mode** before going to sleep. 
+
+1. **Iteration 1:** The agent searches for recent literature, hypothesizes a new anomaly in the critical line, and writes Python code to test it. The code runs, but the evaluation reveals the anomaly is already a known pattern.
+2. **Iteration 2:** Learning from the failure, the agent reformulates the hypothesis, writes new code testing a different random matrix theory connection, and executes it.
+3. **Result:** You wake up to a breakthrough HTML report detailing a highly significant, novel mathematical finding, complete with the executed Python script, dataset outputs, and an evaluation.
+
+#### 2. Broad Exploration (Batch Mode)
+You have a folder `future_research/` containing 10 different `problem.md` files spanning fluid dynamics, algorithmic trading, and quantum mechanics. You launch **Batch Mode** on Friday evening.
+
+1. The agent autonomously cycles through each problem sequentially, sharing your preferred local/cloud model configuration, and performs iterative research on each topic.
+2. **Result:** Monday morning, you return to find two viable breakthroughs with comprehensive HTML reports, three failed but insightful experiments, and five research directions proven to be dead ends.
+
+> ⚠️ **Note on AI output:** AutoResearch is an **accelerator**, not an autonomous scientist. Its findings should never be published as-is. All "breakthroughs" require rigorous human review, manual verification, and independent mathematical validation to confirm their real-world scientific significance.
 
 ---
 
