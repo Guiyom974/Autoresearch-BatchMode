@@ -448,17 +448,39 @@ def _generate_mermaid_diagram(runs_data: list[dict]) -> str:
     lines = ["graph TD"]
 
     for i, run in enumerate(runs_data, 1):
-        status = run["meta"].get("evaluation", {}).get("breakthrough_achieved", False)
-        if status:
-            node_shape = f"A{i}[\"Iteration {i}\n✨ BREAKTHROUGH!\"]"
+        evaluation = run["meta"].get("evaluation", {})
+        breakthrough = evaluation.get("breakthrough_achieved", False)
+        confidence = evaluation.get("confidence", None)
+        score = evaluation.get("publishability_score", None)
+        summary = evaluation.get("summary", "")
+
+        # Truncate summary to ~60 chars for readability
+        short_summary = (summary[:60] + "...") if len(summary) > 60 else summary
+        # Escape double quotes inside the label
+        short_summary = short_summary.replace('"', "'")
+
+        # Build metrics line
+        metrics_parts = []
+        if confidence is not None:
+            metrics_parts.append(f"Conf: {confidence:.0%}")
+        if score is not None:
+            metrics_parts.append(f"Score: {score}/10")
+        metrics_line = " | ".join(metrics_parts)
+
+        if breakthrough:
+            label = f"Iteration {i}: ✨ BREAKTHROUGH!\n{short_summary}\n{metrics_line}"
         else:
-            node_shape = f"A{i}[\"Iteration {i}\"]"
+            label = f"Iteration {i}\n{short_summary}\n{metrics_line}" if metrics_line else f"Iteration {i}\n{short_summary}"
+
+        node_shape = f'A{i}["{label}"]'
         lines.append(f"  {node_shape}")
 
         if i < len(runs_data):
-            lines.append(f"  A{i} -->|Reformulate| A{i + 1}")
+            next_directions = evaluation.get("next_directions", [])
+            edge_label = next_directions[0][:40].replace('"', "'") + "..." if next_directions and len(next_directions[0]) > 40 else (next_directions[0].replace('"', "'") if next_directions else "Reformulate")
+            lines.append(f'  A{i} -->|"{edge_label}"| A{i + 1}')
 
-    lines.append(f"  A{len(runs_data)} --> B[\"Final Report\"]")
+    lines.append(f'  A{len(runs_data)} --> B["Final Report"]')
 
     return "\n".join(lines)
 
