@@ -1,5 +1,7 @@
 # AutoResearch
 
+> **Built on the shoulders of giants.** This project is an extended fork of [autoresearch](https://github.com/karpathy/autoresearch) by [Andrej Karpathy](https://github.com/karpathy), whose original idea and architecture form the foundation of everything here. All conceptual credit belongs to him. This fork adds multi-provider API support, OpenRouter compatibility, a configurable local model stack, batch mode, and iterative breakthrough research with HTML reporting.
+
 Autonomous AI research tool that turns a research problem into a complete experiment cycle: web search → hypothesis formulation → Python code generation → local execution → scientific evaluation → iterative refinement.
 
 Experiments are saved to disk with full artifacts (queries, search results, hypotheses, generated code, run output, evaluation). Breakthrough mode generates a self-contained HTML report after all iterations.
