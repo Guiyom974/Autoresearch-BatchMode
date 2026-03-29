@@ -1,0 +1,41 @@
+======================================================================
+SCALING ADAPTIVE WASSERSTEIN WEIGHTING TO HIGH-ORDER PRIMORIAL BASES
+======================================================================
+
+HYPOTHESIS 1: Monotonic Increase in Variance Reduction with Modulus Size
+----------------------------------------------------------------------
+Modulus   210: Static Var =  23.550175, Adaptive Var =  20.860527, Reduction =  11.42%
+Modulus  2310: Static Var = 3197.714583, Adaptive Var = 2429.595283, Reduction =  24.02%
+Modulus 30030: Static Var = 55373.085832, Adaptive Var = 50549.260040, Reduction =   8.71%
+
+Result: NOT SUPPORTED — reduction does not increase monotonically
+
+HYPOTHESIS 2: Reduction Improves with Sparser Coprime Residues
+----------------------------------------------------------------------
+Modulus   210: Sparsity = 0.228571, Reduction =  15.20%
+Modulus  2310: Sparsity = 0.207792, Reduction =  12.81%
+Modulus 30030: Sparsity = 0.191808, Reduction =  15.01%
+
+Correlation (sparsity vs. reduction): r = 0.148, p = 0.9052
+Result: NOT SUPPORTED — no significant correlation
+
+HYPOTHESIS 3: Adaptive Weighting Better Under Structural Noise
+----------------------------------------------------------------------
+Modulus   210: Static Var =  36.469621, Adaptive Var =  26.225306, Reduction =  28.09%
+Modulus  2310: Static Var = 4242.460324, Adaptive Var = 3476.298958, Reduction =  18.06%
+Modulus 30030: Static Var = 33266.427294, Adaptive Var = 22985.607782, Reduction =  30.90%
+
+Average reduction (no noise): 14.72%
+Average reduction (with noise): 25.68%
+Result: SUPPORTED — adaptive weighting more effective under noise
+
+======================================================================
+CONCLUSIONS
+======================================================================
+Hypothesis 1 (Monotonic increase): NOT SUPPORTED
+Hypothesis 2 (Sparsity benefit): NOT SUPPORTED
+Hypothesis 3 (Noise robustness): SUPPORTED
+
+Overall: Partial support — scaling behavior is context-dependent.
+======================================================================
+Runtime: 0.06 seconds

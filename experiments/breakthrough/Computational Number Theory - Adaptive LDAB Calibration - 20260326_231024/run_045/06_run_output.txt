@@ -1,0 +1,98 @@
+======================================================================
+LDAB CALIBRATION ERROR MODEL HYPOTHESIS TESTING SUITE
+======================================================================
+
+=== HYPOTHESIS 1 TEST: Log-Space Error Parameterization ===
+Testing finite standard errors for k ≥ 4 using float64 only.
+k= 1, P_k=           2, decay=-179.3917, SE=3.133245e+00, PASS
+k= 2, P_k=           6, decay=     nan, SE=nan, FAIL
+k= 3, P_k=          30, decay=     nan, SE=nan, FAIL
+k= 4, P_k=         210, decay=     nan, SE=nan, FAIL
+k= 5, P_k=        2310, decay=     nan, SE=nan, FAIL
+k= 6, P_k=       30030, decay=     nan, SE=nan, FAIL
+k= 7, P_k=      510510, decay=     nan, SE=nan, FAIL
+k= 8, P_k=     9699690, decay=     nan, SE=nan, FAIL
+k= 9, P_k=   223092870, decay=     nan, SE=nan, FAIL
+k=10, P_k=  6469693230, decay=     nan, SE=nan, FAIL
+
+Hypothesis 1: REJECTED
+Standard errors for k ≥ 4 are not all finite
+
+=== HYPOTHESIS 2 TEST: Asymptotic Decay Rate Scaling ===
+Testing b_k = 1 + O(1/log P_k) for k ≥ 2.
+Fitted model: b_k = 1 + nan/log(P_k)
+R² = 0.0000
+k= 2, P_k=       6, b_k=nan, pred=nan, diff=nan
+k= 3, P_k=      30, b_k=nan, pred=nan, diff=nan
+k= 4, P_k=     210, b_k=nan, pred=nan, diff=nan
+k= 5, P_k=    2310, b_k=nan, pred=nan, diff=nan
+k= 6, P_k=   30030, b_k=nan, pred=nan, diff=nan
+k= 7, P_k=  510510, b_k=nan, pred=nan, diff=nan
+k= 8, P_k= 9699690, b_k=nan, pred=nan, diff=nan
+k= 9, P_k=223092870, b_k=nan, pred=nan, diff=nan
+k=10, P_k=6469693230, b_k=nan, pred=nan, diff=nan
+
+Hypothesis 2: REJECTED
+R² = 0.0000 < 0.90
+
+=== HYPOTHESIS 3 TEST: Guarded Log-Gamma Consistency ===
+Testing relative consistency of decay rates across k.
+Mean decay rate: nan
+Max relative error: nan
+k= 1, decay=-179.39169815, rel_err=nan [FAIL]
+k= 2, decay=nan, rel_err=nan [FAIL]
+k= 3, decay=nan, rel_err=nan [FAIL]
+k= 4, decay=nan, rel_err=nan [FAIL]
+k= 5, decay=nan, rel_err=nan [FAIL]
+k= 6, decay=nan, rel_err=nan [FAIL]
+k= 7, decay=nan, rel_err=nan [FAIL]
+k= 8, decay=nan, rel_err=nan [FAIL]
+k= 9, decay=nan, rel_err=nan [FAIL]
+k=10, decay=nan, rel_err=nan [FAIL]
+
+Hypothesis 3: REJECTED
+Relative errors not all < 1e-6
+
+=== HYPOTHESIS 4 TEST: Bootstrap-Analytic SE Consistency ===
+Testing relative difference between bootstrap and analytic SE.
+k= 3, analytic_SE=nan, boot_SE=nan, rel_diff=nan% [FAIL]
+k= 4, analytic_SE=nan, boot_SE=nan, rel_diff=nan% [FAIL]
+k= 5, analytic_SE=nan, boot_SE=nan, rel_diff=nan% [FAIL]
+k= 6, analytic_SE=nan, boot_SE=nan, rel_diff=nan% [FAIL]
+k= 7, analytic_SE=nan, boot_SE=nan, rel_diff=nan% [FAIL]
+k= 8, analytic_SE=nan, boot_SE=nan, rel_diff=nan% [FAIL]
+k= 9, analytic_SE=nan, boot_SE=nan, rel_diff=nan% [FAIL]
+k=10, analytic_SE=nan, boot_SE=nan, rel_diff=nan% [FAIL]
+
+Hypothesis 4: REJECTED
+All relative differences ≥ 5%
+
+=== HYPOTHESIS 5 TEST: Polygamma Error Model ===
+Testing relative std error < 1% for k ≥ 4 using psi (digamma) and polygamma.
+k= 4, decay=-1365.762254, SE=2.416249e+01, rel_SE=1.77% [FAIL]
+k= 5, decay=-1978.588088, SE=3.499788e+01, rel_SE=1.77% [FAIL]
+k= 6, decay=-2634.188712, SE=4.658786e+01, rel_SE=1.77% [FAIL]
+k= 7, decay=-3358.468606, SE=5.938986e+01, rel_SE=1.77% [FAIL]
+k= 8, decay=-4111.234105, SE=7.269411e+01, rel_SE=1.77% [FAIL]
+k= 9, decay=-4912.917443, SE=8.686143e+01, rel_SE=1.77% [FAIL]
+k=10, decay=-5773.947577, SE=1.020760e+02, rel_SE=1.77% [FAIL]
+
+Hypothesis 5: REJECTED
+All relative std errors ≥ 1%
+
+=== GENERATING PLOTS ===
+
+======================================================================
+CONCLUSIONS:
+======================================================================
+Hypothesis 1 (Log-space eliminates precision collapse):  REJECTED
+Hypothesis 2 (Asymptotic scaling b_k = 1 + O(1/log P_k)):  REJECTED
+Hypothesis 3 (Guarded log-gamma consistency):  REJECTED
+Hypothesis 4 (Bootstrap-analytic SE consistency):  REJECTED
+Hypothesis 5 (Polygamma model with rel_SE < 1%):  REJECTED
+
+Overall:  SOME HYPOTHESES REJECTED
+
+Note: All tests used only float64 arithmetic (no arbitrary precision).
+Plots saved as: ldab_decay_rates.png, ldab_loglog_k4.png
+======================================================================

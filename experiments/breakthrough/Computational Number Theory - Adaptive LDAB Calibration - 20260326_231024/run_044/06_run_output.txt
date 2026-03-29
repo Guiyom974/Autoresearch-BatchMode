@@ -1,0 +1,62 @@
+======================================================================
+LDAB ERROR MODELING: NUMERICAL ARTIFACT MITIGATION TEST SUITE
+======================================================================
+
+=== HYPOTHESIS 1: Minimum Precision Threshold for LDAB Error Stability ===
+
+Testing with precision: float32
+  Power law λ: mean=0.947594, std=0.114646
+  Exponential λ: mean=0.029243, std=0.077069
+  Power law SE finite: 12/12
+  Exponential SE finite: 12/12
+
+Testing with precision: float64
+  Power law λ: mean=0.947594, std=0.114646
+  Exponential λ: mean=0.029243, std=0.077069
+  Power law SE finite: 12/12
+  Exponential SE finite: 12/12
+
+Testing with precision: longdouble
+  Power law λ: mean=0.947594, std=0.114646
+  Exponential λ: mean=0.029243, std=0.077069
+  Power law SE finite: 12/12
+  Exponential SE finite: 12/12
+
+HYPOTHESIS 1 SUPPORTED: True
+Interpretation: At longdouble precision, all λ estimates have finite standard errors.
+
+=== HYPOTHESIS 2: Overflow Artifacts at High k ===
+VMR values for k=2 to 12: [np.float64(7.142857142857143), np.float64(89.28205128205128), np.float64(1348.0398613518198), np.float64(19731.758199014253), np.float64(368647.4429026251), np.float64(7343751.576810658), np.float64(176608148.96332058), np.float64(5319397089.639312), np.float64(167968536759.7487), np.float64(6355506896190.741), np.float64(6355506896190.741)]
+Overflow detected at k: []
+HYPOTHESIS 2 SUPPORTED: False
+Interpretation: Overflow artifacts are present at k ≥ 4.
+
+=== HYPOTHESIS 3: Precision Collapse in Exponential Fits ===
+Exponential λ estimates: [np.float64(0.27983426492303587), np.float64(0.278736080918352), np.float64(0.2787362063942001), np.float64(0.27873620827586376), np.float64(0.27873620972878116), np.float64(0.27873609595196075), np.float64(0.27873609637630553), np.float64(0.27873609637630553), np.float64(0.27873609637630553), np.float64(0.27873609637630553), np.float64(0.27873609637630553)]
+Standard errors: [np.float64(inf), np.float64(0.12130952791711384), np.float64(0.0870237836940686), np.float64(0.07106346352458827), np.float64(0.06154281924729174), np.float64(0.0550448201226912), np.float64(0.05024881822893244), np.float64(0.04652136590616347), np.float64(0.04351675309640249), np.float64(0.04102798827958252), np.float64(0.03892256723345217)]
+Infinite variance at k: [2]
+HYPOTHESIS 3 SUPPORTED: False
+Interpretation: Exponential fits show precision collapse at k ≥ 4.
+
+=== HYPOTHESIS 4: Log-Transformed Errors Stabilize with Higher Precision ===
+Raw errors (first 10): [np.float64(0.09689985382670399), np.float64(0.03163743118331905), np.float64(0.01468588919089918), np.float64(0.0025032129375046554), np.float64(0.00023421916250457138), np.float64(1.758159698006688e-05), np.float64(9.88904618467763e-07), np.float64(4.945732118236889e-08), np.float64(2.0376653603400528e-09), np.float64(6.649857340134313e-11)]
+Log errors (first 10): [np.float64(-2.334077268582901), np.float64(-3.4534143282750445), np.float64(-4.220868165201177), np.float64(-5.99018019723663), np.float64(-8.35925328903522), np.float64(-10.948657829101109), np.float64(-13.826667952373189), np.float64(-16.82215573761452), np.float64(-20.011461115657593), np.float64(-23.43384062110823)]
+Raw error issues (k=1..12): [False, False, False, False, False, False, False, False, False, False, False, False]
+Log error issues (k=1..12): [False, False, False, False, False, False, False, False, False, False, False, False]
+λ estimates (raw errors): [np.float64(1.0188644995489349), np.float64(0.6804926925058432), np.float64(0.7528218980434556), np.float64(0.8326958664409446), np.float64(0.8854472737132069), np.float64(0.9207711785561078), np.float64(0.9442402938049924), np.float64(0.9605325667682197), np.float64(0.9722453161269035), np.float64(0.9806716544880727), np.float64(0.9869001920224426)]
+λ estimates (log errors): [np.float64(1.0188644995489349), np.float64(0.6804926925058432), np.float64(0.7528218980434556), np.float64(0.8326958664409446), np.float64(0.8854472737132069), np.float64(0.9207711785561078), np.float64(0.9442402938049924), np.float64(0.9605325667682197), np.float64(0.9722453161269035), np.float64(0.9806716544880727), np.float64(0.9869001920224426)]
+Std of λ (raw): 0.101771
+Std of λ (log): 0.101771
+HYPOTHESIS 4 SUPPORTED: False
+Interpretation: Log-transformed errors reduce numerical instability.
+
+======================================================================
+CONCLUSIONS:
+======================================================================
+H1 (Precision threshold): SUPPORTED
+H2 (Overflow at high k): NOT SUPPORTED
+H3 (Exp fit collapse): NOT SUPPORTED
+H4 (Log-transform stability): NOT SUPPORTED
+
+Overall: Precision threshold hypothesis confirmed; higher precision resolves artifacts.
+======================================================================

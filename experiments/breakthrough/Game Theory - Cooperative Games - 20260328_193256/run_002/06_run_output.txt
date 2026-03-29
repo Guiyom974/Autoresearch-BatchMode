@@ -1,0 +1,14 @@
+======================================================================
+BASELINE EXPERIMENT: Dirichlet(1) weights
+======================================================================
+
+--- STDERR ---
+Traceback (most recent call last):
+  File "D:\LocalProjects\Python apps\AutoResearch\experiments\breakthrough\Game Theory - Cooperative Games - 20260328_193256\run_002\_experiment_temp.py", line 171, in <module>
+    baseline_shapley = run_experiment('dirichlet', {}, n_games=N_GAMES)
+  File "D:\LocalProjects\Python apps\AutoResearch\experiments\breakthrough\Game Theory - Cooperative Games - 20260328_193256\run_002\_experiment_temp.py", line 157, in run_experiment
+    coalition_vals = generate_coalition_values(weights, distribution='normal')
+  File "D:\LocalProjects\Python apps\AutoResearch\experiments\breakthrough\Game Theory - Cooperative Games - 20260328_193256\run_002\_experiment_temp.py", line 56, in generate_coalition_values
+    subsets = [frozenset(s) for s in range(1, N_PLAYERS+1)]
+               ~~~~~~~~~^^^
+TypeError: 'int' object is not iterable

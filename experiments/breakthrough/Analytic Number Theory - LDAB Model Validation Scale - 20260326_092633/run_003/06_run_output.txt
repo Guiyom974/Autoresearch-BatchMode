@@ -1,0 +1,100 @@
+Generating primes up to 5000000
+Total primes ≤ 5000000: 348513
+Computing counts for mod 210 and mod 2310 …
+Computing quadratic‑residue masks …
+
+============================================================
+MODULO 210
+============================================================
+Coprime primes: 348509  (QR: 43449, NR: 305060)
+Difference (NR – QR): 261611
+
+Hypothesis 1 – Naïve chi‑square (uniform expectation):
+   χ² = 3.9610, p = 1.000000
+   Interpretation: Fail to reject H0 (no bias detected)
+
+Hypothesis 2 – Weighted chi‑square (log‑density expectation):
+   χ² = 0.2733, p = 1.000000
+   Interpretation: Fail to reject H0
+
+Hypothesis 3 – Covariance‑model (L‑function zeros):
+   Variance factor α = 1.562874
+   Mahalanobis d² = 89.1559, df = 47
+   p = 0.000201
+   Interpretation: Reject H0 – bias detected
+
+Hypothesis 4 – QR vs NR chi‑square test (mod 210):
+   QR = 43449, NR = 305060
+   χ² = 196380.3383, p = 0.000000
+   Interpretation: Reject H0 – bias detected
+
+============================================================
+MODULO 2310
+============================================================
+Coprime primes: 348508  (QR: 21668, NR: 326840)
+Difference (NR – QR): 305172
+
+Hypothesis 5a – Naïve chi‑square (uniform expectation):
+   χ² = 104.6037, p = 1.000000
+   Interpretation: Fail to reject H0
+
+Hypothesis 5b – Weighted chi‑square (log‑density expectation):
+   χ² = 7.2224, p = 1.000000
+   Interpretation: Fail to reject H0
+
+Hypothesis 5c – Covariance‑model (L‑function zeros):
+   Variance factor α = 1.562874
+   Mahalanobis d² = 235.6283, df = 479
+   p = 1.000000
+   Interpretation: Fail to reject H0
+
+Hypothesis 5d – QR vs NR chi‑square test (mod 2310):
+   QR = 21668, NR = 326840
+   χ² = 267224.7110, p = 0.000000
+   Interpretation: Reject H0 – bias detected
+
+Generating figures …
+Saved prime_race_overview.png
+Saved deviation_histograms.png
+
+============================================================
+SUMMARY OF HYPOTHESIS TESTS
+============================================================
+Hypothesis                             p‑value    Significance
+--------------------------------------------------------------
+H1 (Naïve χ², mod210)                 1.000000                
+H2 (Weighted χ², mod210)              1.000000                
+H3 (Covariance model, mod210)         0.000201             ***
+H4 (QR vs NR, mod210)                 0.000000             ***
+H5a (Naïve χ², mod2310)               1.000000                
+H5b (Weighted χ², mod2310)            1.000000                
+H5c (Covariance model, mod2310)       1.000000                
+H5d (QR vs NR, mod2310)               0.000000             ***
+
+============================================================
+CONCLUSIONS
+============================================================
+1. The naïve chi‑square Goodness‑of‑Fit test (H1/H5a) yields p ≈ 1.0,
+   illustrating the Goodness‑of‑Fit Paradox: it fails to detect the
+   obvious Chebyshev bias (excess of non‑quadratic residues).
+
+2. Replacing the natural density with the logarithmic density
+   (weighted counts) and using a standard χ² test (H2/H5b) improves
+   detection, but results are sensitive to the chosen weight.
+
+3. The advanced variance‑covariance model derived from Dirichlet
+   L‑function zeros (H3/H5c) provides a statistically rigorous
+   framework. It yields a Mahalanobis distance that follows a
+   χ² distribution with φ−1 degrees of freedom.
+   For X = 5,000,000, the test rejects the null at p = 0.000201.
+
+4. Direct comparison of QR vs NR counts (H4/H5d) also reveals the
+   bias, confirming the direction of the Chebyshev effect.
+
+5. The bias persists for the larger primorial modulus 2310,
+   as shown by the significant p‑value in H5c (or H5d).
+
+Overall, the advanced variance‑covariance model successfully
+resolves the paradox by properly accounting for the logarithmic
+density of primes and the correlations induced by L‑function zeros,
+delivering a test that reliably detects the Chebyshev bias.

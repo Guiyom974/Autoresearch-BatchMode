@@ -1,0 +1,62 @@
+================================================================================
+Testing Hypotheses on Shapley Value Concentration under Stochastic Weights
+================================================================================
+
+Processing distribution: Uniform(0,1)
+  Mean CV: 0.5757
+  Player CVs: ['0.575', '0.585', '0.580', '0.562', '0.576']
+Processing distribution: Beta(0.5,0.5) (heavy-tailed)
+  Mean CV: 0.7060
+  Player CVs: ['0.731', '0.691', '0.710', '0.701', '0.698']
+Processing distribution: Beta(2,2) (light-tailed)
+  Mean CV: 0.4466
+  Player CVs: ['0.445', '0.445', '0.448', '0.446', '0.450']
+Processing distribution: Trunc. Gaussian(0.5,0.25²)
+  Mean CV: 0.4392
+  Player CVs: ['0.433', '0.447', '0.435', '0.437', '0.444']
+Processing distribution: Dirichlet(1,1,1,1,1)
+  Mean CV: 0.8213
+  Player CVs: ['0.826', '0.819', '0.813', '0.829', '0.819']
+Processing distribution: Pareto(1.5) normalized
+  Mean CV: 0.6822
+  Player CVs: ['0.679', '0.667', '0.701', '0.674', '0.691']
+
+--------------------------------------------------------------------------------
+HYPOTHESIS 1 TEST: Heavy-tailed distributions generate higher CV in Shapley values
+--------------------------------------------------------------------------------
+Heavy-tailed distributions mean CV: 0.6941
+Light-tailed distributions mean CV: 0.5707
+
+H1 Test Results:
+  t-statistic (heavy > light): 0.921
+  One-sided p-value: 0.2047
+  Conclusion: FAIL TO REJECT H0
+
+--------------------------------------------------------------------------------
+DISTRIBUTION COMPARISON TABLE
+--------------------------------------------------------------------------------
+Distribution                      Mean CV     Std CV    Shapley Mean
+Dirichlet(1,1,1,1,1)               0.8213     0.0055          0.2000
+Beta(0.5,0.5) (heavy-tailed)       0.7060     0.0138          0.5003
+Pareto(1.5) normalized             0.6822     0.0121          0.2000
+Uniform(0,1)                       0.5757     0.0076          0.5012
+Beta(2,2) (light-tailed)           0.4466     0.0020          0.4985
+Trunc. Gaussian(0.5,0.25²)         0.4392     0.0053          0.5015
+
+================================================================================
+CONCLUSIONS:
+================================================================================
+H1 (Heavy-tailed → higher CV): NOT SUPPORTED
+  p-value: 0.2047
+  Observation: Heavy-tailed distributions show higher CV as expected.
+
+Note: Since v(S) = Σ w_i is additive, Shapley values equal weights. Thus:
+      CV(Shapley) = CV(weights), confirming theoretical expectations.
+      This validates the experimental framework for future non-additive extensions.
+
+Raw data saved to 'shapley_cv_by_distribution.png'.
+================================================================================
+
+--- STDERR ---
+D:\LocalProjects\Python apps\AutoResearch\experiments\breakthrough\Game Theory - Cooperative Games - 20260328_193256\run_005\_experiment_temp.py:85: SyntaxWarning: invalid escape sequence '\{'
+  φ_i = Σ_{S ⊆ N\{i}} (|S|! (n−|S|−1)! / n!) [v(S ∪ {i}) − v(S)]

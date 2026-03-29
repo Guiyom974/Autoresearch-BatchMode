@@ -1,0 +1,158 @@
+================================================================================
+RESEARCH TEST: Resolving Numerical Overflow Artifacts in Primorial Gap VMR
+================================================================================
+Available primes: [2, 3, 5, 7, 11, 13, 17, 19] (len=8)
+
+--- Testing k = 1 ---
+ERROR: No gaps computed
+
+--- Testing k = 2 ---
+ERROR: No gaps computed
+
+--- Testing k = 3 ---
+Number of gaps: 6
+Sum of gaps (exact): 22
+Sum of gaps (64-bit): 22
+Sum of gaps overflow? False
+Sum of squared gaps (exact): 92
+Sum of squared gaps (64-bit): 92
+Sum of squared gaps overflow? False
+Mean (exact): 3.666667
+Mean (64-bit): 3.666667
+Variance (exact): 1.888889e+00
+Variance (64-bit): 1.888889e+00
+VMR (exact): 5.151515e-01
+VMR (64-bit): 5.151515e-01
+VMR ratio (64-bit / exact): 1.000000e+00
+>>> No overflow detected in intermediates
+
+--- Testing k = 4 ---
+Number of gaps: 41
+Sum of gaps (exact): 188
+Sum of gaps (64-bit): 188
+Sum of gaps overflow? False
+Sum of squared gaps (exact): 1,136
+Sum of squared gaps (64-bit): 1,136
+Sum of squared gaps overflow? False
+Mean (exact): 4.585366
+Mean (64-bit): 4.585366
+Variance (exact): 6.681737e+00
+Variance (64-bit): 6.681737e+00
+VMR (exact): 1.457187e+00
+VMR (64-bit): 1.457187e+00
+VMR ratio (64-bit / exact): 1.000000e+00
+>>> No overflow detected in intermediates
+
+--- Testing k = 5 ---
+Number of gaps: 337
+Sum of gaps (exact): 2,296
+Sum of gaps (64-bit): 2,296
+Sum of gaps overflow? False
+Sum of squared gaps (exact): 22,760
+Sum of squared gaps (64-bit): 22,760
+Sum of squared gaps overflow? False
+Mean (exact): 6.813056
+Mean (64-bit): 6.813056
+Variance (exact): 2.111935e+01
+Variance (64-bit): 2.111935e+01
+VMR (exact): 3.099836e+00
+VMR (64-bit): 3.099836e+00
+VMR ratio (64-bit / exact): 1.000000e+00
+>>> No overflow detected in intermediates
+
+--- Testing k = 6 ---
+Number of gaps: 3,241
+Sum of gaps (exact): 30,012
+Sum of gaps (64-bit): 30,012
+Sum of gaps overflow? False
+Sum of squared gaps (exact): 430,616
+Sum of squared gaps (64-bit): 430,616
+Sum of squared gaps overflow? False
+Mean (exact): 9.260105
+Mean (64-bit): 9.260105
+Variance (exact): 4.711562e+01
+Variance (64-bit): 4.711562e+01
+VMR (exact): 5.088023e+00
+VMR (64-bit): 5.088023e+00
+VMR ratio (64-bit / exact): 1.000000e+00
+>>> No overflow detected in intermediates
+
+--- Testing k = 7 ---
+Number of gaps: 42,323
+Sum of gaps (exact): 510,462
+Sum of gaps (64-bit): 510,462
+Sum of gaps overflow? False
+Sum of squared gaps (exact): 10,068,500
+Sum of squared gaps (64-bit): 10,068,500
+Sum of squared gaps overflow? False
+Mean (exact): 12.061102
+Mean (64-bit): 12.061102
+Variance (exact): 9.242648e+01
+Variance (64-bit): 9.242648e+01
+VMR (exact): 7.663187e+00
+VMR (64-bit): 7.663187e+00
+VMR ratio (64-bit / exact): 1.000000e+00
+>>> No overflow detected in intermediates
+
+--- Testing k = 8 ---
+Number of gaps: 646,020
+Sum of gaps (exact): 9,699,644
+Sum of gaps (64-bit): 9,699,644
+Sum of gaps overflow? False
+Sum of squared gaps (exact): 247,163,888
+Sum of squared gaps (64-bit): 247,163,888
+Sum of squared gaps overflow? False
+Mean (exact): 15.014464
+Mean (64-bit): 15.014464
+Variance (exact): 1.571607e+02
+Variance (64-bit): 1.571607e+02
+VMR (exact): 1.046728e+01
+VMR (64-bit): 1.046728e+01
+VMR ratio (64-bit / exact): 1.000000e+00
+>>> No overflow detected in intermediates
+
+--- Testing k = 9 ---
+Number of gaps: 12,283,521
+Sum of gaps (exact): 223,092,798
+Sum of gaps (64-bit): 223,092,798
+Sum of gaps overflow? False
+Sum of squared gaps (exact): 7,038,961,148
+Sum of squared gaps (64-bit): 7,038,961,148
+Sum of squared gaps overflow? False
+Mean (exact): 18.161958
+Mean (64-bit): 18.161958
+Variance (exact): 2.431843e+02
+Variance (64-bit): 2.431843e+02
+VMR (exact): 1.338976e+01
+VMR (64-bit): 1.338976e+01
+VMR ratio (64-bit / exact): 1.000000e+00
+>>> No overflow detected in intermediates
+
+--- Generating VMR plot ---
+Saved plot: vmr_vs_k.png
+
+================================================================================
+HYPOTHESIS TESTING SUMMARY
+================================================================================
+
+Hypothesis 1: VMR collapse at k=8 caused by overflow in sum of squared gaps.
+----------------------------------------------------------------------
+k=7: VMR (exact) = 7.663e+00
+k=8: VMR (exact) = 1.047e+01
+k=8: VMR (64-bit) = 1.047e+01
+
+✗ NOT CONFIRMED: No overflow in sum_g2 detected.
+  → Consider other sources (e.g., mean computation, floating-point rounding)
+
+VMR drop from k=7 to k=8:
+  Exact: 7.663e+00 → 1.047e+01 (ratio = 1.366e+00)
+  64-bit: 7.663e+00 → 1.047e+01 (ratio = 1.366e+00)
+
+================================================================================
+CONCLUSIONS:
+----------------------------------------------------------------------
+2. No overflow detected in intermediates for k=7,8,9.
+3. Alternative explanations (e.g., floating-point rounding) require further study.
+4. Recommended fix: Replace all gap accumulation in numpy with Python int or
+   use numpy.int128 if available (not in standard numpy), or use Decimal.
+================================================================================

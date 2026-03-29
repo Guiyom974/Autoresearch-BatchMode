@@ -1,0 +1,15 @@
+--- STDERR ---
+SyntaxError (pre-execution check): expected ':' (<unknown>, line 160)
+
+Code preview:
+import numpy as np
+import matplotlib
+matplotlib.use('Agg')
+import matplotlib.pyplot as plt
+from scipy import stats
+from collections import Counter
+import math
+
+# =============================================================================
+# EFFICIENT PRIME GENERATION (Segmented Sieve)
+# ===========

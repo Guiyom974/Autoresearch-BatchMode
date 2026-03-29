@@ -1,0 +1,54 @@
+======================================================================
+Hypothesis 1: Uniform Generalization of LDAB Model Across Primorial Bases
+======================================================================
+
+Generating primes up to 10,000,000 ...
+Total primes found: 664,579
+
+==================================================
+Base 30 (phi = 8)
+==================================================
+  [Chebyshev bias] KL divergence (primes vs uniform): 1.867524e-07
+  [LDAB leading digits] KL divergence (multiples vs Benford): 1.912181e-01
+  *** LDAB model does NOT hold (KL >= 0.001) ***
+
+==================================================
+Base 210 (phi = 48)
+==================================================
+  [Chebyshev bias] KL divergence (primes vs uniform): 3.434214e-06
+  [LDAB leading digits] KL divergence (multiples vs Benford): 1.912024e-01
+  *** LDAB model does NOT hold (KL >= 0.001) ***
+
+==================================================
+Base 2310 (phi = 480)
+==================================================
+  [Chebyshev bias] KL divergence (primes vs uniform): 7.452807e-05
+  [LDAB leading digits] KL divergence (multiples vs Benford): 1.914423e-01
+  *** LDAB model does NOT hold (KL >= 0.001) ***
+
+==================================================
+Base 30030 (phi = 5760)
+==================================================
+  [Chebyshev bias] KL divergence (primes vs uniform): 1.575207e-03
+  [LDAB leading digits] KL divergence (multiples vs Benford): 1.982620e-01
+  *** LDAB model does NOT hold (KL >= 0.001) ***
+
+Plot saved: leading_digits_by_base.png
+Plot saved: kl_divergences.png
+
+======================================================================
+SUMMARY TABLE
+======================================================================
+Base       phi(m)   KL (Residue)       KL (Leading Digit)     LDAB Holds?
+----------------------------------------------------------------------
+30         8        1.867524e-07       1.912181e-01           NO
+210        48       3.434214e-06       1.912024e-01           NO
+2310       480      7.452807e-05       1.914423e-01           NO
+30030      5760     1.575207e-03       1.982620e-01           NO
+
+CONCLUSIONS:
+=============
+The LDAB model does NOT achieve uniform generalization across all primorial bases.
+Some KL divergences exceed the 1e-3 threshold, suggesting that base-specific
+adjustments may be required for those bases.
+

@@ -1,0 +1,6 @@
+
+--- STDERR ---
+  File "D:\LocalProjects\Python apps\AutoResearch\experiments\breakthrough\20260325_203340\run_010\_experiment_temp.py", line 159
+    """
+    ^
+SyntaxError: unterminated triple-quoted string literal (detected at line 160)

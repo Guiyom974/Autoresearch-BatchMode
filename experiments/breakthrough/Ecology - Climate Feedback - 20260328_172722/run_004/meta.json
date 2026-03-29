@@ -1,0 +1,18 @@
+{
+  "start_time": "2026-03-28T18:43:41.188670",
+  "mode": "standard",
+  "models": {},
+  "status": "completed",
+  "end_time": "2026-03-28T19:00:36.016462",
+  "evaluation": {
+    "summary": "Adding horizontal heat transport to the latitudinal EBM does not alter the global climate sensitivity, though it introduces spatial temperature variability and resolves NaNs in albedo-cloud coupling.",
+    "breakthrough_achieved": false,
+    "confidence": 0.6,
+    "publishability_score": 3.0,
+    "next_directions": [
+      "Investigate stronger or variable heat transport coefficients to assess their effect on spatial climate sensitivity.",
+      "Examine the impact of more complex albedo-cloud feedbacks on model stability and climate metrics.",
+      "Perform comprehensive sensitivity and uncertainty analyses to identify parameter regimes where spatial coupling yields novel climate behavior."
+    ]
+  }
+}

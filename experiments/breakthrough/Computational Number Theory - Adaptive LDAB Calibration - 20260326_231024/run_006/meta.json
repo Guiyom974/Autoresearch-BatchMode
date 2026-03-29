@@ -1,0 +1,18 @@
+{
+  "start_time": "2026-03-27T01:07:34.603257",
+  "mode": "standard",
+  "models": {},
+  "status": "completed",
+  "end_time": "2026-03-27T01:19:00.102781",
+  "evaluation": {
+    "summary": "The experiment shows variance differentials decreasing toward zero for larger primorial bases, but the effect appears to be driven by floating\u2011point underflow rather than a new mathematical phenomenon.",
+    "breakthrough_achieved": false,
+    "confidence": 0.5,
+    "publishability_score": 3.0,
+    "next_directions": [
+      "Validate the trend using arbitrary-precision arithmetic to rule out underflow artifacts",
+      "Test alternative variance metrics and larger sample sizes to assess reproducibility",
+      "Develop a theoretical framework for variance behavior in high-order primorial bases"
+    ]
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "start_time": "2026-03-27T11:52:30.450133",
+  "mode": "standard",
+  "models": {},
+  "status": "completed",
+  "end_time": "2026-03-27T12:03:41.029302",
+  "evaluation": {
+    "summary": "Testing up to k=7 shows no numerical overflow in the LDAB calibration, so the hypothesis of overflow detection at high k is not supported.",
+    "breakthrough_achieved": false,
+    "confidence": 0.4,
+    "publishability_score": 0.0,
+    "next_directions": [
+      "Extend the overflow detection tests to much larger k values to locate threshold behavior",
+      "Measure actual computation timeouts and correlate with overflow events",
+      "Develop and validate a formal model linking overflow magnitude to timeout risk"
+    ]
+  }
+}

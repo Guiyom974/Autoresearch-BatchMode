@@ -1,0 +1,61 @@
+======================================================================
+LDAB CALIBRATION OVERFLOW THRESHOLD TEST
+Testing primorial orders k = 13 to 150
+======================================================================
+
+[1] Running overflow sweep from k=13 to k=150...
+    Completed 138 test points.
+
+[2] Generating overflow threshold plot...
+    Saved to overflow_threshold.png
+
+======================================================================
+HYPOTHESIS TESTING RESULTS
+======================================================================
+
+HYPOTHESIS 1: H1: Finite overflow threshold exists
+  Status: CONFIRMED
+  Evidence: Overflow first detected at k = 132
+
+HYPOTHESIS 2: H2: Overflow correlates with logP > ~709
+  Status: CONFIRMED
+  Evidence: logP first exceeds 709.78 at k=132 (logP=712.56)
+
+HYPOTHESIS 3: H3: Overflow onset is deterministic/reproducible
+  Status: CONFIRMED
+  Evidence: Repetitions show identical overflow behavior
+
+HYPOTHESIS 4: H4: Higher precision delays overflow
+  Status: REJECTED
+  Evidence: High-precision overflowed earlier (k_high=13 < k_f64=132)
+
+======================================================================
+CONCLUSIONS:
+----------------------------------------------------------------------
+1. Numerical overflow occurs at k = 132.
+   This establishes a finite overflow threshold.
+
+2. The LDAB calibration remains numerically stable up to at least k=12,
+   and evidence suggests stability extends well beyond that.
+
+3. Overflow behavior is deterministic (H3 confirmed).
+   This supports reproducibility of overflow detection.
+
+4. High-precision accumulation (logP_high) shows no advantage over float64
+   in this regime, suggesting overflow is due to exponentiation, not summation.
+
+5. The overflow threshold (if within k ≤ 150) correlates with logP ≈ 709,
+   consistent with float64 exponent limits.
+
+6. Recommendations:
+   - For k > k_crit, implement log-space only computations or arbitrary precision.
+   - Consider using mpmath for extended precision if overflow is critical to avoid.
+   - Monitor logP_f64 directly as overflow predictor.
+
+======================================================================
+END OF TEST REPORT
+======================================================================
+
+--- STDERR ---
+D:\LocalProjects\Python apps\AutoResearch\experiments\breakthrough\20260326_231024\run_036\_experiment_temp.py:84: RuntimeWarning: overflow encountered in exp
+  val = np.exp(log_val)

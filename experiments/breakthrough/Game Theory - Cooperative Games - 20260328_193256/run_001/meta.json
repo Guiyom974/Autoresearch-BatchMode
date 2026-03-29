@@ -1,0 +1,18 @@
+{
+  "start_time": "2026-03-28T19:33:42.274210",
+  "mode": "standard",
+  "models": {},
+  "status": "completed",
+  "end_time": "2026-03-28T19:49:24.264579",
+  "evaluation": {
+    "summary": "The experiment attempted to verify that Shapley values from a 5\u2011player Dirichlet\u2011generated game follow a Dirichlet(1) distribution, but the hypothesis test failed due to a runtime error and the result is a known distribution, offering no new insight.",
+    "breakthrough_achieved": false,
+    "confidence": 0.5,
+    "publishability_score": 2.0,
+    "next_directions": [
+      "Validate the hypothesis with a robust statistical test on larger simulations",
+      "Compare Shapley values against alternative power index distributions",
+      "Investigate non\u2011Dirichlet weight structures to identify conditions where Shapley values deviate from Dirichlet(1)"
+    ]
+  }
+}

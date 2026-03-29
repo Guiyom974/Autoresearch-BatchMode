@@ -1,0 +1,39 @@
+================================================================================
+PRIMORIAL-ADJUSTED BENFORD MODEL VALIDATION
+Base: 210 (primorial 2*3*5*7 = 210)
+Max Prime: 10,000,000
+Coprime digits: 48
+================================================================================
+
+[1] Generating primes...
+    Found 664,132 primes up to 10,000,000
+
+[2] Extracting leading digits in base-210...
+    Analyzing 664,132 primes > 210
+    Total leading digits analyzed: 187,936
+    Expected per digit (uniform): 3,915.3
+
+[3] Computing theoretical models...
+    Naive model sum: 1.000000
+    Primorial model sum: 1.000000
+    Uniform model sum: 1.000000
+
+================================================================================
+HYPOTHESIS 1: KL DIVERGENCE COMPARISON
+================================================================================
+
+ERROR: TypeError: kl_divergence() takes 2 positional arguments but 3 were given
+
+================================================================================
+CONCLUSIONS
+================================================================================
+Script encountered an error. Partial results may be available above.
+Error: kl_divergence() takes 2 positional arguments but 3 were given
+
+--- STDERR ---
+Traceback (most recent call last):
+  File "D:\LocalProjects\Python apps\AutoResearch\experiments\breakthrough\20260325_231158\run_008\_experiment_temp.py", line 521, in <module>
+    results = main()
+  File "D:\LocalProjects\Python apps\AutoResearch\experiments\breakthrough\20260325_231158\run_008\_experiment_temp.py", line 250, in main
+    kl_naive = kl_divergence(empirical_probs, naive_probs, COPRIME_DIGITS)
+TypeError: kl_divergence() takes 2 positional arguments but 3 were given

@@ -1,0 +1,49 @@
+Testing Hypotheses: Systematic vs. Narrative Literature Reviews
+
+--- Hypothesis 1: Research Gaps Identified ---
+H1: Systematic reviews identify a greater number of distinct research gaps.
+SR Mean: 5.19, NR Mean: 3.23
+T-statistic: 8.0074, P-value: 2.8817e-14
+
+--- Hypothesis 2: Reproducibility ---
+H2: Systematic reviews have higher reproducibility scores.
+SR Mean: 84.63, NR Mean: 48.13
+T-statistic: 25.5331, P-value: 1.9523e-71
+
+--- Hypothesis 3: Time Required ---
+H3: Systematic reviews require more time to produce.
+SR Mean: 12.59 months, NR Mean: 6.06 months
+T-statistic: 20.2730, P-value: 8.7871e-57
+
+--- Hypothesis 4: Citation Impact ---
+H4: Systematic reviews have a higher subsequent citation impact.
+SR Median: 19.42, NR Median: 8.99
+U-statistic: 17581.0000, P-value: 3.5575e-17
+
+--- Hypothesis 5: Methodological Quality ---
+H5: Systematic reviews include primary studies of higher methodological quality.
+SR Mean: 7.78, NR Mean: 6.51
+T-statistic: 8.4542, P-value: 1.4152e-15
+
+Plots saved to 'review_comparison_results.png'.
+
+CONCLUSIONS:
+Based on the simulated data analysis:
+1. Systematic reviews identify significantly more research gaps than narrative reviews.
+2. The reproducibility of the search process is vastly superior in systematic reviews.
+3. Systematic reviews require significantly more time to conduct and publish.
+4. Systematic reviews achieve a higher citation impact over time.
+5. The methodological quality of included studies is higher in systematic reviews, likely due to strict inclusion/exclusion criteria.
+Overall, while systematic reviews are more resource-intensive (time), they provide superior methodological rigor, reproducibility, and impact.
+
+--- STDERR ---
+D:\LocalProjects\Python apps\AutoResearch\experiments\breakthrough\20260326_131148\run_002\_experiment_temp.py:94: MatplotlibDeprecationWarning: The 'labels' parameter of boxplot() has been renamed 'tick_labels' since Matplotlib 3.9; support for the old name will be dropped in 3.11.
+  ax.boxplot([sr_data, nr_data], labels=['SR', 'NR'])
+D:\LocalProjects\Python apps\AutoResearch\experiments\breakthrough\20260326_131148\run_002\_experiment_temp.py:94: MatplotlibDeprecationWarning: The 'labels' parameter of boxplot() has been renamed 'tick_labels' since Matplotlib 3.9; support for the old name will be dropped in 3.11.
+  ax.boxplot([sr_data, nr_data], labels=['SR', 'NR'])
+D:\LocalProjects\Python apps\AutoResearch\experiments\breakthrough\20260326_131148\run_002\_experiment_temp.py:94: MatplotlibDeprecationWarning: The 'labels' parameter of boxplot() has been renamed 'tick_labels' since Matplotlib 3.9; support for the old name will be dropped in 3.11.
+  ax.boxplot([sr_data, nr_data], labels=['SR', 'NR'])
+D:\LocalProjects\Python apps\AutoResearch\experiments\breakthrough\20260326_131148\run_002\_experiment_temp.py:94: MatplotlibDeprecationWarning: The 'labels' parameter of boxplot() has been renamed 'tick_labels' since Matplotlib 3.9; support for the old name will be dropped in 3.11.
+  ax.boxplot([sr_data, nr_data], labels=['SR', 'NR'])
+D:\LocalProjects\Python apps\AutoResearch\experiments\breakthrough\20260326_131148\run_002\_experiment_temp.py:94: MatplotlibDeprecationWarning: The 'labels' parameter of boxplot() has been renamed 'tick_labels' since Matplotlib 3.9; support for the old name will be dropped in 3.11.
+  ax.boxplot([sr_data, nr_data], labels=['SR', 'NR'])

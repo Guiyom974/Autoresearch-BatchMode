@@ -1,0 +1,14 @@
+=== Testing Dynamic Calibration of LDAB Framework in Base 210 ===
+Generating primes up to 1000000...
+Found 78498 primes.
+Computing leading digits in base 210...
+
+=== RESULTS ===
+KL Divergence (Empirical vs Standard Benford): 0.622025
+KL Divergence (Empirical vs Dynamically Calibrated LDAB): 0.000354
+Saved plot to 'ldab_calibration_base210.png'.
+
+CONCLUSIONS:
+1. The Standard Benford's Law in base 210 exhibits a high KL divergence when evaluated at a rigid boundary like 10^6, which lies awkwardly between base powers (210^2 = 44,100 and 210^3 = 9,261,000).
+2. The Dynamically Calibrated LDAB model significantly reduces the KL divergence by explicitly accounting for the scale-dependent boundary effects and truncation.
+3. This confirms the hypothesis that the previously observed goodness-of-fit paradox was an artifact of scale-dependent truncation rather than a fundamental failure of the logarithmic-density adjustment framework.

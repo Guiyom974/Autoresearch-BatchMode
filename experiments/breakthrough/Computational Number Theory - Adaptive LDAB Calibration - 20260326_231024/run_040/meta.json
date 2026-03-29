@@ -1,0 +1,18 @@
+{
+  "start_time": "2026-03-27T13:03:22.556600",
+  "mode": "standard",
+  "models": {},
+  "status": "completed",
+  "end_time": "2026-03-27T13:19:39.598915",
+  "evaluation": {
+    "summary": "The high-order LDAB asymptotic expansion reaches machine-epsilon accuracy after a few terms at x=2310, preventing reliable verification of exponential error decay.",
+    "breakthrough_achieved": false,
+    "confidence": 0.85,
+    "publishability_score": 2.0,
+    "next_directions": [
+      "Use arbitrary-precision arithmetic to study error behavior at larger x values.",
+      "Develop a theoretical model predicting the transition from truncation to round-off domination.",
+      "Benchmark LDAB expansions against alternative high-order approximations across diverse inputs."
+    ]
+  }
+}

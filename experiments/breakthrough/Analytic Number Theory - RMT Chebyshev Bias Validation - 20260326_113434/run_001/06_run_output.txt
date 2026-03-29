@@ -1,0 +1,15 @@
+Starting RMT-Corrected Chebyshev Bias Validation for Modulo 210...
+
+==================================================
+CONCLUSIONS:
+==================================================
+1. Evaluated primes up to 2000000 for Modulo 210.
+2. Number of Quadratic Residues: 6
+3. Number of Non-Residues: 42
+4. Empirical Mean of Normalized Bias: 768.7380
+5. Empirical Variance (alpha_emp): 72593.4249
+6. RMT Theoretical Variance Approx (alpha_theory): 168.0862
+
+Assessment of Hypothesis 1:
+The empirical variance (72593.4249) and the approximated RMT theoretical variance (168.0862) differ by 43088.22%.
+There is a significant deviation. This may be due to the asymptotic nature of the formula, the need for exact L-function zeros (rather than the logarithmic approximation used here), or finite-sample effects at x = 2*10^6.

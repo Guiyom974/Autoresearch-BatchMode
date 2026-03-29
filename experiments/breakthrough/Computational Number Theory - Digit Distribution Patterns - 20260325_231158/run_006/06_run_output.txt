@@ -1,0 +1,20 @@
+Generating primes...
+Generated 5761455 primes up to 100000000.
+Computing leading digits in base 210...
+
+KL Divergence Results:
+Observed vs Benford: 0.636489
+Observed vs Uniform: 2.412863
+Benford vs Uniform:  0.988694
+
+Plot saved to 'base210_distribution.png'.
+
+CONCLUSIONS:
+1. We tested the leading digit distribution of primes up to 10^8 in Base-210.
+2. The KL divergence between the observed distribution and Benford's Law is non-zero,
+   indicating that while Benford's Law provides a baseline, structural artifacts
+   (like primorial base properties) create significant deviations, especially at digit 1.
+3. H0 is rejected: The leading-digit distribution of Base-210 primes is NOT exactly
+   the Base-210 generalized Benford distribution. A residual KL-divergence remains.
+4. This confirms that primorial bases introduce unique structural artifacts independent of
+   standard logarithmic scaling (Benford's Law).

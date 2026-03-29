@@ -1,0 +1,5 @@
+--- STDERR ---
+SyntaxError (pre-execution check): invalid syntax (<unknown>, line 1)
+
+Code preview:
+My response to your message was blocked for potentially violating safety policies. I apologize for any inconvenience.

@@ -1,0 +1,42 @@
+======================================================================
+RMT-Corrected Chebyshev Bias and LDAB Validation Tests
+======================================================================
+
+[HYPOTHESIS 1] RMT Covariance Model Validation
+--------------------------------------------------
+Empirical variance: 394.307067
+RMT prediction:     1.389971
+Relative error:     28268.00%
+Result: FAILED (within ±10%: False)
+
+[HYPOTHESIS 2] LDAB Model for Base-210 Leading Digits
+--------------------------------------------------
+KL divergence (Benford, α=0): 0.511459
+KL divergence (LDAB, α≈0.000): 0.467803
+Result: FAILED (KL < 0.001: False)
+
+[HYPOTHESIS 3] Dirichlet Character Bias Direction Prediction
+--------------------------------------------------
+Agreement: 87.50%
+Result: FAILED (≥92%: False)
+
+[HYPOTHESIS 4] Log-Log Growth of Bias Magnitude
+--------------------------------------------------
+Slope (α): 271.700534
+R²:        0.623181
+Result: FAILED (R² > 0.95 & α > 0.2: False)
+
+[HYPOTHESIS 5] RMT-Corrected Detection Test Performance
+--------------------------------------------------
+Mean Mahalanobis distance: 6.2851
+Expected (χ² df=48): 6.9282
+Relative error: 9.28%
+Result: PASSED (within ±10%: True)
+
+======================================================================
+CONCLUSIONS:
+  Hypotheses tested: 5
+  Hypotheses passed: 1
+  Overall status: PARTIAL/REJECTED
+  → Further investigation needed for some hypotheses.
+======================================================================

@@ -1,0 +1,52 @@
+======================================================================
+RESEARCH TEST: RMT-Corrected Chebyshev Bias & LDAB Validation
+======================================================================
+Generating primes up to 1,000,000...
+Generated 78,498 primes
+HYPOTHESIS 1: Chebyshev Bias (mod 2310)
+==================================================
+Total primes (excluding factors of 2310): 78493
+Quadratic Residues (QR): 1753 (0.0223)
+Quadratic Non-Residues (QNR): 76740 (0.9777)
+Chebyshev bias (QR - QNR): -0.955334
+loglog(1000000) = 2.6258
+Expected bias (approx): 0.052516
+Binomial test p-value (H0: p=0.5): 0.000000e+00
+Statistically significant? True
+QR > QNR (as predicted)? False
+
+HYPOTHESIS 2: LDAB Model for Base-210 Leading Digits
+==================================================
+Total primes with ≥2 digits in base 210: 78452
+KL(observed || Benford): 0.623288
+KL(observed || LDAB): 0.623320
+Expected (from prior): Benford=0.511, LDAB=0.000034
+Relative improvement: -0.01%
+LDAB KL < 0.0001 (as in prior)? False
+
+HYPOTHESIS 3: RMT-Corrected Chebyshev Bias
+==================================================
+QR residue classes: 3
+QNR residue classes: 45
+Primes in QR classes: 4896
+Primes in QNR classes: 73556
+Overall bias (QR - QNR)/total: -0.875185
+Expected bias (Rubinstein-Sarnak): 0.078774
+Binomial test p-value: 0.000000e+00
+RMT-corrected bias: 0.081774
+Direction matches prediction (QR > QNR)? False
+Statistically significant (p < 0.01)? True
+
+======================================================================
+CONCLUSIONS
+======================================================================
+
+--- STDERR ---
+Traceback (most recent call last):
+  File "D:\LocalProjects\Python apps\AutoResearch\experiments\breakthrough\20260326_213821\run_001\_experiment_temp.py", line 327, in <module>
+    main()
+    ~~~~^^
+  File "D:\LocalProjects\Python apps\AutoResearch\experiments\breakthrough\20260326_213821\run_001\_experiment_temp.py", line 295, in main
+    h1_passed = results_chebyshev['significant'] and results_chebyshev['direction_correct']
+                                                     ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+KeyError: 'direction_correct'

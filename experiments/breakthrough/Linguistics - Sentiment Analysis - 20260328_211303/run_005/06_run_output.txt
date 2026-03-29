@@ -1,0 +1,83 @@
+======================================================================
+SENTIMENT ANALYSIS BENCHMARK: VADER-ENSEMBLE vs. TRANSFORMERS
+======================================================================
+
+[1] Generating synthetic technical corpus (n=500)...
+   MAE (vader    ): 0.0874
+   MAE (lexicon  ): 0.1450
+   MAE (transformer): 0.0581
+   MAE (meta     ): 0.2671
+
+[2] Computing 95% bootstrap CI for MAE...
+   vader    : 0.0874 [CI: 0.0811, 0.0939]
+   lexicon  : 0.1450 [CI: 0.1349, 0.1554]
+   transformer: 0.0581 [CI: 0.0540, 0.0623]
+   meta     : 0.2671 [CI: 0.2480, 0.2865]
+
+----------------------------------------------------------------------
+HYPOTHESIS 1: Transformers achieve lower MAE than VADER meta-classifier
+----------------------------------------------------------------------
+   Transformer MAE: 0.0581
+   Meta-classifier MAE: 0.2671
+   Difference (Transformer - Meta): -0.2090
+   Paired t-statistic: -7.4680, p-value: 0.0000
+   Conclusion: SUPPORTED (confidence: 100.0%)
+
+----------------------------------------------------------------------
+HYPOTHESIS 2: Lexicon-only model does NOT significantly improve over VADER
+----------------------------------------------------------------------
+   Lexicon MAE: 0.1450
+   VADER MAE: 0.0874
+   Difference (Lexicon - VADER): 0.0576
+   Paired t-statistic: 0.5930, p-value: 0.5535
+   Conclusion: SUPPORTED (no significant improvement)
+
+----------------------------------------------------------------------
+HYPOTHESIS 3: Meta-classifier ensemble achieves lowest MAE
+----------------------------------------------------------------------
+   Best-performing model: transformer (MAE = 0.0581)
+   Meta vs vader: p=0.0000, meta better? False, sig? True
+   Meta vs lexicon: p=0.0000, meta better? False, sig? True
+   Conclusion: REJECTED (meta not best)
+
+----------------------------------------------------------------------
+HYPOTHESIS 4: Lexicon contributes less when VADER features are present
+----------------------------------------------------------------------
+   Correlation(VADER, Lexicon): 0.9381
+   Naive VADER+Lexicon MAE: 0.0856
+   VADER-only MAE: 0.0874
+   Paired t-test (naive vs VADER): p=0.5535
+   Conclusion: PARTIALLY SUPPORTED (no significant improvement from lexicon)
+
+----------------------------------------------------------------------
+HYPOTHESIS 5: Meta-classifier reduces redundancy impact via weighting
+----------------------------------------------------------------------
+   Learned weights: VADER=0.717, Lexicon=0.265, Interaction=-0.010
+   Re-estimated MAE with interaction: 0.0760
+   Original meta MAE: 0.2671
+   Conclusion: PARTIALLY SUPPORTED (interaction present but marginal gain)
+
+[3] Generating MAE comparison plot...
+   Saved plot: mae_comparison.png
+
+======================================================================
+SUMMARY OF HYPOTHESIS TESTS
+======================================================================
+H1 (Transformers > Meta):      SUPPORTED
+H2 (Lexicon ≤ VADER):          SUPPORTED (no significant improvement)
+H3 (Meta best ensemble):       REJECTED (meta not best)
+H4 (Redundancy suppresses):    PARTIALLY SUPPORTED (no significant improvement from lexicon)
+H5 (Meta mitigates redundancy): PARTIALLY SUPPORTED (interaction present but marginal gain)
+======================================================================
+
+CONCLUSIONS:
+  - Fine-tuned transformers significantly outperform the VADER meta-classifier.
+  - Lexicon alone does not improve over VADER, confirming redundancy concerns.
+
+Recommendations:
+  • Prioritize transformer models for technical sentiment analysis.
+  • Use meta-classifier only if transformers are unavailable.
+  • Avoid naive lexicon integration; use ML-based feature fusion.
+  • Include interaction terms to reduce redundancy in hybrid models.
+
+Script completed successfully.

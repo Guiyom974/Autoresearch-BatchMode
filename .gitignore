@@ -1,0 +1,25 @@
+# API keys and secrets — never commit
+.env
+
+# Python environment
+.venv/
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.egg-info/
+dist/
+build/
+
+# Active research files (user's own working problem)
+problem.md
+problem-new.md
+
+# Matplotlib output (generated during experiments)
+*.png
+*.pdf
+
+# OS noise
+.DS_Store
+Thumbs.db
+desktop.ini

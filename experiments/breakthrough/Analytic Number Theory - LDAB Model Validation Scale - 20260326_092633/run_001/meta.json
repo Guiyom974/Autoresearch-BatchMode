@@ -1,0 +1,17 @@
+{
+  "start_time": "2026-03-26T09:26:34.002175",
+  "mode": "standard",
+  "models": {},
+  "status": "completed",
+  "end_time": "2026-03-26T09:39:20.046976",
+  "evaluation": {
+    "summary": "The experiment crashed during chi-square statistical testing due to a scipy.stats.chisquare error, preventing any valid results for Chebyshev bias validation.",
+    "breakthrough_achieved": false,
+    "confidence": 0.0,
+    "next_directions": [
+      "Fix the scipy.stats.chisquare implementation error\u2014likely caused by zero or negative expected frequencies",
+      "Add input validation and error handling for statistical tests",
+      "Verify expected frequency calculations before passing to chi-square test"
+    ]
+  }
+}

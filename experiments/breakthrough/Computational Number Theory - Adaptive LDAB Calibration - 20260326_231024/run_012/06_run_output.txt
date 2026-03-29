@@ -1,0 +1,40 @@
+Testing Hypothesis 1: Asymptotic log-correction law for variance-to-mean² ratio
+================================================================================
+k=3: P_k = 30      , μ =   3.7500, σ² =   2.4375, R = 0.173333
+k=4: P_k = 210     , μ =   4.3750, σ² =   4.4427, R = 0.232109
+k=5: P_k = 2310    , μ =   4.8125, σ² =   6.3148, R = 0.272660
+k=6: P_k = 30030   , μ =   5.2135, σ² =   8.3447, R = 0.307004
+k=7: P_k = 510510  , μ =   5.5394, σ² =  10.2395, R = 0.333700
+
+Fitting model: R(k) = 1/3 - C / log(P_k)
+Fitted constant C = 0.497972
+
+Predictions for k=8,9:
+k=8: P_k = 9699690   , Predicted R(k) = 0.302380
+k=9: P_k = 223092870 , Predicted R(k) = 0.307428
+
+Attempting to compute actual R for k=8...
+P_8 = 9,699,690
+Actual R(8) = 0.357022
+
+Statistical Assessment:
+R² = 0.8621
+Residuals (data - fit): [-0.01358921 -0.00809526  0.00362238  0.02197068  0.03825511]
+Residual std (σ_res) = 0.021529
+5% prediction interval half-width ≈ 2*σ_res = 0.043057
+
+Actual R(8) = 0.357022, Predicted R(8) = 0.302380
+Absolute deviation = 0.054642
+✗ k=8 result lies outside 5% prediction interval → Hypothesis falsified.
+
+Generating plot...
+Plot saved as hypothesis1_test.png
+
+================================================================================
+CONCLUSIONS:
+1. Fitted model: R(k) = 1/3 - 0.4980/log(P_k)
+2. Model explains 86.2% of variance in data (k=3..7)
+3. Observed R(8) lies outside 5% prediction interval → Hypothesis 1 is REJECTED.
+4. The variance-to-mean² ratio increases with k, approaching 1/3 from below.
+5. The log-correction form is plausible and offers a quantitative fit.
+================================================================================

@@ -1,0 +1,18 @@
+{
+  "start_time": "2026-03-27T02:28:56.326805",
+  "mode": "standard",
+  "models": {},
+  "status": "completed",
+  "end_time": "2026-03-27T02:41:05.316895",
+  "evaluation": {
+    "summary": "The artifact-free extraction reveals that the variance of primorial gap distributions scales sub\u2011quadratically with the mean gap, with the variance\u2011to\u2011mean\u00b2 ratio rising from ~0.17 to ~0.33 as the primorial index increases from k=3 to k=7.",
+    "breakthrough_achieved": false,
+    "confidence": 0.5,
+    "publishability_score": 4.0,
+    "next_directions": [
+      "Extend the analysis to higher primorials (k\u22658) with rigorous statistical testing to assess convergence of the variance-to-mean\u00b2 ratio.",
+      "Develop and validate a refined theoretical model that explains the observed sub\u2011quadratic scaling and its dependence on primorial structure.",
+      "Explore connections to related gap distributions in number theory and evaluate whether the trend generalizes across other sequences."
+    ]
+  }
+}

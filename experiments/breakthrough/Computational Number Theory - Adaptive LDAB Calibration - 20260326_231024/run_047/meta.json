@@ -1,0 +1,18 @@
+{
+  "start_time": "2026-03-27T14:46:59.201560",
+  "mode": "standard",
+  "models": {},
+  "status": "completed",
+  "end_time": "2026-03-27T14:57:06.061045",
+  "evaluation": {
+    "summary": "Empirical bits stay at 256 for most primorial indices but unexpectedly drop to 10 at k=16, suggesting instability in the LDAB calibration framework.",
+    "breakthrough_achieved": false,
+    "confidence": 0.5,
+    "publishability_score": 3.0,
+    "next_directions": [
+      "Investigate the cause of the anomalous 10-bit result at k=16, possibly due to overflow or truncation.",
+      "Validate the LDAB calibration across a broader range of k with higher-precision reference implementations.",
+      "Develop a theoretical model to explain the observed scaling and the deviation at specific indices."
+    ]
+  }
+}

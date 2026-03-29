@@ -1,0 +1,20 @@
+Generating primes up to 2000000...
+
+Analyzing modulo 210...
+Mean count per class: 3102.69
+Standard deviation: 17.13
+Max class: 11 (count: 3138)
+Min class: 151 (count: 3064)
+
+Analyzing modulo 2310...
+Mean count per class: 310.27
+Standard deviation: 8.43
+Max class: 1273 (count: 337)
+Min class: 1411 (count: 288)
+
+Simulating Prime Race mod 210: 11 vs 13...
+
+=== CONCLUSIONS ===
+1. Higher-order primorials show roughly uniform distribution among coprime classes.
+2. Small deviations (Chebyshev's bias extensions) may exist but are difficult to separate from noise without massive N.
+3. The prime race between 11 and 13 mod 210 shows frequent leader changes, typical of coprime residue races.

@@ -1,0 +1,17 @@
+{
+  "start_time": "2026-03-25T23:20:06.900724",
+  "mode": "standard",
+  "models": {},
+  "status": "completed",
+  "end_time": "2026-03-25T23:33:58.498230",
+  "evaluation": {
+    "summary": "Higher-order 3-gram analysis in Base-2 yields a KL divergence of 0.00 between primes and composites, confirming another null finding with no detectable distributional difference in binary digit sequences.",
+    "breakthrough_achieved": false,
+    "confidence": 0.05,
+    "next_directions": [
+      "Extend n-gram analysis to higher bases (Base-10, Base-16) where digit diversity is greater and distributional differences may emerge",
+      "Investigate inter-prime gap sequences or positional n-gram patterns rather than digit-level statistics",
+      "Apply n-gram analysis to prime residues modulo small primes, where known structural biases (e.g., Chebyshev's bias) may produce detectable signals"
+    ]
+  }
+}

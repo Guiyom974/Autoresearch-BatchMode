@@ -1,0 +1,18 @@
+{
+  "start_time": "2026-03-26T23:49:24.764346",
+  "mode": "standard",
+  "models": {},
+  "status": "completed",
+  "end_time": "2026-03-27T00:09:03.162196",
+  "evaluation": {
+    "summary": "Non-uniform weighting and Wasserstein distance provide a more stable divergence metric for multi-scale LDAB calibration than KL divergence.",
+    "breakthrough_achieved": false,
+    "confidence": 0.55,
+    "publishability_score": 5.0,
+    "next_directions": [
+      "Extend evaluation to larger LDAB model scales and diverse data domains.",
+      "Develop theoretical bounds linking Wasserstein distance to calibration error.",
+      "Explore adaptive weighting schemes that learn class importance from data."
+    ]
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "start_time": "2026-03-28T22:10:38.440416",
+  "mode": "standard",
+  "models": {},
+  "status": "completed",
+  "end_time": "2026-03-28T22:29:50.286985",
+  "evaluation": {
+    "summary": "A meta\u2011classifier ensemble of VADER and a technical sentiment lexicon achieves a MAE of 0.139 on synthetic technical sentences, substantially improving over baseline VADER and direct lexicon injection.",
+    "breakthrough_achieved": false,
+    "confidence": 0.4,
+    "publishability_score": 6.0,
+    "next_directions": [
+      "Validate the ensemble on real-world technical corpora to assess generalizability",
+      "Investigate why the static weighted ensemble underperforms and whether weighting schemes can be optimized",
+      "Explore integration with transformer\u2011based language models for richer contextual sentiment cues"
+    ]
+  }
+}

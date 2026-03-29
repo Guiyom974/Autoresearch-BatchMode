@@ -1,0 +1,211 @@
+======================================================================
+HIGHER-ORDER N-GRAM ANALYSIS IN PRIME NUMBERS
+Research Hypothesis Testing Suite
+======================================================================
+
+[1] Generating primes up to 500000...
+    Found 41538 primes
+    Using sample of 41438 primes
+
+[2] Generating composite control sample...
+    Generated 41438 composites
+
+======================================================================
+TESTING HYPOTHESIS 1: Internal N-Gram Frequency Deviation
+======================================================================
+
+============================================================
+HYPOTHESIS 1: Internal 3-gram Deviation (Base-2)
+============================================================
+Primes analyzed: 41438
+Composites analyzed: 41438
+Total prime 3-grams: 573192
+Total composite 3-grams: 552196
+Unique prime 3-grams: 8
+Unique composite 3-grams: 8
+Common 3-grams: 8
+Total unique 3-grams: 8
+
+--- Results ---
+KL(P||Q): 0.000012
+KL(Q||P): 0.000012
+Symmetric KL: 0.000012
+Total Variation Distance: 0.001807
+Chi-square: 6.49, p-value: 0.483506
+Cramer's V (effect size): 0.002402
+
+>>> HYPOTHESIS 1: NOT SUPPORTED
+    (KL divergence 0.000012 <= threshold 0.01)
+
+============================================================
+HYPOTHESIS 1: Internal 4-gram Deviation (Base-2)
+============================================================
+Primes analyzed: 41438
+Composites analyzed: 41438
+Total prime 4-grams: 531754
+Total composite 4-grams: 510771
+Unique prime 4-grams: 16
+Unique composite 4-grams: 16
+Common 4-grams: 16
+Total unique 4-grams: 16
+
+--- Results ---
+KL(P||Q): 0.000026
+KL(Q||P): 0.000026
+Symmetric KL: 0.000026
+Total Variation Distance: 0.002794
+Chi-square: 13.36, p-value: 0.574391
+Cramer's V (effect size): 0.003580
+
+>>> HYPOTHESIS 1: NOT SUPPORTED
+    (KL divergence 0.000026 <= threshold 0.01)
+
+============================================================
+HYPOTHESIS 1: Internal 3-gram Deviation (Base-10)
+============================================================
+Primes analyzed: 41438
+Composites analyzed: 41438
+Total prime 3-grams: 72255
+Total composite 3-grams: 65403
+Unique prime 3-grams: 1000
+Unique composite 3-grams: 1000
+Common 3-grams: 1000
+Total unique 3-grams: 1000
+
+--- Results ---
+KL(P||Q): 0.012091
+KL(Q||P): 0.011990
+Symmetric KL: 0.012040
+Total Variation Distance: 0.061289
+Chi-square: 820.84, p-value: 0.999989
+Cramer's V (effect size): 0.077220
+
+>>> HYPOTHESIS 1: SUPPORTED
+    (KL divergence 0.012040 > threshold 0.01)
+
+============================================================
+HYPOTHESIS 1: Internal 4-gram Deviation (Base-10)
+============================================================
+Primes analyzed: 41438
+Composites analyzed: 41438
+Total prime 4-grams: 31946
+Total composite 4-grams: 28821
+Unique prime 4-grams: 9778
+Unique composite 4-grams: 9436
+Common 4-grams: 9222
+Total unique 4-grams: 9992
+
+--- Results ---
+KL(P||Q): 1.041807
+KL(Q||P): 0.610909
+Symmetric KL: 0.826358
+Total Variation Distance: 0.307422
+Chi-square: 9074.84, p-value: 1.000000
+Cramer's V (effect size): 0.386443
+
+>>> HYPOTHESIS 1: SUPPORTED
+    (KL divergence 0.826358 > threshold 0.01)
+
+======================================================================
+TESTING HYPOTHESIS 2: Cross-Base Pattern Correlation
+======================================================================
+
+============================================================
+HYPOTHESIS 2: Cross-Base Pattern Correlation (n=3)
+============================================================
+Base-10 entropy: 9.9606 bits (normalized: 0.9995)
+Base-2 entropy:  2.9997 bits (normalized: 0.9999)
+
+Entropy difference: 0.0004
+Digit length correlation (base10 vs base2): nan
+
+>>> HYPOTHESIS 2: NOT SUPPORTED
+
+============================================================
+HYPOTHESIS 2: Cross-Base Pattern Correlation (n=4)
+============================================================
+Base-10 entropy: 13.1176 bits (normalized: 0.9872)
+Base-2 entropy:  3.9996 bits (normalized: 0.9999)
+
+Entropy difference: 0.0127
+Digit length correlation (base10 vs base2): nan
+
+>>> HYPOTHESIS 2: NOT SUPPORTED
+
+======================================================================
+TESTING HYPOTHESIS 3: Localized Bias in Specific Patterns
+======================================================================
+
+============================================================
+HYPOTHESIS 3: Localized Bias in Specific Patterns (Base-2)
+============================================================
+Top 10 most biased 3-grams (positive = prime-favored):
+  000: LOR=-0.010, P=12.741%, C=12.868%
+  010: LOR=+0.006, P=12.643%, C=12.567%
+  100: LOR=+0.006, P=12.583%, C=12.512%
+  011: LOR=-0.003, P=12.620%, C=12.663%
+  101: LOR=+0.001, P=12.460%, C=12.443%
+  001: LOR=+0.001, P=12.719%, C=12.703%
+  110: LOR=-0.001, P=12.339%, C=12.348%
+  111: LOR=-0.000, P=11.895%, C=11.897%
+
+Bias statistics:
+  Mean bias: 0.0000
+  Std bias: 0.0048
+  Max |bias|: 0.0099
+  Proportion with |bias| > 0.1: 0.0000
+  t-test: t=0.012, p=0.990742
+
+>>> HYPOTHESIS 3: NOT SUPPORTED
+
+============================================================
+HYPOTHESIS 3: Localized Bias in Specific Patterns (Base-10)
+============================================================
+Top 10 most biased 3-grams (positive = prime-favored):
+  920: LOR=+0.687, P=0.109%, C=0.055%
+  395: LOR=+0.566, P=0.097%, C=0.055%
+  918: LOR=+0.476, P=0.111%, C=0.069%
+  370: LOR=-0.463, P=0.091%, C=0.145%
+  268: LOR=-0.457, P=0.080%, C=0.127%
+  238: LOR=+0.450, P=0.098%, C=0.063%
+  454: LOR=+0.429, P=0.108%, C=0.070%
+  628: LOR=-0.427, P=0.075%, C=0.115%
+  113: LOR=-0.427, P=0.075%, C=0.115%
+  572: LOR=+0.424, P=0.112%, C=0.073%
+
+Bias statistics:
+  Mean bias: 0.0050
+  Std bias: 0.1567
+  Max |bias|: 0.6870
+  Proportion with |bias| > 0.1: 0.5100
+  t-test: t=1.007, p=0.314127
+
+>>> HYPOTHESIS 3: SUPPORTED
+
+======================================================================
+TESTING HYPOTHESIS 4: N-Gram Repetition Suppression
+======================================================================
+
+============================================================
+HYPOTHESIS 4: N-Gram Repetition Suppression (Base-2)
+============================================================
+Pattern type frequencies (observed vs expected):
+  Repeating (AAA):  0.2464 vs 0.2500, ratio=0.985
+  Alternating (ABA): 0.2510 vs 0.2500, ratio=1.004
+  Other patterns:   0.5026 vs 0.5000, ratio=1.005
+
+--- STDERR ---
+Traceback (most recent call last):
+  File "D:\LocalProjects\Python apps\AutoResearch\experiments\breakthrough\20260325_231158\run_002\_experiment_temp.py", line 874, in <module>
+    main()
+    ~~~~^^
+  File "D:\LocalProjects\Python apps\AutoResearch\experiments\breakthrough\20260325_231158\run_002\_experiment_temp.py", line 763, in main
+    h4_results[f"B{base}"] = test_hypothesis_4(prime_sample, base)
+                             ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+  File "D:\LocalProjects\Python apps\AutoResearch\experiments\breakthrough\20260325_231158\run_002\_experiment_temp.py", line 491, in test_hypothesis_4
+    print(f"\nChi-square test: \u03c7²={chi2:.3f}, p={p_val:.6f}")
+    ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.13_3.13.3312.0_x64__qbz5n2kfra8p0\Lib\encodings\cp1252.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+           ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+UnicodeEncodeError: 'charmap' codec can't encode character '\u03c7' in position 19: character maps to <undefined>

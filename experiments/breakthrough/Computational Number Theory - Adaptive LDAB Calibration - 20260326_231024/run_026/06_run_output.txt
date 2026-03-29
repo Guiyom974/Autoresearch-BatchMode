@@ -1,0 +1,46 @@
+======================================================================
+Testing Hypotheses for 1.17 Scaling in Primorial Gap Variance-to-Mean
+======================================================================
+
+[HYPOTHESIS 1] Exponent drifts toward 1 for large k
+--------------------------------------------------
+  beta estimate (k=3..7): -4.168
+  beta early (k=3..5):    -3.054
+  beta late (k=5..7):     -6.602
+  drift (late - early):     -3.549
+  REJECTED: True
+
+[HYPOTHESIS 2] 0.56 exponent was finite-size artifact
+--------------------------------------------------
+  beta (k=2..5): -2.761
+  beta (k=2..3): -2.119
+  REJECTED: False
+
+[HYPOTHESIS 3] True scaling: R ~ (log P_k)^1.17
+--------------------------------------------------
+  beta estimate: -4.168
+  R²: 0.9536
+  max residual: 0.764
+  SUPPORTED: False
+
+[HYPOTHESIS 4] Feasibility of k>=9 calculations
+--------------------------------------------------
+  k=7 computed: YES
+  R(7) = 0.000
+  Time for k=7: 0.01 sec
+  Estimated time for k=9: 0.0 min
+  SUPPORTED: True
+
+======================================================================
+CONCLUSIONS:
+======================================================================
+✗ Hypothesis 3 is not fully supported (scaling exponent ≠ 1.17).
+✓ Hypothesis 1 is rejected: no significant drift toward β=1 observed.
+✗ Hypothesis 2 is not rejected: 0.56 may be an early-data artifact.
+✓ Hypothesis 4 is supported: k≥9 calculations are feasible within 2 min.
+
+Overall assessment:
+Further investigation needed; data insufficient to confirm 1.17 exponent.
+
+Plot saved to: scaling_plot.png
+======================================================================

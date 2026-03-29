@@ -1,0 +1,76 @@
+LDAB Calibration Precision Collapse Investigation
+======================================================================
+Testing hypotheses for 64-bit precision collapse at k=16
+======================================================================
+======================================================================
+H1: Log-gamma term precision collapse test
+======================================================================
+k = 16
+  Double-precision term: 2.9281430658342085e+12
+  Extended-precision term: 2.9281430658342085e+12
+  → H1 NOT SUPPORTED: terms match exactly
+
+======================================================================
+H2: Full calibration mantissa-bit loss test
+======================================================================
+k= 1: double term ≈ 1.000000e+00, estimated mantissa bits = 1
+k= 2: double term ≈ 4.500000e+00, estimated mantissa bits = 4
+k= 3: double term ≈ 5.625000e+01, estimated mantissa bits = 53
+k= 4: double term ≈ 1.378125e+03, estimated mantissa bits = 14
+k= 5: double term ≈ 6.821719e+04, estimated mantissa bits = 53
+k= 6: double term ≈ 4.877529e+06, estimated mantissa bits = 53
+k= 7: double term ≈ 5.389669e+08, estimated mantissa bits = 53
+k= 8: double term ≈ 7.680279e+10, estimated mantissa bits = 53
+k= 9: double term ≈ 1.501495e+13, estimated mantissa bits = 53
+k=10: double term ≈ 4.136617e+15, estimated mantissa bits = 52
+k=11: double term ≈ 1.346469e+18, estimated mantissa bits = 52
+k=12: double term ≈ 5.729226e+20, estimated mantissa bits = 53
+k=13: double term ≈ 2.936228e+23, estimated mantissa bits = 51
+k=14: double term ≈ 1.704480e+26, estimated mantissa bits = 53
+k=15: double term ≈ 1.161603e+29, estimated mantissa bits = 53
+k=16: double term ≈ 9.542572e+31, estimated mantissa bits = 52
+k=17: double term ≈ 9.289694e+34, estimated mantissa bits = 53
+
+At k=16: estimated mantissa bits = 52
+  → H2 NOT SUPPORTED: mantissa bits > 12
+
+======================================================================
+H3: Overflow test (logP_k vs double exponent limit)
+======================================================================
+logP_k at k=16: 44.930511
+Double exponent limit: log(2^1023) ≈ 709.782713
+  → H3 SUPPORTED: logP_k far below exponent limit (no overflow)
+
+======================================================================
+H4: Isolated gamma-term precision test
+======================================================================
+Max relative error in gamma term up to k=16: 0.00e+00 at k=1
+  → H4 NOT SUPPORTED: gamma term stable
+
+======================================================================
+H5: Cancellation test (log-add vs direct multiply)
+======================================================================
+Direct multiply: -1.260369e+31
+Log-based exp:   9.542572e+31
+Relative difference: 1.13e+00
+  → H5 SUPPORTED: direct multiply suffers cancellation
+
+======================================================================
+Generating diagnostic plots...
+======================================================================
+
+======================================================================
+CONCLUSIONS:
+======================================================================
+• H5 is SUPPORTED: Cancellation in direct multiplication degrades precision.
+  → Root cause: Multiplication of large numbers with rounding.
+
+Recommendation:
+• Replace gamma term evaluation with extended-precision arithmetic (float128).
+• If float128 unavailable, use mpmath (if installed) or arbitrary-precision libraries.
+• Verify that using extended precision restores >30 mantissa bits at k=16.
+======================================================================
+
+--- STDERR ---
+D:\LocalProjects\Python apps\AutoResearch\experiments\breakthrough\20260326_231024\run_050\_experiment_temp.py:309: UserWarning: Data has no positive values, and therefore cannot be log-scaled.
+  plt.axvline(x=16, color='g', linestyle=':', label='k=16')

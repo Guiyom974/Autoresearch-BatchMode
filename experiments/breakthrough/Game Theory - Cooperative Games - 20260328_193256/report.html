@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Research: Game Theory - Cooperative Games</title>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        body.dark-mode {
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+            color: #f0f0f0;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        body.dark-mode .container {
+            background: #2a2a2a;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+        }
+
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        header p {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+
+        .controls {
+            padding: 20px;
+            background: #f8f9fa;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #eee;
+        }
+
+        body.dark-mode .controls {
+            background: #333;
+            border-bottom-color: #555;
+        }
+
+        .toggle-btn {
+            padding: 8px 16px;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 1em;
+        }
+
+        .toggle-btn:hover {
+            background: #5568d3;
+        }
+
+        .content {
+            padding: 40px;
+        }
+
+        .section {
+            margin-bottom: 50px;
+        }
+
+        .section h2 {
+            color: #667eea;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+        }
+
+        body.dark-mode .section h2 {
+            color: #a7b3ff;
+            border-bottom-color: #a7b3ff;
+        }
+
+        .section h3 {
+            color: #555;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            font-size: 1.3em;
+        }
+
+        body.dark-mode .section h3 {
+            color: #ddd;
+        }
+
+        .mermaid {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            overflow-x: auto;
+        }
+
+        body.dark-mode .mermaid {
+            background: #333;
+        }
+
+        .run-card {
+            background: #f8f9fa;
+            border-left: 4px solid #667eea;
+            padding: 20px;
+            margin: 15px 0;
+            border-radius: 6px;
+        }
+
+        body.dark-mode .run-card {
+            background: #333;
+            border-left-color: #a7b3ff;
+        }
+
+        .run-title {
+            font-weight: bold;
+            color: #667eea;
+            font-size: 1.1em;
+        }
+
+        body.dark-mode .run-title {
+            color: #a7b3ff;
+        }
+
+        details {
+            margin: 15px 0;
+        }
+
+        summary {
+            cursor: pointer;
+            padding: 10px;
+            background: #e8eaf6;
+            border-radius: 6px;
+            font-weight: 600;
+            user-select: none;
+        }
+
+        body.dark-mode summary {
+            background: #444;
+        }
+
+        summary:hover {
+            background: #d8e0f0;
+        }
+
+        body.dark-mode summary:hover {
+            background: #555;
+        }
+
+        .code-block {
+            background: #272822;
+            color: #f8f8f2;
+            padding: 15px;
+            border-radius: 6px;
+            overflow-x: auto;
+            margin: 15px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+        }
+
+        .history {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+
+        body.dark-mode .history {
+            background: #333;
+        }
+
+        footer {
+            background: #f8f9fa;
+            padding: 20px;
+            text-align: center;
+            color: #666;
+            border-top: 1px solid #eee;
+            font-size: 0.9em;
+        }
+
+        body.dark-mode footer {
+            background: #333;
+            border-top-color: #555;
+            color: #aaa;
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.9em;
+            margin: 5px 0;
+        }
+
+        .status-breakthrough {
+            background: #c8e6c9;
+            color: #2e7d32;
+        }
+
+        .status-completed {
+            background: #bbdefb;
+            color: #1565c0;
+        }
+
+        .status-failed {
+            background: #ffccbc;
+            color: #d84315;
+        }
+
+        body.dark-mode .status-breakthrough {
+            background: #1b5e20;
+            color: #81c784;
+        }
+
+        body.dark-mode .status-completed {
+            background: #0d47a1;
+            color: #64b5f6;
+        }
+
+        body.dark-mode .status-failed {
+            background: #bf360c;
+            color: #ff7043;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        body.dark-mode th, body.dark-mode td {
+            border-bottom-color: #555;
+        }
+
+        th {
+            background: #e8eaf6;
+            font-weight: 600;
+        }
+
+        body.dark-mode th {
+            background: #444;
+        }
+
+        tr:hover {
+            background: #f5f5f5;
+        }
+
+        body.dark-mode tr:hover {
+            background: #3a3a3a;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🔬 Research: Game Theory - Cooperative Games</h1>
+            <p>AutoResearch Breakthrough Experiment Report</p>
+        </header>
+
+        <div class="controls">
+            <span>Report Generated: 2026-03-28 21:13:03</span>
+            <button class="toggle-btn" onclick="toggleDarkMode()">🌙 Dark Mode</button>
+        </div>
+
+        <div class="content">
+            <!-- Overview Section -->
+            <div class="section">
+                <h2>📊 Experiment Overview</h2>
+                <table>
+                    <tr>
+                        <th>Total Iterations</th>
+                        <td>5</td>
+                    </tr>
+                    <tr>
+                        <th>Final Status</th>
+                        <td><span class="status-badge status-completed">COMPLETED</span></td>
+                    </tr>
+                    <tr>
+                        <th>Start Time</th>
+                        <td>2026-03-28T19:32:56.612564</td>
+                    </tr>
+                    <tr>
+                        <th>End Time</th>
+                        <td>2026-03-28T21:13:03.705450</td>
+                    </tr>
+                </table>
+            </div>
+
+            <!-- Research Flow Diagram -->
+            <div class="section">
+                <h2>🔄 Research Flow</h2>
+                <div class="mermaid">
+graph TD
+  A1["Iteration 1"]
+  A1 -->|Reformulate| A2
+  A2["Iteration 2"]
+  A2 -->|Reformulate| A3
+  A3["Iteration 3"]
+  A3 -->|Reformulate| A4
+  A4["Iteration 4"]
+  A4 -->|Reformulate| A5
+  A5["Iteration 5"]
+  A5 --> B["Final Report"]
+                </div>
+            </div>
+
+            <!-- Problem Evolution -->
+            <div class="section">
+                <h2>📈 Problem Evolution</h2>
+                <details open>
+                    <summary>View problem reformulations across iterations</summary>
+                    <div class="history">
+                        <pre>
+## Iteration 1 [ORIGINAL]
+Timestamp: 2026-03-28T19:32:56.614162
+
+# Research Problem: Game Theory - Cooperative Games
+
+## Objective
+Calculate the Shapley value for a 5-player coalition game with varying player &#39;power&#39; weights.
+
+## Research Questions
+1. What is the fundamental statistical distribution of the observed phenomena?
+2. To what extent does the phenomena deviate from the expected baseline (null hypothesis)?
+3. Can the results be generalized across different scales of observation?
+
+## Methodology
+1. **Data Generation**: Implement a simulation or generate a synthetic dataset representing the Cooperative Games environment.
+2. **Feature Extraction**: Process the generated data to identify relevant metrics and patterns.
+3. **Statistical Testing**: Apply appropriate tests (Chi-square, KL Divergence, P-values) to assess significance.
+4. **Visualization**: Produce clear graphical representations of the findings.
+
+## Success Criteria
+- Identification of a statistically significant behavior or deviation ($p &lt; 0.01$).
+- The algorithm completes analysis of at least 10^5 data points within 2 minutes.
+- Results are consistent across multiple independent runs.
+
+## Constraints
+- Python libraries only (numpy, scipy, matplotlib).
+- No external data or API calls required for the core calculation.
+- Memory usage must stay within standard limits.
+
+
+---
+
+## Iteration 2 [REFORMULATED]
+Timestamp: 2026-03-28T19:49:39.501740
+
+# Research Problem: Game Theory - Cooperative Games
+
+## Objective
+Investigate the distribution of Shapley values in 5-player cooperative games using non-Dirichlet weight structures to identify the specific conditions under which the resulting power allocations significantly deviate from the standard Dirichlet(1) baseline distribution.
+
+## Research Questions
+1. How do non-Dirichlet weight generation schemes (such as heavy-tailed Pareto or highly skewed Log-Normal distributions) impact the resulting distribution of Shapley values?
+2. Under what specific weight structure configurations do Shapley values exhibit statistically significant deviations from the expected Dirichlet(1) distribution?
+3. What is the mathematical or empirical relationship between the variance/skewness of the input player weights and the variance of the resulting Shapley power indices?
+
+## Methodology
+1. **Data Generation**: Implement a simulation for a 5-player cooperative game where player &quot;power&quot; weights are drawn from various non-Dirichlet distributions (e.g., Log-Normal, Exponential, Pareto) across at least 500,000 iterations.
+2. **Value Computation**: Calculate the exact Shapley values for all players based on characteristic functions derived from these novel weight vectors.
+3. **Statistical Testing**: Employ robust statistical distance metrics (such as the Kolmogorov-Smirnov test or Wasserstein distance) to compare the observed Shapley value distributions against a mathematically generated Dirichlet(1) baseline, avoiding standard chi-square binning vulnerabilities.
+4. **Analysis &amp; Visualization**: Map the magnitude of distribution deviation against the statistical moments (variance, skewness, kurtosis) of the input weight structures.
+
+## Success Criteria
+1. Successful identification of at least one non-Dirichlet weight structure that produces a statistically significant deviation from the Dirichlet(1) distribution (p &lt; 0.01).
+2. Robust, error-free computation of statistical distances (e.g., Wasserstein distance) that quantify the exact magnitude of the deviation.
+3. Clear visualization mapping the input weight distribution parameters to the resulting Shapley value distribution shapes.
+
+## Constraints
+1. The simulation scope must remain restricted to 5-player games to ensure the exact computation of Shapley values remains computationally feasible across hundreds of thousands of iterations.
+2. Statistical testing methodologies must use non-parametric tests or robust binning strategies to prevent zero-frequency artifacts during baseline comparisons. 
+3. The research must strictly remain within the domain of Cooperative Game Theory and focus purely on the Shapley value index.
+
+---
+
+## Iteration 3 [REFORMULATED]
+Timestamp: 2026-03-28T20:23:45.389727
+
+# Research Problem: Game Theory - Cooperative Games
+
+## Objective
+Formulate and validate a robust mathematical framework for generating coalition values (the characteristic function) in minimal $N$-player cooperative games ($N \le 5$). The primary goal is to ensure the theoretical consistency (e.g., superadditivity, monotonicity) of the $2^N - 1$ coalition subsets before scaling to complex, non-Dirichlet weight distributions.
+
+## Research Questions
+1. How can we construct a robust, deterministic mathematical model for generating valid characteristic functions for all possible coalition subsets in small-scale ($N \le 5$) games?
+2. What are the necessary boundary conditions and structural constraints required to ensure algorithmic and theoretical stability when calculating marginal contributions?
+3. How do varying foundational weight structures behave at a minimal scale ($N=3$) compared to the target scale ($N=5$) when subjected to strict structural validation?
+
+## Methodology
+1. **Mathematical Formulation**: Explicitly define the subset generation logic and characteristic function mapping for a minimal case ($N=3$), ensuring all $2^N - 1$ coalitions are accurately represented.
+2. **Structural Validation**: Implement strict theoretical checks on generated coalition values, specifically testing for monotonicity and superadditivity ($v(A \cup B) \ge v(A) + v(B)$).
+3. **Incremental Scaling**: Gradually increase the player count from $N=3$ to $N=5$, validating the integrity of the coalition space at each increment.
+4. **Baseline Computation**: Compute standard Shapley values for the validated minimal games using uniform baseline weights to confirm the stability of the core allocation mechanism.
+
+## Success Criteria
+- Successful, complete generation of theoretically sound characteristic functions for $N=3, 4,$ and $5$ player games without structural collapse.
+- 100% pass rate on superadditivity and monotonicity checks for the generated coalition values.
+- Stable, replicable computation of Shapley values for the validated baseline models, demonstrating that the sum of allocations equals the grand coalition value (efficiency axiom).
+
+## Constraints
+- The investigation must temporarily restrict itself to standard, well-behaved weight distributions (e.g., uniform or simple Dirichlet) until the subset generation framework is proven stable.
+- The maximum number of players ($N$) must not exceed 5 during this validation phase to isolate scaling complexities.
+- The theoretical model must strictly adhere to the fundamental axioms of cooperative game theory.
+
+---
+
+## Iteration 4 [REFORMULATED]
+Timestamp: 2026-03-28T20:40:01.172396
+
+# Research Problem: Game Theory - Cooperative Games
+
+## Objective
+Formulate and evaluate a stochastic framework for cooperative games where player &quot;power&quot; weights are probabilistic rather than deterministic. Building on previous findings that established baseline superadditivity and monotonicity for fixed non-negative weights, this phase aims to determine how stochastic weight distributions (e.g., Gaussian, Beta) impact coalition formation, characteristic function stability, and the expected Shapley value in $N$-player games ($N \le 5$). 
+
+## Research Questions
+1. How do different underlying probability distributions for player weights affect the likelihood of maintaining strict superadditivity and monotonicity in the resulting characteristic functions?
+2. How does the variance in probabilistic player weights impact the expected Shapley value and its stability for individual players?
+3. Can we establish mathematical or empirical variance thresholds beyond which coalition stability breaks down?
+
+## Methodology
+1. **Stochastic Data Generation**: Implement a Monte Carlo simulation to generate synthetic $N$-player games ($N \le 5$) where player weights are repeatedly sampled from distinct, non-negative probability distributions.
+2. **Characteristic Function Computation**: For each iteration, compute the characteristic function $v(S)$ for all $2^N - 1$ coalitions and evaluate the frequency of superadditivity and monotonicity preservation.
+3. **Solution Concept Analysis**: Calculate the Shapley value for each stochastic instance, extracting the mean, variance, and confidence intervals of the payoffs for each player.
+4. **Statistical Testing**: Apply variance analysis (ANOVA) and correlation testing to quantify the relationship between input weight volatility and the resulting Shapley value distributions.
+
+## Success Criteria
+1. Development of a robust Monte Carlo simulation capable of generating and evaluating at least 10,000 stochastic game instances efficiently.
+2. Identification of specific probability distributions and variance bounds that guarantee monotonic and superadditive properties with $&gt;95\%$ confidence.
+3. A statistically validated mapping between probabilistic input weights and the variance of the resulting Shapley values.
+
+## Constraints
+1. The number of players must remain at $N \le 5$ to ensure computational feasibility during high-volume Monte Carlo simulations.
+2. Weight distributions must be strictly bounded to non-negative values, as previous iterations confirmed that negative weights trivially violate monotonicity.
+3. The research must remain strictly within the domain of cooperative game theory and focus on the characteristic function and Shapley value formulations.
+
+---
+
+## Iteration 5 [REFORMULATED]
+Timestamp: 2026-03-28T20:58:48.900531
+
+# Research Problem: Game Theory - Cooperative Games
+
+## Objective
+Analyze the statistical concentration and variance of the Shapley value in 5-player cooperative games under stochastic player &quot;power&quot; weights. Previous experiments demonstrated that baseline superadditivity and monotonicity are trivially satisfied (100%) across standard probability distributions (Beta, Dirichlet, Uniform, Truncated Gaussian). Therefore, this phase shifts focus from coalition formation viability to the predictability and stability of payoffs. The objective is to evaluate how different stochastic weight models influence the Coefficient of Variation (CV) of the Shapley value, determining if certain distributions lead to highly concentrated (predictable) or highly dispersed (uncertain) fair payoff allocations.
+
+## Research Questions
+1. How does the choice of stochastic weight distribution (bounded vs. unbounded, symmetric vs. skewed) impact the variance and Coefficient of Variation of the Shapley value for individual players?
+2. Do heavy-tailed distributions of player power weights lead to disproportionate volatility in the resulting Shapley values compared to uniform or Gaussian distributions?
+3. Can we establish an analytical relationship between the variance of the input power weights and the variance of the expected Shapley value in $N$-player games ($N = 5$)?
+
+## Methodology
+1. **Data Generation**: Simulate a 5-player cooperative game environment where player characteristic functions are driven by stochastic weights drawn from a diverse set of distributions (e.g., Lognormal, Pareto, Exponential) to introduce non-trivial variance.
+2. **Feature Extraction**: Calculate the Shapley value for each player across thousands of simulations per distribution. Extract metrics of dispersion, specifically the variance, standard deviation, and Coefficient of Variation (CV) for the Shapley values.
+3. **Statistical Testing**: Perform ANOVA and Levene’s test to assess the equality of variances in Shapley values across different underlying weight distributions. 
+4. **Visualization**: Generate kernel density estimate (KDE) plots and box plots to visualize the spread and concentration of Shapley values for specific players under different stochastic regimes.
+
+## Success Criteria
+1. Empirical demonstration of statistically significant differences in the Coefficient of Variation of the Shapley value across at least three distinct stochastic weight distributions.
+2. Formulation of a clear mapping between input weight volatility and output Shapley value dispersion.
+3. Successful bypass of previous trivial superadditivity outcomes by focusing entirely on the statistical distribution of the solution concept (payoff allocations).
+
+## Constraints
+1. The analysis must remain restricted to the Shapley value within the domain of Cooperative Game Theory.
+2. Simulations are limited to $N=5$ players to ensure computational feasibility while allowing for exact Shapley calculations.
+3. The characteristic function mapping weights to coalition values must remain consistent with the previous iteration to isolate the effect of weight distribution variance.
+
+---
+</pre>
+                    </div>
+                </details>
+            </div>
+
+            <!-- Iteration Results -->
+            <div class="section">
+                <h2>🔍 Detailed Results by Iteration</h2>
+                
+        <div class="run-card">
+            <div class="run-title">Iteration 001 - COMPLETED</div>
+            <span class="status-badge status-completed">COMPLETED</span>
+            <table>
+                <tr>
+                    <th>Metric</th>
+                    <th>Value</th>
+                </tr>
+                <tr>
+                    <td>Confidence</td>
+                    <td>0.5</td>
+                </tr>
+                <tr>
+                    <td>Publishability Score</td>
+                    <td>2.0/10</td>
+                </tr>
+                <tr>
+                    <td>Steps Completed</td>
+                    <td>N/A</td>
+                </tr>
+            </table>
+
+            <details>
+                <summary>📝 Summary</summary>
+                <p>The experiment attempted to verify that Shapley values from a 5‑player Dirichlet‑generated game follow a Dirichlet(1) distribution, but the hypothesis test failed due to a runtime error and the result is a known distribution, offering no new insight.</p>
+            </details>
+
+            <details>
+                <summary>🎯 Next Directions</summary>
+                <ul>
+                    <li>Validate the hypothesis with a robust statistical test on larger simulations</li>
+                    <li>Compare Shapley values against alternative power index distributions</li>
+                    <li>Investigate non‑Dirichlet weight structures to identify conditions where Shapley values deviate from Dirichlet(1)</li>
+                </ul>
+            </details>
+        </div>
+
+        <div class="run-card">
+            <div class="run-title">Iteration 002 - COMPLETED</div>
+            <span class="status-badge status-completed">COMPLETED</span>
+            <table>
+                <tr>
+                    <th>Metric</th>
+                    <th>Value</th>
+                </tr>
+                <tr>
+                    <td>Confidence</td>
+                    <td>0.4</td>
+                </tr>
+                <tr>
+                    <td>Publishability Score</td>
+                    <td>0.0/10</td>
+                </tr>
+                <tr>
+                    <td>Steps Completed</td>
+                    <td>N/A</td>
+                </tr>
+            </table>
+
+            <details>
+                <summary>📝 Summary</summary>
+                <p>The experiment crashed while generating coalition subsets, so no data on Shapley value distributions could be obtained.</p>
+            </details>
+
+            <details>
+                <summary>🎯 Next Directions</summary>
+                <ul>
+                    <li>Check that N_PLAYERS is defined and has a valid integer value before generating subsets.</li>
+                    <li>Add defensive programming to handle edge cases in generate_coalition_values.</li>
+                    <li>Run a minimal test with a small number of players to isolate the failure.</li>
+                </ul>
+            </details>
+        </div>
+
+        <div class="run-card">
+            <div class="run-title">Iteration 003 - COMPLETED</div>
+            <span class="status-badge status-completed">COMPLETED</span>
+            <table>
+                <tr>
+                    <th>Metric</th>
+                    <th>Value</th>
+                </tr>
+                <tr>
+                    <td>Confidence</td>
+                    <td>0.7</td>
+                </tr>
+                <tr>
+                    <td>Publishability Score</td>
+                    <td>3.0/10</td>
+                </tr>
+                <tr>
+                    <td>Steps Completed</td>
+                    <td>N/A</td>
+                </tr>
+            </table>
+
+            <details>
+                <summary>📝 Summary</summary>
+                <p>The study verifies that simple weight-based constructions yield superadditive and monotonic characteristic functions for N≤4, but offers no novel theoretical insight beyond known properties.</p>
+            </details>
+
+            <details>
+                <summary>🎯 Next Directions</summary>
+                <ul>
+                    <li>apply the framework to stochastic coalition formation with probabilistic weights</li>
+                    <li>compare the weight-based characteristic functions with established solution concepts such as the Shapley value and nucleolus</li>
+                    <li>explore algorithmic generation of coalition values for N&gt;5 and assess scalability</li>
+                </ul>
+            </details>
+        </div>
+
+        <div class="run-card">
+            <div class="run-title">Iteration 004 - COMPLETED</div>
+            <span class="status-badge status-completed">COMPLETED</span>
+            <table>
+                <tr>
+                    <th>Metric</th>
+                    <th>Value</th>
+                </tr>
+                <tr>
+                    <td>Confidence</td>
+                    <td>0.6</td>
+                </tr>
+                <tr>
+                    <td>Publishability Score</td>
+                    <td>2.0/10</td>
+                </tr>
+                <tr>
+                    <td>Steps Completed</td>
+                    <td>N/A</td>
+                </tr>
+            </table>
+
+            <details>
+                <summary>📝 Summary</summary>
+                <p>All tested distributions produced 100% superadditivity and monotonicity with no statistical difference, indicating no new insight.</p>
+            </details>
+
+            <details>
+                <summary>🎯 Next Directions</summary>
+                <ul>
+                    <li>Examine variability in player power weight distributions beyond current deterministic bounds.</li>
+                    <li>Develop analytical criteria to detect superadditivity under non‑trivial stochastic weight models.</li>
+                    <li>Compare with alternative cooperative solution concepts such as the Shapley value under stochastic weights.</li>
+                </ul>
+            </details>
+        </div>
+
+        <div class="run-card">
+            <div class="run-title">Iteration 005 - COMPLETED</div>
+            <span class="status-badge status-completed">COMPLETED</span>
+            <table>
+                <tr>
+                    <th>Metric</th>
+                    <th>Value</th>
+                </tr>
+                <tr>
+                    <td>Confidence</td>
+                    <td>0.42</td>
+                </tr>
+                <tr>
+                    <td>Publishability Score</td>
+                    <td>4.0/10</td>
+                </tr>
+                <tr>
+                    <td>Steps Completed</td>
+                    <td>N/A</td>
+                </tr>
+            </table>
+
+            <details>
+                <summary>📝 Summary</summary>
+                <p>The Shapley value&#39;s coefficient of variation rises sharply with heavier-tailed player weight distributions, reaching 0.82 for Dirichlet weights, revealing strong sensitivity to weight variability.</p>
+            </details>
+
+            <details>
+                <summary>🎯 Next Directions</summary>
+                <ul>
+                    <li>Extend analysis to larger player sets and cooperative structures beyond weight randomness.</li>
+                    <li>Derive analytical bounds linking weight distribution moments to Shapley value variance.</li>
+                    <li>Compare Shapley variance with alternative solution concepts (e.g., nucleolus, core) under stochastic weights.</li>
+                </ul>
+            </details>
+        </div>
+
+            </div>
+
+            <!-- Summary -->
+            <div class="section">
+                <h2>✨ Key Findings</h2>
+                <p>This breakthrough research experiment explored the research problem through 5 iteration(s),
+                with each iteration informing the reformulation of the problem for the next round.</p>
+                <p><strong>Final Status:</strong> COMPLETED</p>
+            </div>
+        </div>
+
+        <footer>
+            <p>Generated by AutoResearch | 2026-03-28 21:13:03</p>
+            <p>For reproducibility, all experiment artifacts are stored locally in the experiment directory.</p>
+        </footer>
+    </div>
+
+    <script>
+        mermaid.initialize({ startOnLoad: true, theme: 'default' });
+        mermaid.contentLoaded();
+
+        function toggleDarkMode() {
+            document.body.classList.toggle('dark-mode');
+            localStorage.setItem('darkMode', document.body.classList.contains('dark-mode'));
+        }
+
+        // Load saved theme preference
+        if (localStorage.getItem('darkMode') === 'true') {
+            document.body.classList.add('dark-mode');
+        }
+    </script>
+</body>
+</html>

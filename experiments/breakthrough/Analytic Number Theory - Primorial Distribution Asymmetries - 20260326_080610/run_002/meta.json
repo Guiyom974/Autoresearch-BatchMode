@@ -1,0 +1,17 @@
+{
+  "start_time": "2026-03-26T08:16:07.737900",
+  "mode": "standard",
+  "models": {},
+  "status": "completed",
+  "end_time": "2026-03-26T08:25:45.605745",
+  "evaluation": {
+    "summary": "The experiment timed out after 120 seconds, so no definitive results were obtained to assess the LDAB model under base\u2011specific digit constraints.",
+    "breakthrough_achieved": false,
+    "confidence": 0.5,
+    "next_directions": [
+      "Implement algorithmic optimizations (e.g., memoization, early termination) to reduce computation time.",
+      "Allocate more powerful computational resources or distribute the workload across a cluster.",
+      "Run smaller\u2011scale pilot tests to verify correctness before attempting the full primorial range analysis."
+    ]
+  }
+}

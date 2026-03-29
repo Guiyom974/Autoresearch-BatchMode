@@ -1,0 +1,67 @@
+======================================================================
+GUARDED LOG-GAMMA LDAB CALIBRATION: HYPOTHESIS TESTING
+======================================================================
+
+=== HYPOTHESIS 1 TEST: Stirling-based log-gamma prevents overflow at k=5 ===
+Primorials for k=1..6: [    2     6    30   210  2310 30030]
+
+Testing baseline (scipy.gammaln only):
+Baseline log-binomial terms: [-inf, -inf, -inf, -inf, np.float64(62.32610818280906), np.float64(8114.194859905518)]
+✅ Baseline completed without exception.
+
+Testing guarded (Stirling for x>100):
+Guarded log-binomial terms: [         -inf          -inf          -inf          -inf   62.32610803
+ 8114.19482346]
+✅ Guarded computation completed without exception.
+
+At k=5 (primorial=2310):
+  Baseline log-term: 6.232611e+01
+  Guarded log-term:  6.232611e+01
+
+Hypothesis 1 verdict:
+✅ SUPPORTED: Guarded method yields finite value at k=5
+
+Plot saved as 'hypothesis1_plot.png'
+
+=== HYPOTHESIS 2 TEST: Operational capacity beyond k=5 ===
+Primorials for k=1..10: [         2          6         30        210       2310      30030
+     510510    9699690  223092870 6469693230]
+
+Testing baseline capacity (scipy.gammaln):
+  Baseline overflow at k=1 (primorial=2, n=-8)
+✅ Baseline succeeded up to k=0
+
+Testing guarded capacity (Stirling + gammaln):
+  Guarded overflow at k=1 (primorial=2, n=-8)
+✅ Guarded succeeded up to k=0
+
+Hypothesis 2 verdict:
+❌ REJECTED: Guarded method does not extend beyond k=5
+Plot saved as 'hypothesis2_plot.png'
+
+=== HYPOTHESIS 3 TEST: Guarded method matches scipy.gammaln for x ≤ 100 ===
+Max absolute error: 0.00e+00
+Max relative error: 0.00e+00
+Mean relative error: 0.00e+00
+✅ SUPPORTED: Guarded method matches scipy.gammaln within tolerance (max rel err = 0.00e+00 < 1e-10)
+Plot saved as 'hypothesis3_plot.png'
+
+======================================================================
+CONCLUSIONS:
+======================================================================
+  Hypothesis 1 (Stirling prevents k=5 overflow): SUPPORTED
+  Hypothesis 2 (Guarded extends beyond k=5):    REJECTED
+  Hypothesis 3 (Matches scipy for x≤100):       SUPPORTED
+
+Overall assessment:
+  ⚠️  Partial validation: Core method works, but extension needs refinement.
+
+Files generated:
+  - hypothesis1_plot.png
+  - hypothesis2_plot.png
+  - hypothesis3_plot.png
+======================================================================
+
+--- STDERR ---
+D:\LocalProjects\Python apps\AutoResearch\experiments\breakthrough\20260326_231024\run_038\_experiment_temp.py:337: UserWarning: Data has no positive values, and therefore cannot be log-scaled.
+  plt.tight_layout()

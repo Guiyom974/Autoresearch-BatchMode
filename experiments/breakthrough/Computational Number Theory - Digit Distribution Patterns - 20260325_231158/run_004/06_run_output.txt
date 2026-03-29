@@ -1,0 +1,226 @@
+======================================================================
+POSITIONAL N-GRAM BIAS ANALYSIS OF PRIME NUMBERS
+Research: Primorial and High-Order Base Distributions
+======================================================================
+
+Generating primes up to 1 million...
+Generated 78,498 primes
+======================================================================
+HYPOTHESIS 1: Structural Primorial Advantage
+======================================================================
+
+Testing Base-6 (base 6, n-gram length 2):
+  KL divergence (prime || uniform): 0.001147
+  Prime entropy: 4.6645 bits
+  Uniform entropy: 4.6512 bits
+  Entropy difference: 0.0133
+
+Testing Base-30 (base 30, n-gram length 2):
+  KL divergence (prime || uniform): 0.094323
+  Prime entropy: 8.8121 bits
+  Uniform entropy: 8.7574 bits
+  Entropy difference: 0.0547
+
+Testing Base-8 (base 8, n-gram length 2):
+  KL divergence (prime || uniform): 0.002309
+  Prime entropy: 5.4202 bits
+  Uniform entropy: 5.3742 bits
+  Entropy difference: 0.0461
+
+Testing Base-32 (base 32, n-gram length 2):
+  KL divergence (prime || uniform): 0.128372
+  Prime entropy: 8.7397 bits
+  Uniform entropy: 8.6712 bits
+  Entropy difference: 0.0685
+
+--- Comparison ---
+Average KL divergence - Primorial bases: 0.047735
+Average KL divergence - Power-of-two bases: 0.065340
+RESULT: NOT SUPPORTED - Power-of-two bases show higher or equal KL divergence
+
+======================================================================
+HYPOTHESIS 2: Suffix Bias and Base Factorization
+======================================================================
+
+Base 6:
+  Prime factors: [2, 3]
+  Factor complexity score: 3.67
+  Valid residues (coprime): 2 / 6
+  Suffix KL divergence: 1.101263
+  Residue deviation: 0.01
+
+Base 8:
+  Prime factors: [2, 2, 2]
+  Factor complexity score: 6.00
+  Valid residues (coprime): 4 / 8
+  Suffix KL divergence: 0.698883
+  Residue deviation: 0.41
+
+Base 10:
+  Prime factors: [2, 5]
+  Factor complexity score: 3.40
+  Valid residues (coprime): 4 / 10
+  Suffix KL divergence: 0.914332
+  Residue deviation: 0.14
+
+Base 12:
+  Prime factors: [2, 2, 3]
+  Factor complexity score: 5.33
+  Valid residues (coprime): 4 / 12
+  Suffix KL divergence: 1.106618
+  Residue deviation: 0.33
+
+Base 30:
+  Prime factors: [2, 3, 5]
+  Factor complexity score: 5.00
+  Valid residues (coprime): 8 / 30
+  Suffix KL divergence: 1.328167
+  Residue deviation: 0.16
+
+Base 32:
+  Prime factors: [2, 2, 2, 2, 2]
+  Factor complexity score: 10.00
+  Valid residues (coprime): 16 / 32
+  Suffix KL divergence: 0.708586
+  Residue deviation: 1.41
+
+--- Correlation Analysis ---
+Correlation (factor score vs KL divergence): -0.5525
+RESULT: NOT SUPPORTED - No clear positive correlation
+
+======================================================================
+HYPOTHESIS 3: Position-Dependent Bias Decay
+======================================================================
+
+Position 0 (0 = prefix):
+  KL divergence: 0.003670
+  Unique n-grams observed: 90
+
+Position 1 (0 = prefix):
+  KL divergence: 0.003015
+  Unique n-grams observed: 100
+
+Position 2 (0 = prefix):
+  KL divergence: 0.005672
+  Unique n-grams observed: 100
+
+Position 3 (0 = prefix):
+  Insufficient data
+
+--- Decay Analysis ---
+KL values by position: [(0, '0.003670'), (1, '0.003015'), (2, '0.005672')]
+Decay ratio (positions where KL decreases): 0.50
+RESULT: SUPPORTED - General decay pattern observed
+
+======================================================================
+HYPOTHESIS 4: Base-30 Optimal Information Density
+======================================================================
+
+Base 6:
+  Info per digit: 2.585 bits
+  Average KL divergence: 0.561475
+  Density score (KL × info): 1.451392
+
+Base 8:
+  Info per digit: 3.000 bits
+  Average KL divergence: 0.347661
+  Density score (KL × info): 1.042982
+
+Base 10:
+  Info per digit: 3.322 bits
+  Average KL divergence: 0.462967
+  Density score (KL × info): 1.537943
+
+Base 12:
+  Info per digit: 3.585 bits
+  Average KL divergence: 0.551775
+  Density score (KL × info): 1.978094
+
+Base 16:
+  Info per digit: 4.000 bits
+  Average KL divergence: 0.354249
+  Density score (KL × info): 1.416995
+
+Base 20:
+  Info per digit: 4.322 bits
+  Average KL divergence: 0.469755
+  Density score (KL × info): 2.030247
+
+Base 24:
+  Info per digit: 4.585 bits
+  Average KL divergence: 0.578019
+  Density score (KL × info): 2.650194
+
+Base 30:
+  Info per digit: 4.907 bits
+  Average KL divergence: 0.758340
+  Density score (KL × info): 3.721089
+
+Base 32:
+  Info per digit: 5.000 bits
+  Average KL divergence: 0.449747
+  Density score (KL × info): 2.248733
+
+Base 36:
+  Info per digit: 5.170 bits
+  Average KL divergence: 0.660354
+  Density score (KL × info): 3.413979
+
+--- Optimization Analysis ---
+Highest KL divergence: Base 30 (0.758340)
+Highest density score: Base 30 (3.721089)
+
+Base-30 rankings:
+  KL divergence rank: 1 / 10
+  Density score rank: 1 / 10
+RESULT: SUPPORTED - Base-30 shows near-optimal performance
+
+======================================================================
+HYPOTHESIS 5: Scalable N-Gram Detection
+======================================================================
+
+Base-6, 4-gram (complexity ~24):
+  KL divergence: 0.070982
+  Normalized KL (per complexity): 0.00295758
+  N-gram coverage: 0.8326 (1079/1296)
+
+Base-8, 3-gram (complexity ~24):
+  KL divergence: 0.017935
+  Normalized KL (per complexity): 0.00074730
+  N-gram coverage: 0.8750 (448/512)
+
+Base-12, 3-gram (complexity ~36):
+  KL divergence: 0.147323
+  Normalized KL (per complexity): 0.00409231
+  N-gram coverage: 0.8976 (1551/1728)
+
+Base-16, 2-gram (complexity ~32):
+  KL divergence: 0.010483
+  Normalized KL (per complexity): 0.00032760
+  N-gram coverage: 0.9375 (240/256)
+
+Base-32, 2-gram (complexity ~64):
+  KL divergence: 0.154724
+  Normalized KL (per complexity): 0.00241756
+  N-gram coverage: 0.9658 (989/1024)
+
+--- Comparison ---
+Small-base-long-gram normalized KL: 0.00185244
+Large-base-short-gram normalized KL: 0.00137258
+RESULT: SUPPORTED - Small bases with long n-grams 1.35x better
+
+Visualization saved to 'prime_ngram_analysis.png'
+
+======================================================================
+CONCLUSIONS
+======================================================================
+
+RESEARCH FINDINGS SUMMARY:
+
+Hypothesis 1 (Structural Primorial Advantage): NOT SUPPORTED
+Hypothesis 2 (Suffix Bias & Factorization): NOT SUPPORTED
+Hypothesis 3 (Position-Dependent Decay): SUPPORTED
+Hypothesis 4 (Base-30 Optimality): SUPPORTED
+Hypothesis 5 (Scalable Detection): SUPPORTED
+
+Overall: 3/5 hypotheses supported (60% confirmation rate)

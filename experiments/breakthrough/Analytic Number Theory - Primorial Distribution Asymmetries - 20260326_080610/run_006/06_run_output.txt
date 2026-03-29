@@ -1,0 +1,54 @@
+================================================================================
+RESEARCH HYPOTHESIS TESTING: LDAB Model Validation
+================================================================================
+
+HYPOTHESIS 1: Memory Stability via Dynamic Chunk Allocation
+--------------------------------------------------------------------------------
+Statement: Dynamic chunk-sizing enables execution up to N=10^12 on 24GB GPU
+
+N               Chunk Size      Num Chunks      Est. VRAM (MB)     Status
+--------------------------------------------------------------------------------
+1e+05           100,000         1               0.76               STABLE
+1e+06           1,000,000       1               7.63               STABLE
+1e+07           10,000,000      1               76.29              STABLE
+1e+08           100,000,000     1               762.94             STABLE
+1e+09           1,000,000,000   1               7629.39            STABLE
+1e+10           2,576,980,377   4               19660.80           STABLE
+1e+11           2,576,980,377   39              19660.80           STABLE
+1e+12           2,576,980,377   389             19660.80           STABLE
+
+H1 RESULT: SUPPORTED
+  - Maximum stable N: 1e+12
+  - Dynamic chunk allocation provides memory stability up to N=1e+12
+
+HYPOTHESIS 2: Computational Efficiency in Primorial Bases
+--------------------------------------------------------------------------------
+Statement: LDAB evaluation in primorial bases shows efficiency gains
+
+Sequence        N          LD Adj Factor   Chi-Square      Benford?
+--------------------------------------------------------------------------------
+Fibonacci       1000       1.0000          0.00            YES
+Powers of 2     1000       1.0000          0.00            YES
+Powers of 3     ERROR      int too large to convert to fl N/A             ERROR
+Factorials      20         1.0075          0.22            YES
+Sequential      1000       1.0450          0.40            YES
+
+H2 RESULT: SUPPORTED
+  - 4/4 sequences follow Benford distribution
+  - LD adjustment factors show variation: 1.0132
+
+HYPOTHESIS 3: Vectorized Operations Speedup Validation
+--------------------------------------------------------------------------------
+Statement: Vectorized numpy operations provide significant speedup
+
+Testing with N = 1,000,000 numbers
+
+
+--- STDERR ---
+Traceback (most recent call last):
+  File "D:\LocalProjects\Python apps\AutoResearch\experiments\breakthrough\20260326_080610\run_006\_experiment_temp.py", line 345, in <module>
+    test_data = np.random.randint(1, 1e12, n_perf_test).astype(float)
+                ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+  File "numpy/random/mtrand.pyx", line 794, in numpy.random.mtrand.RandomState.randint
+  File "numpy/random/_bounded_integers.pyx", line 2881, in numpy.random._bounded_integers._rand_int32
+ValueError: high is out of bounds for int32

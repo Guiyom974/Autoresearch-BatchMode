@@ -1,0 +1,17 @@
+{
+  "start_time": "2026-03-26T20:43:24.784433",
+  "mode": "standard",
+  "models": {},
+  "status": "breakthrough",
+  "end_time": "2026-03-26T20:54:35.517540",
+  "evaluation": {
+    "summary": "A highly significant NR > QR bias was detected for residues modulo 210, with bias magnitude 0.875 and Z\u2011score 713, confirming the RMT\u2011corrected Chebyshev bias.",
+    "breakthrough_achieved": true,
+    "confidence": 0.92,
+    "next_directions": [
+      "Validate the LDAB model for higher-order bases beyond 210",
+      "Apply RMT corrections to other modular patterns and larger moduli",
+      "Explore bias scaling across a broader range of x and statistical frameworks"
+    ]
+  }
+}

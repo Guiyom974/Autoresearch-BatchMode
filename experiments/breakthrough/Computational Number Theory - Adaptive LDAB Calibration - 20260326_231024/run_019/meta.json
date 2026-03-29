@@ -1,0 +1,18 @@
+{
+  "start_time": "2026-03-27T07:09:07.786571",
+  "mode": "standard",
+  "models": {},
+  "status": "completed",
+  "end_time": "2026-03-27T07:23:47.474888",
+  "evaluation": {
+    "summary": "Mitigating truncation effects shows the primorial gap variance-to-mean ratio follows a power-law with exponent approx 2.19, essentially matching a logarithmic trend.",
+    "breakthrough_achieved": false,
+    "confidence": 0.55,
+    "publishability_score": 6.0,
+    "next_directions": [
+      "Extend the analysis to larger primorial indices to resolve the exponent ambiguity",
+      "Apply formal model selection criteria (e.g., AIC, BIC) to compare power-law and logarithmic fits",
+      "Develop a theoretical framework linking primorial gaps to known number-theoretic distributions"
+    ]
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "start_time": "2026-03-26T13:18:44.313023",
+  "mode": "standard",
+  "models": {},
+  "status": "breakthrough",
+  "end_time": "2026-03-26T13:25:10.485409",
+  "evaluation": {
+    "summary": "Systematic literature reviews consistently outperform narrative reviews in identifying research gaps, reproducibility, citation impact, and methodological quality, despite requiring more time.",
+    "breakthrough_achieved": true,
+    "confidence": 0.92,
+    "next_directions": [
+      "Investigate mechanisms behind the higher reproducibility of systematic reviews",
+      "Develop interventions to reduce the time burden of systematic reviews",
+      "Explore hybrid review designs that combine systematic rigor with narrative flexibility"
+    ]
+  }
+}

@@ -1,0 +1,24 @@
+======================================================================
+SHAPLEY VALUE SIMULATION & STATISTICAL TESTING
+======================================================================
+Players: 5, Simulations: 200,000
+
+Generating weight vectors (Dirichlet(1))...
+Computing Shapley values...
+
+=== H1: Shapley values follow Dirichlet(1) distribution ===
+
+--- STDERR ---
+Traceback (most recent call last):
+  File "D:\LocalProjects\Python apps\AutoResearch\experiments\breakthrough\Game Theory - Cooperative Games - 20260328_193256\run_001\_experiment_temp.py", line 462, in <module>
+    main()
+    ~~~~^^
+  File "D:\LocalProjects\Python apps\AutoResearch\experiments\breakthrough\Game Theory - Cooperative Games - 20260328_193256\run_001\_experiment_temp.py", line 422, in main
+    results_h1 = test_hypothesis_1(shapley_values)
+  File "D:\LocalProjects\Python apps\AutoResearch\experiments\breakthrough\Game Theory - Cooperative Games - 20260328_193256\run_001\_experiment_temp.py", line 161, in test_hypothesis_1
+    chi2, p = chi_square_test(shapley_by_player[i], uniform_samples[:, i], N_BINS_SHAPLEY)
+              ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\LocalProjects\Python apps\AutoResearch\experiments\breakthrough\Game Theory - Cooperative Games - 20260328_193256\run_001\_experiment_temp.py", line 113, in chi_square_test
+    chi2 = np.sum((hist_obs[mask] - hist_exp[mask])**2 / hist_exp[mask])
+                   ~~~~~~~~^^^^^^
+IndexError: boolean index did not match indexed array along axis 0; size of axis is 100 but size of corresponding boolean axis is 200000

@@ -1,0 +1,146 @@
+======================================================================
+LDAB ERROR DECAY RATE ANALYSIS ACROSS PRIMORIAL INDICES
+======================================================================
+
+Primorials for k=1..12:
+  k=1: p_k = 2
+  k=2: p_k = 6
+  k=3: p_k = 30
+  k=4: p_k = 210
+  k=5: p_k = 2310
+  k=6: p_k = 30030
+  k=7: p_k = 510510
+  k=8: p_k = 9699690
+  k=9: p_k = 223092870
+  k=10: p_k = 6469693230
+  k=11: p_k = 200560490130
+  k=12: p_k = 7420738134810
+
+----------------------------------------------------------------------
+ESTIMATING LAMBDA_k (exponential and power-law fits)
+----------------------------------------------------------------------
+k= 1: λ_exp = -0.0079 ± 0.0023,  λ_pow = -0.2333 ± 0.6261
+k= 2: λ_exp = -0.0079 ± 0.0023,  λ_pow = -0.2333 ± 0.6260
+k= 3: λ_exp = -0.0079 ± 0.0023,  λ_pow = -0.2333 ± 0.6259
+k= 4: λ_exp = -0.5000 ± inf,  λ_pow = -0.2271 ± 0.8021
+k= 5: λ_exp = -0.5000 ± inf,  λ_pow = -0.2271 ± 0.8020
+k= 6: λ_exp = -0.5000 ± inf,  λ_pow = -0.2291 ± 0.9364
+k= 7: λ_exp = -0.5000 ± inf,  λ_pow = -0.2292 ± 0.9365
+k= 8: λ_exp = -0.5000 ± inf,  λ_pow = -0.2330 ± 1.0496
+k= 9: λ_exp = -0.5000 ± inf,  λ_pow = -0.2329 ± 1.0495
+k=10: λ_exp = -0.5000 ± inf,  λ_pow = -0.2372 ± 1.1492
+k=11: λ_exp = -0.5000 ± inf,  λ_pow = -0.2372 ± 1.1492
+k=12: λ_exp = -0.5000 ± inf,  λ_pow = -0.2415 ± 1.2392
+
+======================================================================
+HYPOTHESIS 1: Finite-size effects dominate deviations at low k
+======================================================================
+Statement: λ_k deviates from λ_th primarily due to finite-size effects for k < 5,
+           and deviations decrease monotonically as k increases.
+
+Deviations (exp fit): [0.23940019 0.40514412 0.5162461  0.09857761 0.14849854]
+Deviations (pow fit): [0.01394217 0.17970812 0.29083166 0.37151842 0.42143729]
+Monotonic decrease for k<5? (exp): False
+Monotonic decrease for k<5? (pow): False
+
+Correlation between |λ_k - λ_th| and log(p_k):
+  exp fit: r = -0.2399
+  pow fit: r = 0.7847
+
+HYPOTHESIS 1: NOT SUPPORTED
+  (Monotonic decrease + significant negative correlation with log(p_k))
+
+======================================================================
+HYPOTHESIS 2: Deviations follow universal scaling with k
+======================================================================
+Statement: The deviation δ_k = λ_k - λ_th follows δ_k ≈ A * exp(-k/k0) for some A, k0.
+
+Exponential fit to deviations: δ_k ≈ 0.3178 * exp(-k/24.72)
+R² = 0.0914
+HYPOTHESIS 2: NOT SUPPORTED
+
+======================================================================
+HYPOTHESIS 3: Linear relationship between λ_exp and λ_pow
+======================================================================
+Statement: λ_exp,k and λ_pow,k are linearly related across k.
+
+Linear fit: λ_exp = -3.2809 * λ_pow + -1.1409
+R² = 0.0041
+HYPOTHESIS 3: NOT SUPPORTED
+
+======================================================================
+HYPOTHESIS 4: k-dependent correction to λ_th improves accuracy
+======================================================================
+Statement: Using λ_th(k) = λ0 * (1 - exp(-k/k0)) yields better agreement than constant λ_th.
+
+Constant λ_th = -0.5000, MSE = 0.060551
+k-dependent λ_th(k), MSE = 0.072391
+HYPOTHESIS 4: NOT SUPPORTED
+
+======================================================================
+GENERATING PLOTS
+======================================================================
+Saved: fig1_lambda_vs_k.png
+Saved: fig2_deviation_vs_k.png
+Saved: fig3_lambda_correlation.png
+
+======================================================================
+FINAL RESULTS SUMMARY
+======================================================================
+
+Empirical decay rates (λ_exp,k):
+  k= 1: -0.0079 ± 0.0023
+  k= 2: -0.0079 ± 0.0023
+  k= 3: -0.0079 ± 0.0023
+  k= 4: -0.5000 ± inf
+  k= 5: -0.5000 ± inf
+  k= 6: -0.5000 ± inf
+  k= 7: -0.5000 ± inf
+  k= 8: -0.5000 ± inf
+  k= 9: -0.5000 ± inf
+  k=10: -0.5000 ± inf
+  k=11: -0.5000 ± inf
+  k=12: -0.5000 ± inf
+
+Theoretical predictions λ_th(k):
+  k= 1: -0.2473
+  k= 2: -0.4130
+  k= 3: -0.5241
+  k= 4: -0.5986
+  k= 5: -0.6485
+  k= 6: -0.6820
+  k= 7: -0.7044
+  k= 8: -0.7194
+  k= 9: -0.7295
+  k=10: -0.7363
+  k=11: -0.7408
+  k=12: -0.7438
+
+----------------------------------------------------------------------
+HYPOTHESIS TEST SUMMARY
+----------------------------------------------------------------------
+H1 (finite-size effects):      ✗ NOT SUPPORTED
+H2 (universal scaling):        ✗ NOT SUPPORTED
+H3 (λ_exp vs λ_pow linear):    ✗ NOT SUPPORTED
+H4 (k-dependent correction):   ✗ NOT SUPPORTED
+
+CONCLUSIONS:
+----------------------------------------------------------------------
+✗ Finite-size effects do not fully explain low-k deviations.
+✗ No universal scaling found for deviations.
+✗ No strong linear relationship between decay rate models.
+✗ k-dependent correction does not improve prediction accuracy.
+
+Recommendations:
+- Focus on low-k (k<5) numerical precision improvements to reduce finite-size artifacts.
+- Use λ_th(k) = λ0(1 - exp(-k/k0)) with λ0 ≈ -0.75, k0 ≈ 2.5 for corrections.
+- Investigate underlying mechanism for deviation scaling (H2).
+======================================================================
+
+--- STDERR ---
+D:\LocalProjects\Python apps\AutoResearch\experiments\breakthrough\20260326_231024\run_043\_experiment_temp.py:115: RuntimeWarning: divide by zero encountered in log
+  popt_exp, _ = curve_fit(lambda N, lam: np.log(np.exp(a_fixed) * np.exp(lam * N)),
+D:\LocalProjects\Python apps\AutoResearch\experiments\breakthrough\20260326_231024\run_043\_experiment_temp.py:115: OptimizeWarning: Covariance of the parameters could not be estimated
+  popt_exp, _ = curve_fit(lambda N, lam: np.log(np.exp(a_fixed) * np.exp(lam * N)),
+D:\LocalProjects\Python apps\AutoResearch\experiments\breakthrough\20260326_231024\run_043\_experiment_temp.py:119: RuntimeWarning: divide by zero encountered in log
+  residuals = log_errors - np.log(np.exp(a_fixed) * np.exp(lambda_exp * Ns))

@@ -1,0 +1,23 @@
+======================================================================
+GPU-Accelerated LDAB Model Evaluation - Hypothesis Testing
+======================================================================
+
+=== Hypothesis 1: GPU-Accelerated Parallel Processing Achieves >=5x Speedup ===
+
+--- STDERR ---
+Traceback (most recent call last):
+  File "D:\LocalProjects\Python apps\AutoResearch\experiments\breakthrough\20260326_080610\run_004\_experiment_temp.py", line 300, in <module>
+    main()
+    ~~~~^^
+  File "D:\LocalProjects\Python apps\AutoResearch\experiments\breakthrough\20260326_080610\run_004\_experiment_temp.py", line 253, in main
+    sp1, sup1 = test_hypothesis_1(base, n_main)
+                ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^
+  File "D:\LocalProjects\Python apps\AutoResearch\experiments\breakthrough\20260326_080610\run_004\_experiment_temp.py", line 89, in test_hypothesis_1
+    _, gpu_time = measure_time(gpu_leading_digit_counts, n, base)
+                  ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\LocalProjects\Python apps\AutoResearch\experiments\breakthrough\20260326_080610\run_004\_experiment_temp.py", line 64, in measure_time
+    result = func(*args)
+  File "D:\LocalProjects\Python apps\AutoResearch\experiments\breakthrough\20260326_080610\run_004\_experiment_temp.py", line 54, in gpu_leading_digit_counts
+    np.add.at(counts, leading, 1)
+    ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+IndexError: index 10 is out of bounds for axis 0 with size 10

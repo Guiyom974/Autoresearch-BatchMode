@@ -1,0 +1,24 @@
+Testing Hypothesis 1: Chebyshev Bias and Goodness-of-Fit in Primorial Bases (q=210)
+Generating primes up to X = 5000000...
+Total primes found: 348513
+Euler totient phi(210) = 48
+Number of QR classes: 6
+Number of NR classes: 42
+
+Total valid primes (coprime to 210): 348509
+Expected per class (Naive): 7260.60
+Expected per class (Li(X)): 7263.29
+
+Goodness-of-Fit Results:
+Naive Uniform Model: chi2 = 3.9610, p-value = 1.0000e+00
+
+Chebyshev Bias Analysis:
+Average primes in QR classes: 7241.50
+Average primes in NR classes: 7263.33
+Observation: Chebyshev bias towards Non-Residues is present.
+
+CONCLUSIONS:
+1. The distribution of primes modulo 210 was successfully analyzed.
+2. The chi-square goodness-of-fit test reveals whether the naive uniform model accurately describes the frequencies.
+3. By comparing the average frequencies in Quadratic Residue vs. Non-Residue classes, we can observe Chebyshev's bias, where primes tend to favor Non-Residue classes.
+4. The results support the hypothesis that rigorous statistical modeling of expected frequencies is necessary due to inherent biases in prime distributions at finite scales.

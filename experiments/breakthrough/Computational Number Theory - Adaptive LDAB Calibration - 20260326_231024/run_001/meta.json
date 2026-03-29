@@ -1,0 +1,18 @@
+{
+  "start_time": "2026-03-26T23:18:51.062222",
+  "mode": "standard",
+  "models": {},
+  "status": "completed",
+  "end_time": "2026-03-26T23:36:50.494724",
+  "evaluation": {
+    "summary": "The adaptive LDAB calibration fails to achieve KL divergence below 1e-4 for primorial bases up to 30030, indicating no breakthrough in the model's convergence.",
+    "breakthrough_achieved": false,
+    "confidence": 0.6,
+    "publishability_score": 2.0,
+    "next_directions": [
+      "Extend the prime range to >10^7 to assess asymptotic behavior of KL divergence.",
+      "Explore alternative divergence metrics (e.g., Wasserstein distance) and non\u2011uniform residue class weighting.",
+      "Conduct a systematic sensitivity analysis of the LDAB model parameters and boundary conditions."
+    ]
+  }
+}

@@ -1,0 +1,62 @@
+============================================================
+TESTING HYPOTHESES FOR LDAB CALIBRATION COLLAPSE AT k=16
+============================================================
+
+Primorial statistics:
+k=15: log2(P_k) = 59.0931, P_k ≈ 6.149e+17
+k=16: log2(P_k) = 64.8210, P_k ≈ 3.259e+19
+k=17: log2(P_k) = 70.7037, P_k ≈ 1.923e+21
+HYPOTHESIS 1: 64-bit integer truncation at log2(P_k) > 64
+============================================================
+log2(P_k) for k=11..17: ['37.55', '42.75', '48.11', '53.54', '59.09', '64.82', '70.70']
+Crosses 64? True
+Model R² = -0.1667
+Predicted precision at k=16: 10.0 bits
+Observed precision at k=16: 10.0 bits
+RESULT: ✗ NOT SUPPORTED (R² ≤ 0.95)
+
+HYPOTHESIS 2: Gamma overflow at intermediate step
+============================================================
+Note: Direct gamma evaluation overflows for all k ≥ 2.
+Gamma overflow cannot explain *localized* anomaly at k=16.
+RESULT: ✗ REJECTED (not localized)
+
+HYPOTHESIS 3: Gamma ratio underflow
+============================================================
+P_16 ≈ 3.259e+19
+Smallest expected gamma ratio ~ P_k^-0.5 ≈ 1.752e-10
+Double min positive = 2.225e-308
+No underflow expected for gamma ratios at k=16.
+RESULT: ✗ REJECTED (no underflow)
+
+HYPOTHESIS 4: Primorial computed modulo 2^64
+============================================================
+P_16 = 32589158477190044730
+P_16 mod 2^64 = 14142414403480493114
+Relative error = 5.66e-01
+Significant truncation detected!
+RESULT: ✓ SUPPORTED (truncation error > 1e-10)
+
+HYPOTHESIS 5: Condition number explosion
+============================================================
+Predicted precision at k=16: 0.0 bits
+Observed precision at k=16: 10.0 bits
+R² = -6.4264
+Note: Condition number predicts *gradual* loss, not sharp drop at k=16
+RESULT: ✗ REJECTED (R² < 0.5, not sharp enough)
+
+============================================================
+SUMMARY OF RESULTS
+============================================================
+H1 64Bit Truncation: REJECTED
+H2 Gamma Overflow: REJECTED
+H3 Gamma Underflow: REJECTED
+H4 Primorial Mod64: SUPPORTED
+H5 Condition Number: REJECTED
+
+CONCLUSIONS:
+------------------------------------------------------------
+No hypothesis is strongly supported; the k=16 anomaly remains unexplained.
+Consider testing for hidden floating-point rounding mode changes or
+compiler-specific optimizations at the 64-bit boundary.
+============================================================

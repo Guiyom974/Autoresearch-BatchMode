@@ -1,0 +1,18 @@
+{
+  "start_time": "2026-03-28T19:01:56.301233",
+  "mode": "standard",
+  "models": {},
+  "status": "completed",
+  "end_time": "2026-03-28T19:32:56.408481",
+  "evaluation": {
+    "summary": "The model experiments found no statistically significant influence of variable or extreme horizontal heat transport coefficients on global temperature or ice edge latitude.",
+    "breakthrough_achieved": false,
+    "confidence": 0.5,
+    "publishability_score": 0.0,
+    "next_directions": [
+      "Implement higher-resolution discretization and test non-linear transport schemes to uncover subtle gradient effects.",
+      "Couple the EBM with more complex ice\u2011albedo feedbacks and atmospheric dynamics to assess sensitivity beyond the current parameter space.",
+      "Perform systematic intercomparisons with Earth system models to identify where simplified EBMs may miss emergent climate feedbacks."
+    ]
+  }
+}

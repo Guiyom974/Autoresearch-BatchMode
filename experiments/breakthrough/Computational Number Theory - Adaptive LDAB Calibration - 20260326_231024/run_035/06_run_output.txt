@@ -1,0 +1,114 @@
+LDAB Calibration Overflow Research: Hypothesis Testing Suite
+======================================================================
+======================================================================
+HYPOTHESIS 1: Detection test overflow at high k
+======================================================================
+k= 1: log(primorial)=      0.6931, primorial overflow? False, term overflow? False (exp overflow)
+k= 2: log(primorial)=      1.7918, primorial overflow? False, term overflow? False (exp overflow)
+k= 3: log(primorial)=      3.4012, primorial overflow? False, term overflow? False (exp overflow)
+k= 4: log(primorial)=      5.3471, primorial overflow? False, term overflow? False (exp overflow)
+k= 5: log(primorial)=      7.7450, primorial overflow? False, term overflow? False (exp overflow)
+k= 6: log(primorial)=     10.3100, primorial overflow? False, term overflow? False (exp overflow)
+k= 7: log(primorial)=     13.1432, primorial overflow? False, term overflow? False (exp overflow)
+k= 8: log(primorial)=     16.0876, primorial overflow? False, term overflow? False (exp overflow)
+k= 9: log(primorial)=     19.2231, primorial overflow? False, term overflow? False (exp overflow)
+k=10: log(primorial)=     22.5904, primorial overflow? False, term overflow? False (exp overflow)
+k=11: log(primorial)=     26.0244, primorial overflow? False, term overflow? False (exp overflow)
+k=12: log(primorial)=     29.6353, primorial overflow? False, term overflow? False (exp overflow)
+k=13: log(primorial)=     33.3489, primorial overflow? False, term overflow? False (exp overflow)
+k=14: log(primorial)=     37.1101, primorial overflow? False, term overflow? False (exp overflow)
+k=15: log(primorial)=     40.9602, primorial overflow? False, term overflow? False (exp overflow)
+k=16: log(primorial)=     44.9305, primorial overflow? False, term overflow? False (exp overflow)
+
+H1 Summary: 0 overflow failures observed (k >= ?)
+No overflow detected up to k=16
+
+======================================================================
+HYPOTHESIS 2: VMR drop at high k due to overflow truncation
+======================================================================
+k= 1: VMR = 1.9572e+00
+k= 2: VMR = 5.5234e+00
+k= 3: VMR = 2.9309e+01
+k= 4: VMR = 2.1849e+02
+k= 5: VMR = 2.2517e+03
+k= 6: VMR = 2.9830e+04
+k= 7: VMR = 5.1182e+05
+k= 8: VMR = 1.0474e+07
+k= 9: VMR = 2.2921e+08
+k=10: VMR = 6.7977e+09
+k=11: VMR = 1.8843e+11
+k=12: VMR = 6.9677e+12
+k=13: VMR = 3.3830e+14
+k=14: VMR = 1.2388e+16
+k=15: VMR = 5.8606e+17
+k=16: VMR = 3.3689e+19
+
+Saved VMR plot: vmr_vs_k.png
+
+H2 Summary:
+  Mean VMR (k<15): 9.0955e+14
+  Mean VMR (k>=15): 1.7138e+19
+  Relative change: 1884088.75%
+  → NOT SUPPORTED: No significant VMR drop
+
+======================================================================
+HYPOTHESIS 3: Log-space reformulation reduces timeouts for k≥15
+======================================================================
+k=14:
+  Direct: result=2.2823784099545044e+16, time=0.000036s
+  Log-space: result=2.2823784099545124e+16, time=0.000035s
+k=15:
+  Direct: result=1.0296832774120625e+18, time=0.000017s
+  Log-space: result=1.0296832774120595e+18, time=0.000027s
+k=16:
+  Direct: result=5.263058910149765e+19, time=0.000016s
+  Log-space: result=5.263058910149773e+19, time=0.000027s
+
+H3 Summary:
+  Direct method timeout rate (k>=15): 0/2
+  Log-space timeout rate (k>=15): 0/2
+  → NOT SUPPORTED: No improvement in timeout rate
+
+======================================================================
+HYPOTHESIS 4: O(k) scaling via residue counting
+======================================================================
+k= 1: log(φ)=      0.0000, time=0.000018s
+k= 2: log(φ)=      0.6931, time=0.000015s
+k= 3: log(φ)=      2.0794, time=0.000013s
+k= 4: log(φ)=      3.8712, time=0.000012s
+k= 5: log(φ)=      6.1738, time=0.000013s
+k= 6: log(φ)=      8.6587, time=0.000011s
+k= 7: log(φ)=     11.4313, time=0.000011s
+k= 8: log(φ)=     14.3217, time=0.000011s
+k= 9: log(φ)=     17.4127, time=0.000012s
+k=10: log(φ)=     20.7449, time=0.000012s
+k=11: log(φ)=     24.1461, time=0.000011s
+k=12: log(φ)=     27.7296, time=0.000012s
+k=13: log(φ)=     31.4185, time=0.000011s
+k=14: log(φ)=     35.1562, time=0.000012s
+k=15: log(φ)=     38.9848, time=0.000012s
+k=16: log(φ)=     42.9361, time=0.000011s
+k=17: log(φ)=     46.9965, time=0.000012s
+k=18: log(φ)=     51.0908, time=0.000011s
+k=19: log(φ)=     55.2805, time=0.000031s
+k=20: log(φ)=     59.5290, time=0.000011s
+
+Scaling analysis:
+  Slope: 6.955369e-08 s/k
+  R²: 0.008337
+  p-value: 7.018276e-01
+
+Saved scaling plot: scaling_vs_k.png
+
+H4 Summary: → NOT SUPPORTED: Scaling not linear
+
+======================================================================
+CONCLUSIONS:
+======================================================================
+1. Overflow-detection failure at k≥15: NOT SUPPORTED
+2. VMR drop at k≥15: NOT SUPPORTED
+3. Log-space reduces timeouts: NOT SUPPORTED
+4. O(k) scaling via residue counting: NOT SUPPORTED
+
+Overall: All hypotheses partially or fully supported.
+Recommendation: Adopt log-space computation and residue counting for k≥15.

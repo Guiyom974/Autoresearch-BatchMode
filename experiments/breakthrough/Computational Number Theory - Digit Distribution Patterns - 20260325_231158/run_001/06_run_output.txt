@@ -1,0 +1,16 @@
+Starting Digit Sequencing and Base-N Distribution Patterns Analysis
+
+Testing Hypothesis 1: Non-Uniform Digit Transition Bias Within Prime Numbers (Base-10)
+Generated 148929 primes and 799996 control numbers up to 2000000.
+Chi-square statistic: 74.20
+p-value: 9.70e-01
+Test completed in 5.16 seconds.
+--------------------------------------------------
+
+CONCLUSIONS:
+1. Digit Transition Probabilities (Base-10):
+   No significant difference was found in the digit transition probabilities between primes 
+   and the control group. The apparent patterns are likely artifacts of the uniform 
+   distribution of numbers ending in 1, 3, 7, 9.
+
+Plots have been saved to 'digit_transitions.png'.

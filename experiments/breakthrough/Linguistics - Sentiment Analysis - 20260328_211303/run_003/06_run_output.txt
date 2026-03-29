@@ -1,0 +1,67 @@
+======================================================================
+SENTIMENT ANALYSIS ENSEMBLE INTEGRATION EXPERIMENT
+======================================================================
+
+[INFO] Generating synthetic technical corpus...
+
+----------------------------------------------------------------------
+RESULTS SUMMARY (MAE)
+----------------------------------------------------------------------
+Baseline VADER           : 0.6364 ± 0.0153
+Direct Lexicon Injection : 0.1790 ± 0.0129
+Ensemble (Static Weighted): 0.4838 ± 0.0139
+Ensemble (Meta-Classifier): 0.1388 ± 0.0181
+
+----------------------------------------------------------------------
+HYPOTHESIS TESTING RESULTS
+----------------------------------------------------------------------
+
+[H1] Ensemble Separation reverses MAE degradation from Direct Injection
+  MAE (Direct Injection): 0.1790
+  MAE (Ensemble Static):  0.4838
+  t-statistic: -32.150, p-value: 1.0000
+  Result: NOT CONFIRMED
+
+[H2] Ensemble Static ≥ Baseline VADER
+  MAE (Ensemble Static): 0.4838
+  MAE (Baseline):        0.6364
+  t-statistic: -14.761, p-value: 0.0000
+  Result: CONFIRMED
+
+[H3] Meta-Classifier outperforms Static Weighted Averaging
+  MAE (Meta): 0.1388
+  MAE (Static): 0.4838
+  t-statistic: -30.232, p-value: 0.0000
+  Result: CONFIRMED
+
+[H4] Meta-Classifier ≥ Baseline VADER
+  MAE (Meta): 0.1388
+  MAE (Baseline): 0.6364
+  t-statistic: -41.900, p-value: 0.0000
+  Result: CONFIRMED
+
+[H5] Direct Injection > Baseline (confirming prior degradation)
+  MAE (Injection): 0.1790
+  MAE (Baseline):  0.6364
+  t-statistic: -45.581, p-value: 1.0000
+  Result: NOT CONFIRMED
+
+[INFO] Generating visualizations...
+  - Saved: mae_comparison.png
+  - Saved: mae_boxplot.png
+
+======================================================================
+CONCLUSIONS:
+======================================================================
+✗ Hypothesis 1 not supported: Ensemble did not significantly outperform injection.
+✓ Hypothesis 3 confirmed: Meta-classifier integration outperforms static averaging.
+✓ Hypothesis 4 confirmed: Meta-classifier achieves baseline-level or better accuracy.
+
+Overall: The ensemble approach, particularly meta-classifier integration,
+         shows promise for improving technical sentiment analysis accuracy
+         over naive direct lexicon injection methods.
+======================================================================
+
+--- STDERR ---
+D:\LocalProjects\Python apps\AutoResearch\experiments\breakthrough\Linguistics - Sentiment Analysis - 20260328_211303\run_003\_experiment_temp.py:372: MatplotlibDeprecationWarning: The 'labels' parameter of boxplot() has been renamed 'tick_labels' since Matplotlib 3.9; support for the old name will be dropped in 3.11.
+  bp = ax.boxplot(data_to_plot, labels=methods, patch_artist=True)

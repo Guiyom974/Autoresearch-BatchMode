@@ -1,0 +1,18 @@
+{
+  "start_time": "2026-03-27T00:49:55.965342",
+  "mode": "standard",
+  "models": {},
+  "status": "completed",
+  "end_time": "2026-03-27T01:03:41.698982",
+  "evaluation": {
+    "summary": "Hybrid variance-Wasserstein weighting fails to provide consistent variance reduction across high-order primorial bases, with erratic \u0394 values and no clear improvement.",
+    "breakthrough_achieved": false,
+    "confidence": 0.5,
+    "publishability_score": 3.0,
+    "next_directions": [
+      "investigate the cause of zero variance changes at large primorials",
+      "compare hybrid weighting against alternative adaptive schemes with larger datasets",
+      "develop theoretical analysis of weighting stability for high-order bases"
+    ]
+  }
+}

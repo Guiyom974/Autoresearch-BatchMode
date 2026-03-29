@@ -1,0 +1,18 @@
+{
+  "start_time": "2026-03-27T07:52:44.152702",
+  "mode": "standard",
+  "models": {},
+  "status": "completed",
+  "end_time": "2026-03-27T08:04:02.900149",
+  "evaluation": {
+    "summary": "The variance-to-mean ratio R(k) of gaps between integers coprime to the k-th primorial deviates from 1 and increases with k, contradicting the hypothesis that it equals 1.",
+    "breakthrough_achieved": false,
+    "confidence": 0.5,
+    "publishability_score": 3.0,
+    "next_directions": [
+      "Extend computation to larger k to verify the trend and assess computational errors",
+      "Conduct a formal statistical test to confirm the significance of the observed increase in R(k)",
+      "Compare the empirical results with existing theoretical models of primorial gap distributions"
+    ]
+  }
+}

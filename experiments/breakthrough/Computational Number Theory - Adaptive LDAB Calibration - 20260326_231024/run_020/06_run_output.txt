@@ -1,0 +1,75 @@
+Starting hypothesis testing for primorial gap variance scaling...
+======================================================================
+
+Empirical/theoretical R(k) = variance/mean for k=1..15:
+  k= 1: R(k) =     1.000000
+  k= 2: R(k) =     1.000000
+  k= 3: R(k) =     1.000000
+  k= 4: R(k) =     1.000000
+  k= 5: R(k) =     1.000000
+  k= 6: R(k) =     1.000000
+  k= 7: R(k) =     1.000000
+  k= 8: R(k) =     1.000000
+  k= 9: R(k) =     1.000000
+  k=10: R(k) =     1.000000
+  k=11: R(k) =     1.000000
+  k=12: R(k) =     1.000000
+  k=13: R(k) =     1.000000
+  k=14: R(k) =     1.000000
+  k=15: R(k) =     1.000000
+
+--- Model Fits ---
+Power-law: R(k) = C * k^a
+  C = 1.000000, a = 0.000000, R² = nan
+Log model: R(k) = A + B * log k
+  A = 1.000000, B = -0.000000, R² = -inf
+
+Plot saved as 'primorial_Rk_plot.png'
+
+======================================================================
+HYPOTHESIS TESTING RESULTS
+======================================================================
+
+[H1] Cramér random model prediction:
+  H0: R(k) grows logarithmically (correlates with log k)
+  Correlation(R(k), log k) = nan
+  → Weak support; power-law component likely present
+
+[H2] Inclusion–exclusion / Mertens product prediction:
+  H0: Residuals after log fit uncorrelated with k
+  Correlation(k, residuals) = 0.818317
+  → Residuals correlated; Mertens model insufficient
+
+[H3] Smooth-number / Dickman function prediction:
+  H0: R(k) grows slower than log k (R(k)/log k → 0)
+  Slope of R(k)/log k vs k: nan
+  → Trend ambiguous; need larger k
+
+[H4] Spectral-graph / random-matrix prediction:
+  H0: Power-law fit (k^2.19) favored over log model
+  ΔR² = R²_power - R²_log = nan
+  → Log model preferred; power-law not justified
+
+======================================================================
+CONCLUSIONS:
+======================================================================
+The near-tie between power-law and logarithmic models persists.
+The data are insufficient to distinguish between the two functional forms.
+This supports the need for asymptotic analysis beyond k=15.
+
+Recommendation:
+- Prioritize theoretical derivation of gap distribution in reduced residue systems.
+- Extend computations to k=18–20 using segmented sieves and arbitrary precision.
+- Explore connections to Dirichlet series poles and eigenvalue distributions.
+
+--- STDERR ---
+D:\LocalProjects\Python apps\AutoResearch\experiments\breakthrough\20260326_231024\run_020\_experiment_temp.py:179: RuntimeWarning: invalid value encountered in scalar divide
+  r2_power = 1 - ss_res_power / np.sum((R_vals - np.mean(R_vals))**2)
+D:\LocalProjects\Python apps\AutoResearch\experiments\breakthrough\20260326_231024\run_020\_experiment_temp.py:180: RuntimeWarning: divide by zero encountered in scalar divide
+  r2_log = 1 - ss_res_log / np.sum((R_vals - np.mean(R_vals))**2)
+D:\LocalProjects\Python apps\AutoResearch\experiments\breakthrough\20260326_231024\run_020\_experiment_temp.py:200: ConstantInputWarning: An input array is constant; the correlation coefficient is not defined.
+  corr, _ = stats.pearsonr(R_vals, log_k)
+D:\LocalProjects\Python apps\AutoResearch\experiments\breakthrough\20260326_231024\run_020\_experiment_temp.py:235: RuntimeWarning: divide by zero encountered in divide
+  ratio = R_vals / log_k
+C:\Users\User\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\numpy\lib\_function_base_impl.py:2908: RuntimeWarning: invalid value encountered in subtract
+  X -= avg[:, None]

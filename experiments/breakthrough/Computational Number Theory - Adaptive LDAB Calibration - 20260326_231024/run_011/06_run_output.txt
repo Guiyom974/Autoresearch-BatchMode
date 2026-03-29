@@ -1,0 +1,76 @@
+======================================================================
+PRIMORIAL GAP VARIANCE ANALYSIS (Artifact-Free Extraction)
+======================================================================
+
+=== Testing Hypothesis 1: Variance scales as square of mean gap ===
+k=3: P=30, φ(P)=8
+  Mean gap: 3.750000 (theory: 3.750000)
+  Variance: 2.437500 (theory: 14.062500)
+  Var / (mean)^2 = 0.173333
+
+k=4: P=210, φ(P)=48
+  Mean gap: 4.375000 (theory: 4.375000)
+  Variance: 4.442708 (theory: 19.140625)
+  Var / (mean)^2 = 0.232109
+
+k=5: P=2310, φ(P)=480
+  Mean gap: 4.812500 (theory: 4.812500)
+  Variance: 6.314844 (theory: 23.160156)
+  Var / (mean)^2 = 0.272660
+
+k=6: P=30030, φ(P)=5760
+  Mean gap: 5.213542 (theory: 5.213542)
+  Variance: 8.344678 (theory: 27.181017)
+  Var / (mean)^2 = 0.307004
+
+k=7: P=510510, φ(P)=92160
+  Mean gap: 5.539388 (theory: 5.539388)
+  Variance: 10.239529 (theory: 30.684820)
+  Var / (mean)^2 = 0.333700
+
+Variance-to-mean² ratios for k=3..7: [np.float64(0.17333333333333334), np.float64(0.23210884353741496), np.float64(0.2726598077247428), np.float64(0.30700388522566346), np.float64(0.3337001628599305)]
+Mean ratio: 0.263761, Std: 0.056603
+✗ Hypothesis 1 NOT SUPPORTED: Ratio deviates significantly from 1
+
+=== Testing Hypothesis 2: Gap distribution is geometric ===
+k=3: mean=3.7500, var=2.4375, geom_var=10.3125
+  Relative error: 76.36%
+k=4: mean=4.3750, var=4.4427, geom_var=14.7656
+  Relative error: 69.91%
+k=5: mean=4.8125, var=6.3148, geom_var=18.3477
+  Relative error: 65.58%
+k=6: mean=5.2135, var=8.3447, geom_var=21.9675
+  Relative error: 62.01%
+k=7: mean=5.5394, var=10.2395, geom_var=25.1454
+  Relative error: 59.28%
+
+✗ Hypothesis 2 NOT STRONGLY SUPPORTED: Avg rel error = 66.6%
+
+=== Testing Hypothesis 3: Variance-to-mean ratio scaling ===
+k=3: mean=3.75, var=2.44, CMF=0.65
+  CMF/mean = 0.173333 (should approach 1)
+k=4: mean=4.38, var=4.44, CMF=1.02
+  CMF/mean = 0.232109 (should approach 1)
+k=5: mean=4.81, var=6.31, CMF=1.31
+  CMF/mean = 0.272660 (should approach 1)
+k=6: mean=5.21, var=8.34, CMF=1.60
+  CMF/mean = 0.307004 (should approach 1)
+k=7: mean=5.54, var=10.24, CMF=1.85
+  CMF/mean = 0.333700 (should approach 1)
+
+CMF/mean ratios: [np.float64(0.17333333333333334), np.float64(0.23210884353741496), np.float64(0.27265980772474274), np.float64(0.3070038852256634), np.float64(0.3337001628599305)]
+✗ Hypothesis 3 NOT SUPPORTED: CMF/mean deviates from 1
+
+Saved gap distribution plot: primorial_gap_distributions.png
+======================================================================
+CONCLUSIONS:
+----------------------------------------------------------------------
+Hypothesis 1 (Var ~ mean²): NOT SUPPORTED
+  Final ratio (k=7): 0.333700 (target: 1.0)
+Hypothesis 2 (Geometric gaps): NOT SUPPORTED
+  Avg relative error: 66.63%
+Hypothesis 3 (CMF scaling): NOT SUPPORTED
+  Final CMF/mean (k=7): 0.333700 (target: 1.0)
+
+OVERALL: Some hypotheses not fully supported — further analysis needed.
+======================================================================

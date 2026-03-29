@@ -1,0 +1,18 @@
+{
+  "start_time": "2026-03-27T14:18:25.587134",
+  "mode": "standard",
+  "models": {},
+  "status": "completed",
+  "end_time": "2026-03-27T14:31:26.865963",
+  "evaluation": {
+    "summary": "Finite standard errors are not achieved for k\u22654 in float64 LDAB calibration, indicating failure to obtain finite error estimates at high indices.",
+    "breakthrough_achieved": false,
+    "confidence": 0.8,
+    "publishability_score": 0.0,
+    "next_directions": [
+      "Implement arbitrary-precision arithmetic to test error stability for large k.",
+      "Analyze overflow and underflow mechanisms in the decay calculations.",
+      "Develop alternative error parameterizations and validate against theoretical variance bounds."
+    ]
+  }
+}

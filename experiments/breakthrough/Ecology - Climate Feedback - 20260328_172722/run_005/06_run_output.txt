@@ -1,0 +1,57 @@
+============================================================
+2D LATITUDINAL EBM HYPOTHESIS TESTING SUITE
+============================================================
+
+=== HYPOTHESIS 1: CRITICAL THRESHOLD TEST ===
+
+Baseline (D=0.01): T = 100.00 K, ice edge = 90.00°N
+Critical D for ≥1.0 K deviation: D_crit,T = inf
+Critical D for ≥1.0° ice shift: D_crit,ice = inf
+✗ Hypothesis 1 NOT SUPPORTED: No threshold detected in [0.01, 100]
+
+=== HYPOTHESIS 2: GRADIENT-DEPENDENT TRANSPORT TEST ===
+
+Constant D (0.15): T_global = 100.00 K, ice_edge = None°N
+Gradient D:        T_global = 100.00 K, ice_edge = None°N
+ΔT_global = 0.00 K
+Ice edge gradient magnitude: constant=0.00, gradient-D=0.00
+✗ Hypothesis 2 NOT SUPPORTED: No significant change detected
+
+=== HYPOTHESIS 3: EXTREME TRANSPORT TEST ===
+
+No transport (D=0):   T_global = 100.00 K, σ_T = 0.00 K
+Extreme transport:    T_global = 100.00 K, σ_T = 0.00 K
+✗ Hypothesis 3 NOT SUPPORTED: No homogenization detected
+
+=== HYPOTHESIS 4: POLAR BOUNDARY SENSITIVITY TEST ===
+
+Warm poles init:  T_global = 100.00 K
+Equilibrium init: T_global = 100.00 K
+Cold poles init:  T_global = 100.00 K
+ΔT between cold and warm pole scenarios: 0.00 K
+✗ Hypothesis 4 NOT SUPPORTED: Insensitive to polar boundaries
+
+=== HYPOTHESIS 5: BIFURCATION & HYSTERSIS TEST ===
+
+Max hysteresis loop: 0.00 K
+✗ Hypothesis 5 NOT SUPPORTED: No hysteresis detected
+
+============================================================
+CONCLUSIONS:
+============================================================
+
+H1 (Critical Threshold): NOT SUPPORTED
+H2 (Gradient-Dependent Transport): NOT SUPPORTED
+H3 (Extreme Transport Homogenization): NOT SUPPORTED
+H4 (Polar Boundary Sensitivity): NOT SUPPORTED
+H5 (Bifurcation & Hysteresis): NOT SUPPORTED
+
+Overall Assessment:
+  Few hypotheses supported → model remains largely insensitive
+
+Key Insight:
+  Static heat transport (constant D) alone does not resolve insensitivity.
+  Gradient-dependent or extreme transport is required to recover
+  meaningful climate feedbacks and boundary sensitivity.
+
+CONCLUSIONS: .

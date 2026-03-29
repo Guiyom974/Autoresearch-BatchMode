@@ -1,0 +1,77 @@
+Starting primorial gap variance scaling analysis...
+============================================================
+Computing R(k) for k = 1 to 15...
+
+Raw R(k) values:
+  k= 1: R =   8.9970
+  k= 2: R =   9.0080
+  k= 3: R =   9.0208
+  k= 4: R =   9.0419
+  k= 5: R =   9.0558
+  k= 6: R =   9.0973
+  k= 7: R =   9.2789
+  k= 8: R =   9.1775
+  k= 9: R =   9.1806
+  k=10: R =   9.1648
+  k=11: R =   9.2425
+  k=12: R =   9.2100
+  k=13: R =   9.0860
+  k=14: R =   9.2911
+  k=15: R =   9.2048
+
+Fitting candidate models...
+
+Model Parameters and Information Criteria:
+--------------------------------------------------
+
+LOG model:
+  R(k) = 0.100404 * ln(k) + 8.950382
+  AIC = -36.1129
+  BIC = -34.6968
+
+POW model:
+  R(k) = 1.011075 * k^2.191805
+  AIC = -36.1432
+  BIC = -34.7271
+
+STRET model:
+  R(k) = 8.711426 * exp(0.029070 * k^0.256548)
+  AIC = -33.2890
+  BIC = -31.1649
+
+Model Comparison (ΔAIC = AIC - min(AIC), ΔBIC = BIC - min(BIC)):
+--------------------------------------------------
+  LOG: ΔAIC = 0.0303, ΔBIC = 0.0303
+  POW: ΔAIC = 0.0000, ΔBIC = 0.0000
+  STRET: ΔAIC = 2.8542, ΔBIC = 3.5623
+
+Leave-One-Out Cross-Validation Errors:
+  log: LOOCV = 0.004664
+  pow: LOOCV = 0.004639
+  stret: LOOCV = 0.003413
+
+Generating plots...
+
+============================================================
+HYPOTHESIS TESTING RESULTS
+============================================================
+
+Hypothesis 1: Logarithmic model (R(k) = a ln(k) + c) is true for k ≥ 9
+  ΔAIC (log vs pow) = 0.0303
+  ΔBIC (log vs pow) = 0.0303
+  → Evidence is inconclusive (ΔAIC/BIC between -5 and 5)
+  R² for k ≥ 9 fit: 0.0392
+  → Low R² suggests logarithmic model may not fit well
+
+Hypothesis 2: Power-law exponent ~2.6 is a finite-size artifact
+  Estimated power-law exponent: b = 2.1918
+  → Exponent remains large, power-law may be persistent
+
+============================================================
+CONCLUSIONS:
+============================================================
+Best model by BIC: POW
+✗ Evidence does not support logarithmic scaling; power-law remains plausible.
+
+Analysis based on k = 1 to 15 (extend to k > 8 as required).
+For definitive resolution, extend to k > 15 in future work.

@@ -1,0 +1,18 @@
+{
+  "start_time": "2026-03-27T00:35:41.084514",
+  "mode": "standard",
+  "models": {},
+  "status": "completed",
+  "end_time": "2026-03-27T00:47:44.014156",
+  "evaluation": {
+    "summary": "Adaptive Wasserstein weighting fails to produce consistent variance reduction as modulus size increases in high-order primorial bases",
+    "breakthrough_achieved": false,
+    "confidence": 0.5,
+    "publishability_score": 4.0,
+    "next_directions": [
+      "Investigate alternative adaptive weighting functions that better capture distributional changes in sparse coprime residue classes",
+      "Conduct a systematic statistical analysis with confidence intervals and replication across multiple random seeds to rule out artifacts",
+      "Explore hybrid weighting schemes combining variance and Wasserstein metrics, and test on larger primorial moduli beyond 30030"
+    ]
+  }
+}

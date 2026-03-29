@@ -1,0 +1,3 @@
+"empirical validation of higher-order theoretical corrections for primorial gap variance scaling", "logarithmic and power-law asymptotic models for primorial gap variance ratio R(k)", "comparison of theoretical corrections to empirical R(k) trends for k >= 6"
+Related searches:
++ [higher-order theoretical corrections primorial gap variance scaling](https://www.google.com/search?q=higher-order+theoretical+corrections+primorial+gap+variance+scaling&client=app-vertex-grounding-quora-poe)

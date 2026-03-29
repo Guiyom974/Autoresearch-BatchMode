@@ -1,0 +1,18 @@
+{
+  "start_time": "2026-03-27T13:21:45.165535",
+  "mode": "standard",
+  "models": {},
+  "status": "completed",
+  "end_time": "2026-03-27T13:34:39.756706",
+  "evaluation": {
+    "summary": "The experiment shows exponential decay of truncation error with \u03bb\u22480.8 for high-order LDAB expansions at primorial indices, but does not demonstrate novelty or impact beyond confirming known behavior.",
+    "breakthrough_achieved": false,
+    "confidence": 0.5,
+    "publishability_score": 3.0,
+    "next_directions": [
+      "Validate the \u03bb=0.8 decay across a broader range of orders and error metrics",
+      "Compare LDAB error behavior with alternative asymptotic models to assess novelty",
+      "Develop a theoretical framework linking primorial scaling to error decay to establish a new insight"
+    ]
+  }
+}

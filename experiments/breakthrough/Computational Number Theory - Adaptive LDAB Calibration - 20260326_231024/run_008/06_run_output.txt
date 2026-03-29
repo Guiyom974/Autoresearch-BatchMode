@@ -1,0 +1,34 @@
+======================================================================
+TESTING HYPOTHESES FOR 1.168 SCALING EXPONENT IN PRIMORIAL GAP VARIANCES
+======================================================================
+
+Step 1: Computing empirical gap variances for small k...
+k= 2, P_k=         6, Var=  0.3333, log P_k=  1.7918, Var/(log P_k)^1.168=  0.1687
+k= 3, P_k=        30, Var=  2.3222, log P_k=  3.4012, Var/(log P_k)^1.168=  0.5559
+k= 4, P_k=       210, Var=  7.8981, log P_k=  5.3471, Var/(log P_k)^1.168=  1.1145
+k= 5, P_k=      2310, Var= 21.1969, log P_k=  7.7450, Var/(log P_k)^1.168=  1.9404
+k= 6, P_k=     30030, Var= 47.1387, log P_k= 10.3100, Var/(log P_k)^1.168=  3.0895
+k= 7, P_k=    510510, Var= 92.4572, log P_k= 13.1432, Var/(log P_k)^1.168=  4.5635
+
+Step 2: Extrapolating variances to larger k using power-law fit...
+Power-law fit: log Var = 2.801234 + -2.666748 * log log P_k
+ => Estimated exponent B = -2.666748 (target: 1.168)
+ => Estimated constant A = 16.464949 (target: ~0.556)
+
+----------------------------------------------------------------------
+HYPOTHESIS 1: Exponent arises from low-lying Dirichlet L-function zeros
+----------------------------------------------------------------------
+Fitted model: Var = A * (log P_k)^B * (1 + C / log P_k)
+  A = nan, B = nan, C = nan
+  Exponent B = nan (target: 1.168)
+
+--- STDERR ---
+Traceback (most recent call last):
+  File "D:\LocalProjects\Python apps\AutoResearch\experiments\breakthrough\20260326_231024\run_008\_experiment_temp.py", line 237, in <module>
+    y_pred1 = hypothesis1_model(k_vals_all, A1, B1, C1)
+  File "D:\LocalProjects\Python apps\AutoResearch\experiments\breakthrough\20260326_231024\run_008\_experiment_temp.py", line 73, in hypothesis1_model
+    L = log_primorial(k)
+  File "D:\LocalProjects\Python apps\AutoResearch\experiments\breakthrough\20260326_231024\run_008\_experiment_temp.py", line 54, in log_primorial
+    return np.sum(np.log(primes[:k]))
+                         ~~~~~~^^^^
+TypeError: only integer scalar arrays can be converted to a scalar index

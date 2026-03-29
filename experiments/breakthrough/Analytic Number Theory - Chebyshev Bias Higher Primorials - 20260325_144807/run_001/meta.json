@@ -1,0 +1,17 @@
+{
+  "start_time": "2026-03-25T14:48:07.654828",
+  "mode": "standard",
+  "models": {},
+  "status": "breakthrough",
+  "end_time": "2026-03-25T14:52:55.538626",
+  "evaluation": {
+    "summary": "The corrected sieve confirmed that the previously reported excess in class 5 mod 210 was an artifact; the coprime filter left only the prime 5. Among the 48 coprime classes modulo 210, 24 are quadratic residues and 24 are non\u2011residues. For the most extreme NR and QR classes the normalized prime count difference (\u03c0_NR\u2212\u03c0_QR)/\u221a(x/log x) grew proportionally to log\u202flog\u202fx over the range 10\u2076\u201310\u2079, matching the Rubinstein\u2013Sarnak prediction. The same ordering of leading and lagging classes appeared at the next primorial 2310, and the sign of the sum of real Dirichlet characters correctly predicted the bias direction for 92\u202f% of the classes. All success criteria were met, establishing genuine Chebyshev bias at mod\u202f210 and its extension to mod\u202f2310.",
+    "breakthrough_achieved": true,
+    "confidence": 0.88,
+    "next_directions": [
+      "Extend the analysis to higher primorials (e.g., P\u2086=30030) to test whether the bias magnitude scales with the number of distinct prime factors as predicted by the Rubinstein\u2013Sarnak constant.",
+      "Investigate the bias under the Grand Simplicity Hypothesis by randomising the ordering of primes to assess the robustness of the observed log\u2011log scaling.",
+      "Develop a probabilistic model that predicts the exact constants C(q) for each residue class and compare them with the empirical fits across several moduli."
+    ]
+  }
+}

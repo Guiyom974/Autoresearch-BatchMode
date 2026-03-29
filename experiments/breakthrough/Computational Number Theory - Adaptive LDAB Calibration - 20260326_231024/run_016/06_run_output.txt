@@ -1,0 +1,75 @@
+======================================================================
+Testing Hypotheses for Logarithmic Decay in Primorial Gap Variance
+======================================================================
+
+Computing primorial gaps for k = 1 to 12...
+Summary of Primorial Gap Statistics:
+----------------------------------------------------------------------
+  k          P_k    log P_k     Mean Gap      Var Gap         R(k)
+----------------------------------------------------------------------
+  1            2     0.6931       2.0000       0.0000     0.000000
+  2            6     1.7918       3.0000       1.0000     0.111111
+  3           30     3.4012       3.7500       2.4375     0.173333
+  4          210     5.3471       4.3750       4.4427     0.232109
+  5         2310     7.7450       4.8125       6.3148     0.272660
+  6        30030    10.3100       5.2135       8.3447     0.307004
+  7       510510    13.1432       5.5394      10.2395     0.333700
+  8 9.699690e+06    16.0876       5.8471      12.2062     0.357022
+  9 2.230929e+08    19.2231       6.1129      15.0335     0.402312
+ 10 6.469693e+09    22.5904       6.3312      18.1584     0.453003
+ 11 2.005605e+11    26.0244       6.5423      21.4280     0.500638
+ 12 7.420738e+12    29.6353       6.7240      24.9461     0.551756
+----------------------------------------------------------------------
+
+HYPOTHESIS 1: R(k) follows logarithmic decay: R(k) ≈ a / (log k + b) + c
+----------------------------------------------------------------------
+Fit parameters: a = 1.000000, b = 1.000000, c = 0.000000
+R² = 0.000000
+✗ Weak support: Logarithmic model does not fit R(k) well
+
+HYPOTHESIS 2: Variance scales as (log P_k)^{1.17}
+----------------------------------------------------------------------
+Empirical scaling: Var ≈ 0.613832 * (log P_k)^1.0962
+Expected exponent: 1.17
+Estimated exponent: 1.0962
+R² for variance fit = 0.996642
+○ Moderate support: Variance scaling exponent close to 1.17
+
+HYPOTHESIS 3: Coefficient A in Var ≈ A (log P_k)^{1.17} equals 12/π² ≈ 1.21585
+----------------------------------------------------------------------
+Theoretical A = 1.215854
+Estimated A = 0.613832
+Relative error: 0.4951
+✗ Weak support: A differs significantly from 12/π²
+
+HYPOTHESIS 4: Logarithmic model improves LDAB baseline prediction
+----------------------------------------------------------------------
+Power-law model: R = 0.0614 * k^-0.8750
+Logarithmic model: R = 1.0000/(log k + 1.0000) + 0.0000
+SS_res (power-law) = 0.006197
+SS_res (logarithmic) = 1.255212
+✗ Logarithmic model does not improve over power-law
+
+HYPOTHESIS 5: R(k) > 0 for all k and decreases monotonically for k ≥ 6
+----------------------------------------------------------------------
+All R(k) > 0 for k ≥ 6: True
+R(k) monotonically decreasing for k ≥ 6: False
+○ Partial support: R(k) positive but not strictly decreasing
+
+Generating plots...
+Saved plot: R_vs_k.png
+Saved plot: var_vs_logP.png
+
+======================================================================
+CONCLUSIONS:
+======================================================================
+Hypothesis 1 (logarithmic decay of R(k)): ✗ FAIL (R²=0.000)
+Hypothesis 2 (variance scaling exponent 1.17): ✗ FAIL (b=1.096, R²=0.997)
+Hypothesis 3 (coefficient A = 12/π²): ✗ FAIL (rel err=49.5%)
+Hypothesis 4 (LDAB improvement): ✗ FAIL (SS_res: log=1.255, pl=0.006)
+Hypothesis 5 (R(k) > 0 and decreasing): ✗ FAIL
+
+OVERALL: 0/5 hypotheses supported
+The logarithmic decay model lacks sufficient empirical support.
+
+End of script.

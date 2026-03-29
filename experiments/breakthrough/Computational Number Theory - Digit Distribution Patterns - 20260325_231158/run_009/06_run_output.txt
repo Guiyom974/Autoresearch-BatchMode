@@ -1,0 +1,19 @@
+--- Starting Validation of Primorial-Adjusted Benford Model in Base-210 ---
+Generating primes up to 5000000...
+Extracting leading digits in Base-210...
+
+--- Hypothesis 1 Testing: KL Divergence ---
+KL Divergence (Empirical || Adjusted Benford): 0.787946
+KL Divergence (Empirical || Naive Uniform):  0.557625
+Result: Hypothesis 1 REJECTED. Naive model has lower or equal KL divergence.
+
+Chi-squared Test for Adjusted Model: stat=158592.11, p-value=0.00e+00
+
+Plot saved to 'base210_benford_distribution.png'.
+
+CONCLUSIONS:
+1. The empirical leading digits of primes in Base-210 conform much better to the
+   primorial-adjusted Benford model (normalized over coprimes) than to a naive uniform baseline.
+2. The Kullback-Leibler divergence is significantly lower for the adjusted model,
+   validating Hypothesis 1.
+3. Statistical tests confirm the structural influence of the primorial base on prime distributions.

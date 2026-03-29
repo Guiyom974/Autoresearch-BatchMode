@@ -1,0 +1,42 @@
+STOCHASTIC COOPERATIVE GAME THEORY HYPOTHESIS TESTER
+======================================================================
+Players: 5, Simulations per hypothesis: 2000
+======================================================================
+======================================================================
+HYPOTHESIS 1: Bounded vs Unbounded Distributions on Superadditivity
+======================================================================
+beta        : Superadditivity = 100.00%, Monotonicity = 100.00%
+dirichlet   : Superadditivity = 100.00%, Monotonicity = 100.00%
+trunc_gauss : Superadditivity = 100.00%, Monotonicity = 100.00%
+uniform     : Superadditivity = 100.00%, Monotonicity = 100.00%
+
+Statistical test (bounded vs unbounded superadditivity rates):
+  t-statistic = nan, p-value = nan
+
+Bounded mean superadditivity: 100.00%
+Unbounded mean superadditivity: 100.00%
+RESULT: HYPOTHESIS 1 NOT SUPPORTED
+
+======================================================================
+HYPOTHESIS 2: Shapley Value Concentration (Coefficient of Variation)
+======================================================================
+
+--- STDERR ---
+Traceback (most recent call last):
+  File "D:\LocalProjects\Python apps\AutoResearch\experiments\breakthrough\Game Theory - Cooperative Games - 20260328_193256\run_004\_experiment_temp.py", line 408, in <module>
+    main()
+    ~~~~^^
+  File "D:\LocalProjects\Python apps\AutoResearch\experiments\breakthrough\Game Theory - Cooperative Games - 20260328_193256\run_004\_experiment_temp.py", line 385, in main
+    results_h2 = test_hypothesis_2()
+  File "D:\LocalProjects\Python apps\AutoResearch\experiments\breakthrough\Game Theory - Cooperative Games - 20260328_193256\run_004\_experiment_temp.py", line 204, in test_hypothesis_2
+    _, var_shapley, _, _ = compute_shapley_stats(weights)
+                           ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "D:\LocalProjects\Python apps\AutoResearch\experiments\breakthrough\Game Theory - Cooperative Games - 20260328_193256\run_004\_experiment_temp.py", line 138, in compute_shapley_stats
+    shapley_vals[idx] = compute_shapley(w)
+                        ~~~~~~~~~~~~~~~^^^
+  File "D:\LocalProjects\Python apps\AutoResearch\experiments\breakthrough\Game Theory - Cooperative Games - 20260328_193256\run_004\_experiment_temp.py", line 82, in compute_shapley
+    weight = (np.math.factorial(size_S) * np.math.factorial(n - size_S - 1)) / np.math.factorial(n)
+              ^^^^^^^
+  File "C:\Users\User\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\numpy\__init__.py", line 808, in __getattr__
+    raise AttributeError(f"module {__name__!r} has no attribute {attr!r}")
+AttributeError: module 'numpy' has no attribute 'math'. Did you mean: 'emath'?

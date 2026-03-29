@@ -1,0 +1,18 @@
+{
+  "start_time": "2026-03-28T19:50:37.225805",
+  "mode": "standard",
+  "models": {},
+  "status": "completed",
+  "end_time": "2026-03-28T20:23:30.222222",
+  "evaluation": {
+    "summary": "The experiment crashed while generating coalition subsets, so no data on Shapley value distributions could be obtained.",
+    "breakthrough_achieved": false,
+    "confidence": 0.4,
+    "publishability_score": 0.0,
+    "next_directions": [
+      "Check that N_PLAYERS is defined and has a valid integer value before generating subsets.",
+      "Add defensive programming to handle edge cases in generate_coalition_values.",
+      "Run a minimal test with a small number of players to isolate the failure."
+    ]
+  }
+}

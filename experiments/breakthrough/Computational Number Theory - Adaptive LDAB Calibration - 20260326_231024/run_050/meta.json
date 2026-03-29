@@ -1,0 +1,18 @@
+{
+  "start_time": "2026-03-27T15:36:02.096897",
+  "mode": "standard",
+  "models": {},
+  "status": "completed",
+  "end_time": "2026-03-27T15:46:00.956994",
+  "evaluation": {
+    "summary": "At k=16 the double and extended-precision terms are identical, suggesting the 64\u2011bit precision collapse is not caused by the log\u2011gamma term.",
+    "breakthrough_achieved": false,
+    "confidence": 0.5,
+    "publishability_score": 3.0,
+    "next_directions": [
+      "Extend the analysis to higher k values to locate where the mantissa-bit loss occurs.",
+      "Investigate hardware-specific rounding and extended-precision library implementations for possible hidden artifacts.",
+      "Perform a systematic comparison of LDAB calibration against alternative models to identify the true source of the 10\u2011bit collapse."
+    ]
+  }
+}

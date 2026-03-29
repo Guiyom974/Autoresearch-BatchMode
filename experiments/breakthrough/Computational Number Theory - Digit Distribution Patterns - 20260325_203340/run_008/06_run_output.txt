@@ -1,0 +1,6 @@
+
+--- STDERR ---
+  File "D:\LocalProjects\Python apps\AutoResearch\experiments\breakthrough\20260325_203340\run_008\_experiment_temp.py", line 1
+    !@#$
+    ^
+SyntaxError: invalid syntax

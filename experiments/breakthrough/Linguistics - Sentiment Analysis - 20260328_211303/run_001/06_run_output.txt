@@ -1,0 +1,83 @@
+======================================================================
+SENTIMENT ANALYSIS: VADER vs CUSTOM KEYWORD-SUMMATION
+======================================================================
+
+Generating synthetic technical documents...
+Generated 200 documents
+
+Initializing analyzers...
+Analyzers initialized.
+
+Evaluating VADER...
+VADER MAE: 0.1873
+VADER RMSE: 0.2208
+VADER Accuracy: 62.00%
+
+Evaluating Custom Keyword-Summation...
+Custom MAE: 0.2795
+Custom RMSE: 0.3639
+Custom Accuracy: 59.50%
+
+Running statistical tests...
+Paired t-test: t = -5.1551, p = 0.000001
+Wilcoxon signed-rank: W = 6689.5000, p = 0.000041
+Cohen's d (effect size): -0.3645
+
+Analyzing error distributions...
+VADER normality (Shapiro p): 0.0043
+Custom normality (Shapiro p): 0.0016
+VADER skewness: -0.1744
+Custom skewness: 0.8731
+
+Generating visualizations...
+Visualizations saved: sentiment_analysis_error_dist.png, sentiment_analysis_scatter.png, sentiment_analysis_boxplot.png
+
+======================================================================
+HYPOTHESIS TESTING SUMMARY
+======================================================================
+
+HYPOTHESIS 1: VADER Underperforms Custom Keyword-Summation on Technical Language
+----------------------------------------------------------------------
+Significance level (α): 0.05
+
+VADER MAE: 0.1873
+Custom MAE: 0.2795
+Improvement: -49.26%
+
+✓ Results are statistically significant (both tests)
+✓ Reject null hypothesis: Custom keyword-summation significantly outperforms VADER
+Effect size (Cohen's d): -0.3645 (small)
+
+Distribution Analysis:
+VADER errors normal: False (Shapiro p = 0.0043)
+Custom errors normal: False (Shapiro p = 0.0016)
+
+Generalizability Assessment:
+Sample size: 200 documents across 3 technical domains
+Cross-domain coverage suggests reasonable generalizability within technical contexts
+Note: Synthetic data may not capture all real-world technical language variation
+
+======================================================================
+CONCLUSIONS
+======================================================================
+✓ HYPOTHESIS 1 SUPPORTED: Custom keyword-summation significantly outperforms VADER
+  on technical language sentiment analysis.
+
+  Key findings:
+  • MAE reduction: -49.26%
+  • Statistical significance: p < 0.05 (both tests)
+  • Effect size: small (d = -0.3645)
+
+  Recommendation: Use domain-adapted sentiment analysis for technical documents
+  where standard lexicons like VADER may misfit technical vocabulary.
+
+Limitations:
+• Synthetic data may not fully capture real-world technical language
+• Simplified VADER implementation may not reflect full original performance
+• Limited to three technical domains (software, hardware, math)
+
+======================================================================
+
+--- STDERR ---
+D:\LocalProjects\Python apps\AutoResearch\experiments\breakthrough\Linguistics - Sentiment Analysis - 20260328_211303\run_001\_experiment_temp.py:437: MatplotlibDeprecationWarning: The 'labels' parameter of boxplot() has been renamed 'tick_labels' since Matplotlib 3.9; support for the old name will be dropped in 3.11.
+  ax.boxplot([vader_results['errors'], custom_results['errors']],

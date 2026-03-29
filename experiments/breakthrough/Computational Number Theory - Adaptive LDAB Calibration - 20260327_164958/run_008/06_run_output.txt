@@ -1,0 +1,26 @@
+================================================================================
+Testing LDAB Correction Factor Anomalies at k=7 (x=510510)
+================================================================================
+
+### HYPOTHESIS 3 TEST: Zero relative error at k=7 is FP artifact ###
+Testing if c_emp(x=510510) relative error is exactly zero due to FP cancellation
+k= 1, x=        2, c_fp64=1.6534264097200273e+00, rel_err=0.00e+00
+k= 2, x=        6, ERROR: integer modulo by zero
+k= 3, x=       30, ERROR: integer modulo by zero
+k= 4, x=      210, ERROR: integer modulo by zero
+k= 5, x=     2310, ERROR: integer modulo by zero
+k= 6, x=    30030, ERROR: integer modulo by zero
+k= 7, x=   510510, ERROR: integer modulo by zero
+k= 8, x=  9699690, ERROR: integer modulo by zero
+k= 9, x=223092870, ERROR: integer modulo by zero
+k=10, x=6469693230, ERROR: integer modulo by zero
+
+--- STDERR ---
+Traceback (most recent call last):
+  File "D:\LocalProjects\Python apps\AutoResearch\experiments\breakthrough\20260327_164958\run_008\_experiment_temp.py", line 385, in <module>
+    main()
+    ~~~~^^
+  File "D:\LocalProjects\Python apps\AutoResearch\experiments\breakthrough\20260327_164958\run_008\_experiment_temp.py", line 206, in main
+    k7_high = results_high[6][2]
+              ~~~~~~~~~~~~^^^
+IndexError: list index out of range

@@ -1,0 +1,66 @@
+
+=== RUNNING HYPOTHESIS TESTS ===
+
+Isolated albedo feedback (no clouds):
+  Ice extent vs. dT power-law fit: α = nan, k = nan
+Coupled albedo + cloud feedback:
+  Ice extent vs. dT power-law fit: α = nan, k = nan
+
+--- HYPOTHESIS 1: Cloud Feedback Dampens Power-Law Exponent ---
+Null hypothesis H0: α_coupled ≥ 2.3
+Alternative H1: α_coupled < 2.3
+
+--- HYPOTHESIS 2: Cloud Feedback Reduces Warming for Fixed Ice Loss ---
+  At fixed ice extent = 0.50:
+    dT (no clouds) = -50.00 K
+    dT (with clouds) = -45.94 K
+    ΔdT = 4.06 K
+
+--- HYPOTHESIS 3: Cloud Feedback Alters Sensitivity (d(dT)/d(ice)) ---
+
+--- HYPOTHESIS 4: Cloud Feedback Introduces Nonlinearity ---
+  R² (no clouds): nan
+  R² (with clouds): nan
+
+--- HYPOTHESIS 5: Cloud Feedback Introduces Threshold Behavior ---
+
+--- GENERATING PLOTS ---
+  Plots saved: fig_dT_vs_ice.png, fig_residuals.png, fig_cloud_temp.png
+
+============================================================
+HYPOTHESIS TEST SUMMARY
+============================================================
+
+H1 (Dampening):
+  α_coupled = nan vs. α_iso = nan
+  Cloud feedback significantly reduces exponent? NO
+  Within predicted range [1.6, 2.0]? NO
+
+H2 (Reduced warming):
+  At fixed ice = 0.5, ΔdT = 4.06 K
+  Significant reduction? NO
+
+H3 (Sensitivity change):
+  |dT/d(ice)| increased? NO
+  Significant? NO
+
+H4 (Nonlinearity):
+  R² improved with clouds? NO
+  Quadratic term significant? NO
+
+H5 (Thresholds):
+  More inflection points with clouds? NO
+  Loss of monotonicity? NO
+
+============================================================
+CONCLUSIONS:
+============================================================
+✗ H1 not supported: Cloud feedback does not significantly reduce the exponent.
+✗ H2 not supported: Cloud feedback does not significantly reduce warming.
+✗ H3 not supported: Cloud feedback does not significantly alter sensitivity.
+✗ H4 not supported: Power-law fit remains adequate with clouds.
+✗ H5 not supported: No evidence of new thresholds from cloud feedback.
+
+Note: All tests use simulated data with measurement uncertainty (σ=0.05 K).
+Model assumptions: Linear ice-albedo transition, logistic cloud formation.
+============================================================

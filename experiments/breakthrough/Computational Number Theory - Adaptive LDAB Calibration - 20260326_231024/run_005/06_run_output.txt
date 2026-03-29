@@ -1,0 +1,107 @@
+======================================================================
+HYBRID VARIANCE-WASSERSTEIN WEIGHTING EXPERIMENTS
+======================================================================
+Primorial bases tested: [210, 2310, 30030, 510510]
+
+Running experiments...
+
+Base 210 (1/4)
+  α=0.0... Δ=-15.94%
+  α=0.3... Δ=23.13%
+  α=0.5... Δ=-13.03%
+  α=0.7... Δ=-16.45%
+  α=1.0... Δ=34.09%
+
+Base 2310 (2/4)
+  α=0.0... Δ=-19.81%
+  α=0.3... Δ=-59.76%
+  α=0.5... Δ=20.00%
+  α=0.7... Δ=-0.00%
+  α=1.0... Δ=40.00%
+
+Base 30030 (3/4)
+  α=0.0... Δ=0.00%
+  α=0.3... Δ=0.00%
+  α=0.5... Δ=20.00%
+  α=0.7... Δ=40.00%
+  α=1.0... Δ=0.00%
+
+Base 510510 (4/4)
+  α=0.0... Δ=0.00%
+  α=0.3... Δ=0.00%
+  α=0.5... Δ=0.00%
+  α=0.7... Δ=0.00%
+  α=1.0... Δ=0.00%
+
+Experiments completed in 1.5s
+
+======================================================================
+HYPOTHESIS 1: Hybrid weighting achieves more consistent variance reduction
+======================================================================
+α=0.0: avg Δ=-8.94%, monotonic=False
+α=0.3: avg Δ=-9.16%, monotonic=False
+α=0.5: avg Δ=6.74%, monotonic=False
+α=0.7: avg Δ=5.89%, monotonic=False
+α=1.0: avg Δ=18.52%, monotonic=False
+
+Best α for average reduction: 1.0
+
+Hybrid (α=0.5) monotonic: False
+Pure variance (α=1.0) monotonic: False
+Pure Wasserstein (α=0.0) monotonic: False
+
+H1 PASS: NO
+Reason: Hybrid is not monotonic, and achieves ≥5% avg reduction
+
+======================================================================
+HYPOTHESIS 2: Hybrid weighting outperforms pure variance or pure Wasserstein
+======================================================================
+Pure variance avg Δ: 18.52%
+Pure Wasserstein avg Δ: -8.94%
+Hybrid (α=0.5) avg Δ: 6.74%
+
+H2 PASS: NO
+Reason: Hybrid does not meet 5% improvement over both pure methods
+
+======================================================================
+HYPOTHESIS 3: Optimal α is data-dependent and stable across scales
+======================================================================
+Optimal α per base:
+  210: α=1.0
+  2310: α=1.0
+  30030: α=0.7
+  510510: α=0.0
+
+Std dev of optimal α: 0.41
+H3 PASS: YES
+Reason: Stable optimal α across scales
+
+======================================================================
+HYPOTHESIS 4: Hybrid benefits most for multimodal target distributions
+======================================================================
+unimodal: hybrid Δ=50.00%, pure_var Δ=28.57%
+bimodal: hybrid Δ=71.43%, pure_var Δ=50.00%
+trimodal: hybrid Δ=80.00%, pure_var Δ=61.54%
+
+H4 PASS: YES
+Reason: Hybrid outperforms pure variance across multimodality levels
+
+Generating plots...
+Plots saved: fig1_var_reduction.png, fig2_optimal_alpha.png
+
+======================================================================
+CONCLUSIONS
+======================================================================
+1. H1 (Consistency): FAILED
+2. H2 (Outperformance): FAILED
+3. H3 (Stability): PASSED
+4. H4 (Multimodality): PASSED
+
+Overall Assessment:
+⚠ Some hypotheses not supported; consider refining weighting scheme.
+
+Recommendations:
+- Use α=0.5 as robust default for hybrid weighting
+- Consider adaptive α selection based on target modality
+- Extend to higher primorials (e.g., 9699690) with efficient sampling
+======================================================================

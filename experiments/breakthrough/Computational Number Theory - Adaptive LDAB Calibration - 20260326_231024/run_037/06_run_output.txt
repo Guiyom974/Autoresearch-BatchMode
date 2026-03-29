@@ -1,0 +1,62 @@
+================================================================================
+HIGH-PRECISION LDAB CALIBRATION ANOMALY INVESTIGATION
+================================================================================
+=== TESTING HYPOTHESIS 1: Premature Overflow from Unguarded Factorial/Gamma Computations ===
+Failure detected at k = 5
+Results summary:
+  k= 1: logP=0.69, log_binom=0.69, overflow=False
+  k= 2: logP=1.79, log_binom=3.00, overflow=False
+  k= 3: logP=3.40, log_binom=18.86, overflow=False
+  k= 4: logP=5.35, log_binom=142.66, overflow=False
+  k= 5: logP=7.75, log_binom=1597.07, overflow=True
+  k= 6: logP=10.31, log_binom=20809.83, overflow=True
+  k= 7: logP=13.14, log_binom=353851.77, overflow=True
+  k= 8: logP=16.09, log_binom=6723304.51, overflow=True
+  k= 9: logP=19.22, log_binom=154636184.01, overflow=True
+  k=10: logP=22.59, log_binom=4484449609.94, overflow=True
+  k=11: logP=26.02, log_binom=139017938252.09, overflow=True
+  k=12: logP=29.64, log_binom=5143663715802.19, overflow=True
+  k=13: logP=33.35, log_binom=210890212348488.00, overflow=True
+  k=14: logP=37.11, log_binom=9068279130985792.00, overflow=True
+  k=15: logP=40.96, log_binom=426209119156330496.00, overflow=True
+HYPOTHESIS 1 REJECTED: Failure occurs at k=5 ≠ 13.
+
+=== TESTING HYPOTHESIS 2: Library Gamma Function Precision Limits ===
+P(12) = 7420738134810
+P(13) = 304250263527210
+  val=3.71e+12, gammaln=103675698189089.1, overflow=False
+  val=7.42e+12, gammaln=212495060094008.6, overflow=False
+  val=1.52e+14, gammaln=4815631265714229.0, overflow=False
+  val=3.04e+14, gammaln=9842152743776978.0, overflow=False
+HYPOTHESIS 2 REJECTED: Gamma function handles k=13 scale without overflow.
+
+=== TESTING HYPOTHESIS 3: Intermediate Power Computation Overflow ===
+  k= 1: θ^k=5.000e-01, exp(k log θ)=5.000e-01, overflow=False, underflow=False
+  k= 2: θ^k=2.500e-01, exp(k log θ)=2.500e-01, overflow=False, underflow=False
+  k= 3: θ^k=1.250e-01, exp(k log θ)=1.250e-01, overflow=False, underflow=False
+  k= 4: θ^k=6.250e-02, exp(k log θ)=6.250e-02, overflow=False, underflow=False
+  k= 5: θ^k=3.125e-02, exp(k log θ)=3.125e-02, overflow=False, underflow=False
+  k= 6: θ^k=1.562e-02, exp(k log θ)=1.563e-02, overflow=False, underflow=False
+  k= 7: θ^k=7.812e-03, exp(k log θ)=7.813e-03, overflow=False, underflow=False
+  k= 8: θ^k=3.906e-03, exp(k log θ)=3.906e-03, overflow=False, underflow=False
+  k= 9: θ^k=1.953e-03, exp(k log θ)=1.953e-03, overflow=False, underflow=False
+  k=10: θ^k=9.766e-04, exp(k log θ)=9.766e-04, overflow=False, underflow=False
+  k=11: θ^k=4.883e-04, exp(k log θ)=4.883e-04, overflow=False, underflow=False
+  k=12: θ^k=2.441e-04, exp(k log θ)=2.441e-04, overflow=False, underflow=False
+  k=13: θ^k=1.221e-04, exp(k log θ)=1.221e-04, overflow=False, underflow=False
+  k=14: θ^k=6.104e-05, exp(k log θ)=6.104e-05, overflow=False, underflow=False
+  k=15: θ^k=3.052e-05, exp(k log θ)=3.052e-05, overflow=False, underflow=False
+HYPOTHESIS 3 REJECTED: No underflow/overflow in power computations up to k=15.
+
+[Plot saved to overflow_analysis.png]
+
+================================================================================
+CONCLUSIONS:
+================================================================================
+H1 (Factorial/Gamma overflow):  REJECTED
+H2 (Library gamma function limits):  REJECTED
+H3 (Power computation overflow):  REJECTED
+
+Recommendation: Use log-space computations (gammaln, log-sum-exp) to avoid premature overflow.
+The anomaly at k=13 is likely due to unguarded combinatorial terms in linear space.
+================================================================================

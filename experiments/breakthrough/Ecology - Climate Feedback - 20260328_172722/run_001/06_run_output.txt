@@ -1,0 +1,68 @@
+ICE-ALBEDO FEEDBACK SIMULATION & HYPOTHESIS TESTING
+======================================================================
+Model: 1D Energy Balance with Power-Law Albedo Feedback
+======================================================================
+======================================================================
+HYPOTHESIS 1: Feedback strength follows power-law distribution
+======================================================================
+
+Fitted power-law model: ΔR = 2.0008 × (1−f_ice)^2.299
+Expected exponent (α): 2.3 ± 0.4
+Estimated exponent: 2.299 ± 0.002
+Z-score vs expected: -0.00
+P-value for exponent deviation: 0.9977
+Goodness-of-fit R²: 0.9950, p-value: 0.0000e+00
+
+H1 PASSED (exponent within 95% CI): YES
+
+======================================================================
+HYPOTHESIS 2: Feedback deviates from null (no-feedback baseline)
+======================================================================
+
+Mean ΔR (alternative): 0.6655 W/m²
+Std ΔR: 0.5253 W/m²
+Cohen's d (effect size): 1.267
+
+One-sample t-test vs null (ΔR=0):
+  t-statistic = 126.6822, p-value = 0.0000e+00
+
+Two-sample KS test:
+  D-statistic = 1.0000, p-value = 0.0000e+00
+
+H2 PASSED (significant deviation from null): YES
+
+======================================================================
+HYPOTHESIS 3: Results generalize across spatial scales
+======================================================================
+
+Scale-specific results:
+  local   : α = 2.300 ± 0.4, p = 0.9996, R² = 0.9988
+  regional: α = 2.302 ± 0.4, p = 0.9965, R² = 0.9962
+  global  : α = 2.295 ± 0.4, p = 0.9908, R² = 0.9927
+
+Homogeneity test (exponents across scales):
+  χ² = 2.000, df = 2, p = 0.3679
+
+H3 PASSED (consistent across scales): YES
+
+======================================================================
+CONCLUSIONS
+======================================================================
+Hypothesis 1 (Power-law): PASSED
+  - Exponent estimate: 2.299 (expected: 2.3±0.4)
+  - Goodness-of-fit R²: 0.9950
+
+Hypothesis 2 (Deviation from null): PASSED
+  - Mean ΔR: 0.665 W/m²
+  - Effect size (Cohen's d): 1.267
+
+Hypothesis 3 (Scale generalization): PASSED
+  - Exponents by scale: {'local': 2.299806509195376, 'regional': 2.301739005653669, 'global': 2.295387746240406}
+
+OVERALL: ALL HYPOTHESES SUPPORTED
+
+Interpretation:
+The ice-albedo feedback in the 1D energy balance model behaves as predicted:
+- Follows power-law scaling with α ≈ 2.3
+- Significantly deviates from zero-feedback baseline
+- Generalizes consistently across observation scales

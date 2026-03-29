@@ -1,0 +1,30 @@
+======================================================================
+Testing Hypothesis 1: Analytic Predictor for Correction Factor
+======================================================================
+Generating primes up to 2,000,000...
+Found 148,710 primes.
+
+--- Base 210 ---
+Computing empirical c(t) with window size 5000...
+
+Runtime: 0.1 seconds
+
+--- STDERR ---
+
+⚠️  ERROR: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+Traceback (most recent call last):
+  File "D:\LocalProjects\Python apps\AutoResearch\experiments\breakthrough\20260327_164958\run_001\_experiment_temp.py", line 322, in <module>
+    main()
+    ~~~~^^
+  File "D:\LocalProjects\Python apps\AutoResearch\experiments\breakthrough\20260327_164958\run_001\_experiment_temp.py", line 209, in main
+    t_vals, c_emp_vals = compute_ct_series(primes, base, window_size)
+                         ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\LocalProjects\Python apps\AutoResearch\experiments\breakthrough\20260327_164958\run_001\_experiment_temp.py", line 154, in compute_ct_series
+    c = empirical_c(window, base)
+  File "D:\LocalProjects\Python apps\AutoResearch\experiments\breakthrough\20260327_164958\run_001\_experiment_temp.py", line 121, in empirical_c
+    ldab_probs = np.exp(ldab_log_density(x_vals, base))
+                        ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^
+  File "D:\LocalProjects\Python apps\AutoResearch\experiments\breakthrough\20260327_164958\run_001\_experiment_temp.py", line 77, in ldab_log_density
+    if x < 1 or x >= base:
+       ^^^^^
+ValueError: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()

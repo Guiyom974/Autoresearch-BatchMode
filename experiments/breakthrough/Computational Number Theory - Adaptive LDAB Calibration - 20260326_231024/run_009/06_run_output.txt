@@ -1,0 +1,53 @@
+=== Primorial Gap Variance Scaling Test ===
+Testing H1–H5 hypotheses with extended computations
+--------------------------------------------------
+Computing primes up to ~511,855 (for k ≤ 8)
+Generated 42,433 primes up to 511,855
+k= 2, P_k=         2, logP=  0.693, var=      0.0000, gaps=0
+k= 3, P_k=         6, logP=  1.792, var=      0.0000, gaps=2
+k= 4, P_k=        30, logP=  3.401, var=      0.0000, gaps=2
+k= 5, P_k=       210, logP=  5.347, var=     25.0000, gaps=2
+k= 6, P_k=     2,310, logP=  7.745, var=      0.0000, gaps=2
+k= 7, P_k=    30,030, logP= 10.310, var=     64.0000, gaps=2
+k= 8, P_k=   510,510, logP= 13.143, var=     25.0000, gaps=2
+
+--- H1: Power-log fit (Var = A (logP)^α (loglogP)^β) ---
+A = nan, α = nan, β = nan
+Residual sum of squares: nan
+H1: β ≠ 0? REJECT (β ≈ nan)
+
+--- H2: Simple power law (Var = A (logP)^α) fit ---
+α_simple = nan
+SS_simple = nan, SS_full = nan
+F-statistic (1, 1 df) = inf
+H2: Simple power law sufficient? REJECT (prefer power-log)
+
+--- H3: Exponent α in [1.3,1.5]? ---
+α = nan ∈ [1.3,1.5]? REJECT
+
+--- H4: Low-k (k<5) data deviate from trend? ---
+Low-k mean |res| = nan, high-k mean |res| = nan
+H4: Low-k data more deviant? REJECT
+
+--- H5: Variance values exceed double-precision? ---
+H5: Double precision sufficient for log P_k up to k=100? ACCEPT (logP safe in double)
+Note: Primorial values themselves overflow, but logs do not.
+
+Generating plot: variance vs logP with fitted model...
+Saved plot to primorial_gap_variance.png
+
+============================================================
+CONCLUSIONS:
+------------------------------------------------------------
+H1 (power-log model): REJECTED
+H2 (simple power law): REJECTED (power-log superior)
+H3 (α ∈ [1.3,1.5]): REJECTED
+H4 (low-k artefacts): REJECTED
+H5 (precision): ACCEPTED (double precision sufficient for log P_k)
+------------------------------------------------------------
+Best-fit model: Var(P_k) = nan (log P_k)^nan (log log P_k)^nan
+============================================================
+
+--- STDERR ---
+D:\LocalProjects\Python apps\AutoResearch\experiments\breakthrough\20260326_231024\run_009\_experiment_temp.py:170: RuntimeWarning: divide by zero encountered in log
+  y = np.log(var_vals)

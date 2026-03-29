@@ -1,0 +1,18 @@
+{
+  "start_time": "2026-03-28T20:42:19.360156",
+  "mode": "standard",
+  "models": {},
+  "status": "completed",
+  "end_time": "2026-03-28T20:58:35.125136",
+  "evaluation": {
+    "summary": "All tested distributions produced 100% superadditivity and monotonicity with no statistical difference, indicating no new insight.",
+    "breakthrough_achieved": false,
+    "confidence": 0.6,
+    "publishability_score": 2.0,
+    "next_directions": [
+      "Examine variability in player power weight distributions beyond current deterministic bounds.",
+      "Develop analytical criteria to detect superadditivity under non\u2011trivial stochastic weight models.",
+      "Compare with alternative cooperative solution concepts such as the Shapley value under stochastic weights."
+    ]
+  }
+}

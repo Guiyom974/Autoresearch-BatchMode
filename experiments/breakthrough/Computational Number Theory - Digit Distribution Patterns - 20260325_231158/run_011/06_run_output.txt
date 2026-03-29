@@ -1,0 +1,18 @@
+=== Research Problem: Logarithmic Density Corrections for Leading Digit Distributions in Base-210 ===
+
+Generating primes up to 10000000...
+Found 664579 primes.
+
+Computing leading digits in Base-210...
+Computing LDAB expectations...
+Evaluating Hypothesis 1: LDAB outperforms standard Benford's Law
+KL Divergence (Observed || Standard Benford): 0.511451
+KL Divergence (Observed || LDAB):             0.000034
+-> Hypothesis 1 ACCEPTED: LDAB model is closer to the observed distribution than standard Benford's Law.
+
+Plot saved to 'base210_leading_digits.png'.
+
+CONCLUSIONS:
+1. Standard Benford's Law assumes a continuous scale invariant distribution, which fails to accurately capture the discrete, density-varying nature of primes in large primorial bases like Base-210.
+2. The Logarithmic-Density-Adjusted Benford (LDAB) model integrates the prime number theorem (1/ln(x)) directly over the digit intervals, significantly reducing the KL divergence compared to standard Benford.
+3. By accounting for the strict upper bound of the dataset and the natural thinning of primes, LDAB provides a much more robust theoretical model for leading digit distributions in primorial bases.

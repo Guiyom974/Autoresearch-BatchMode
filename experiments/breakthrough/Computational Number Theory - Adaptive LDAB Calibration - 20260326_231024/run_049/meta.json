@@ -1,0 +1,18 @@
+{
+  "start_time": "2026-03-27T15:20:05.186303",
+  "mode": "standard",
+  "models": {},
+  "status": "completed",
+  "end_time": "2026-03-27T15:31:50.498397",
+  "evaluation": {
+    "summary": "The LDAB calibration precision collapses to 10 bits at primorial index k=16, but the cause of this 64-bit truncation error remains unknown.",
+    "breakthrough_achieved": false,
+    "confidence": 0.5,
+    "publishability_score": 3.0,
+    "next_directions": [
+      "Perform controlled experiments with extended precision arithmetic to isolate truncation sources",
+      "Examine hardware and software interactions at primorial indices",
+      "Develop theoretical models of error propagation in LDAB calibration"
+    ]
+  }
+}

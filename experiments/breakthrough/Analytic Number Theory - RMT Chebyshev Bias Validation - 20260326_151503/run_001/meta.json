@@ -1,0 +1,13 @@
+{
+  "start_time": "2026-03-26T15:15:03.406735",
+  "mode": "standard",
+  "models": {},
+  "status": "completed",
+  "end_time": "2026-03-26T15:16:53.701836",
+  "evaluation": {
+    "summary": "Evaluation unavailable",
+    "breakthrough_achieved": false,
+    "confidence": 0.0,
+    "next_directions": []
+  }
+}

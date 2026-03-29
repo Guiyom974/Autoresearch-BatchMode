@@ -1,0 +1,17 @@
+{
+  "start_time": "2026-03-26T13:11:48.480705",
+  "mode": "standard",
+  "models": {},
+  "status": "completed",
+  "end_time": "2026-03-26T13:17:57.139415",
+  "evaluation": {
+    "summary": "The pipeline detected a strong Chebyshev bias modulo 210, with non-residue classes showing a pronounced bias over quadratic residue classes, though full RMT validation remains pending.",
+    "breakthrough_achieved": false,
+    "confidence": 0.65,
+    "next_directions": [
+      "Obtain LMFDB L-function zeros to compare observed variance with RMT predictions.",
+      "Extend the analysis to higher moduli (e.g., 2310) and higher-order LDAB tests.",
+      "Integrate machine learning techniques to automate bias pattern detection across larger prime datasets."
+    ]
+  }
+}

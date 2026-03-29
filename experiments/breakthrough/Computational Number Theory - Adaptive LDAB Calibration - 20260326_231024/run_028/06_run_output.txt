@@ -1,0 +1,80 @@
+======================================================================
+Testing HYPOTHESES for Primorial Gap VMR Scaling (k >= 9)
+======================================================================
+
+[H-1] Testing stability of VMR scaling exponent for k >= 9
+----------------------------------------------------------------------
+k= 1: VMR=      6.2156, mean=  1.0476e+01, var=  6.5112e+01
+k= 2: VMR=     13.6766, mean=  2.2522e+01, var=  3.0802e+02
+k= 3: VMR=     63.7221, mean=  1.0210e+02, var=  6.5058e+03
+k= 4: VMR=    452.5456, mean=  7.0766e+02, var=  3.2025e+05
+k= 5: VMR=   5667.4372, mean=  8.2656e+03, var=  4.6845e+07
+k= 6: VMR=  81529.9538, mean=  1.1413e+05, var=  9.3052e+09
+k= 7: VMR=1436196.0787, mean=  2.0461e+06, var=  2.9386e+12
+k= 8: VMR=      1.6584, mean=  1.5604e+08, var=  2.5879e+08
+k= 9: VMR=      1.7357, mean=  4.2885e+09, var=  7.4436e+09
+k=10: VMR=      1.9331, mean=  1.4615e+11, var=  2.8253e+11
+k=11: VMR=      2.0145, mean=  5.2195e+12, var=  1.0515e+13
+k=12: VMR=      2.2134, mean=  2.1992e+14, var=  4.8676e+14
+
+Power-law fit (k=1..12): VMR = 154.4266 * k^-0.421, R²=0.0046
+Power-law fit (k>=9):   VMR = 0.2982 * k^0.804, R²=0.9771
+
+H-1 VERDICT: gamma_late = 0.804, target = 0.630
+  |gamma - target|/target = 27.648% > 5%
+  → FAIL: exponent stability hypothesis
+
+======================================================================
+[H-2] Testing monotonic growth of VMR(k) for k >= 9
+----------------------------------------------------------------------
+VMR values for k>=9: [np.float64(1.74), np.float64(1.93), np.float64(2.01), np.float64(2.21)]
+Monotonic increasing? YES
+
+H-2 VERDICT: PASS: VMR(k) is monotonically increasing for k>=9
+
+======================================================================
+[H-3] Testing asymptotic VMR(k) / k^γ → constant
+----------------------------------------------------------------------
+Ratios VMR/k^γ for k>=9: [np.float64(0.2965), np.float64(0.3034), np.float64(0.2929), np.float64(0.3001)]
+Mean ratio = 0.2982, CV = 1.523%
+
+H-3 VERDICT: CV=1.523% < 15%
+  → PASS: ratio approaches constant
+
+======================================================================
+[H-4] Testing linearity of log-VMR vs log k for k>=9
+----------------------------------------------------------------------
+Linear fit: log(VMR) = -1.2100 + 0.804 * log(k)
+R² = 0.9771
+
+H-4 VERDICT: R²=0.9771 >= 0.95
+  → PASS: log-log linearity supports power law
+
+======================================================================
+[H-5] Testing relation γ = 2 - α with α ≈ 1.37
+----------------------------------------------------------------------
+Expected γ = 2 - 1.37 = 0.630
+Fitted γ = 0.804
+Difference = 0.174 > 0.10
+
+H-5 VERDICT: FAIL: γ matches theoretical relation
+
+======================================================================
+Generating VMR scaling plot...
+----------------------------------------------------------------------
+Plot saved to vmr_scaling.png
+
+======================================================================
+CONCLUSIONS
+======================================================================
+H-1 (exponent stability):     FAIL
+H-2 (monotonic VMR growth):   PASS
+H-3 (asymptotic constancy):   PASS
+H-4 (log-log linearity):      PASS
+H-5 (theoretical relation):   FAIL
+
+Overall: SOME HYPOTHESES REJECTED
+
+Note: Scaling behavior deviates from simple power law; higher k needed.
+
+======================================================================

@@ -1,0 +1,93 @@
+======================================================================
+HYBRID VADER + DOMAIN LEXICON SENTIMENT ANALYSIS TEST
+======================================================================
+
+[1/5] Generating synthetic technical corpus...
+    Generated 200 technical documents.
+
+[2/5] Building domain-specific technical lexicon...
+    Lexicon contains 31 technical terms.
+
+[3/5] Initializing VADER models...
+    Baseline VADER and Hybrid VADER initialized.
+
+[4/5] Analyzing documents...
+    Baseline VADER MAE: 0.7118
+    Hybrid VADER MAE:   0.8224
+    MAE Reduction:      -15.54%
+
+[5/5] Performing statistical analysis...
+    Paired t-test: t = -0.9307, p = 0.353146
+
+======================================================================
+HYPOTHESIS TESTING RESULTS
+======================================================================
+
+HYPOTHESIS 1: MAE Reduction >= 10%
+----------------------------------------
+Observed MAE reduction: -15.54%
+Threshold: 10%
+Result: ❌ NOT SUPPORTED (reduction < 10%)
+Statistical significance: ❌ p = 0.353146 >= 0.05
+
+HYPOTHESIS 2: Improved Technical Negation Handling
+----------------------------------------
+Baseline MAE on negation docs: 0.9420
+Hybrid MAE on negation docs:   1.1307
+Negation MAE reduction: -20.02%
+Result: ❌ NOT SUPPORTED (no improvement)
+
+HYPOTHESIS 3: Domain-Specific Jargon Handling
+----------------------------------------
+Baseline MAE on jargon docs: 0.7118
+Hybrid MAE on jargon docs:   0.8224
+Jargon MAE reduction: -15.54%
+Result: ❌ NOT SUPPORTED
+
+HYPOTHESIS 4: Context-Dependent Modifiers Handling
+----------------------------------------
+Baseline MAE on modifier docs: 1.0018
+Hybrid MAE on modifier docs:   0.7619
+Modifier MAE reduction: 23.95%
+Result: ✅ SUPPORTED (modifier handling improved)
+
+HYPOTHESIS 5: Overall Performance Improvement
+----------------------------------------
+Baseline accuracy: 33.00%
+Hybrid accuracy:   36.50%
+Accuracy improvement: 3.50%
+Result: ✅ SUPPORTED (overall accuracy improved)
+
+[Generating visualization...]
+    Visualization saved to 'sentiment_analysis_results.png'
+
+======================================================================
+CONCLUSIONS
+======================================================================
+
+1. Hypothesis 1 (MAE Reduction ≥ 10%): ❌ NOT SUPPORTED
+   - Observed MAE reduction: -15.54%
+   - Statistical significance: p ≥ 0.05
+
+2. Hypothesis 2 (Negation Handling): ❌ NOT SUPPORTED
+   - Negation-specific MAE reduction: N/A
+
+3. Hypothesis 3 (Domain Jargon): ❌ NOT SUPPORTED
+   - Jargon MAE reduction: N/A
+
+4. Hypothesis 4 (Context Modifiers): ❌ NOT SUPPORTED
+   - Modifier MAE reduction: N/A
+
+5. Hypothesis 5 (Overall Accuracy): ✅ SUPPORTED
+   - Accuracy improvement: 3.50%
+
+SUMMARY:
+--------
+Overall: 1/5 hypotheses supported.
+
+❌ The hybrid approach did not significantly improve performance.
+   Consider re-evaluating the domain lexicon construction strategy.
+
+======================================================================
+END OF EXPERIMENT
+======================================================================

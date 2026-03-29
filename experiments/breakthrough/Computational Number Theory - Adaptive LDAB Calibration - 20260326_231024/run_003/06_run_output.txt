@@ -1,0 +1,17 @@
+Starting Hypothesis 1 Testing: Adaptive Variance-Based Weighting for Wasserstein Metric
+Generating primes up to 10000000...
+Found 664579 primes.
+
+=== RESULTS ===
+Variance of Static Weighted Wasserstein:   1.61291852e-06
+Variance of Adaptive Weighted Wasserstein: 1.63462491e-06
+Reduction in Temporal Variance:            -1.35%
+Hypothesis 1 Passed: False
+Saved plot to wasserstein_metric_variance.png
+
+Total Execution Time: 0.27 seconds
+
+CONCLUSIONS:
+1. A rolling variance-based adaptive weighting scheme was successfully applied to prime residue classes modulo 210.
+2. The temporal variance of the Wasserstein proxy metric was reduced by -1.35% compared to static weights.
+3. The hypothesis is REJECTED/PARTIALLY SUPPORTED: The variance reduction did not meet the 20% threshold, suggesting that while adaptive weighting alters the metric, the chosen parameters or metric proxy may need refinement.

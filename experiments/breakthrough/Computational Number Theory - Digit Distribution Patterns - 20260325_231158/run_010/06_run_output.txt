@@ -1,0 +1,11 @@
+Testing Hypothesis 1: Normalization Overcorrection via Coprime Filtering
+Minimum KL divergence achieved at alpha = 0.00
+KL Divergence at alpha=0 (Standard Benford): 0.639560
+KL Divergence at alpha=1 (Original Model): 0.721440
+KL Divergence at optimal alpha=0.00: 0.639560
+--------------------------------------------------
+
+CONCLUSIONS:
+1. We tested the effect of varying the coprime weighting exponent on the KL divergence between the empirical distribution of prime leading digits in Base-210 and the adjusted Benford model.
+2. The results show how adjusting the strength of the coprime filtering correction impacts the accuracy of the theoretical model.
+3. If the optimal alpha is less than 1 (or close to 0), it confirms the hypothesis that the original model applied an excessive weighting correction, and a reduced (or zero) coprime adjustment yields a distribution closer to the empirical data.

@@ -1,0 +1,57 @@
+======================================================================
+PRIMORIAL GAP VARIANCE SCALING ANALYSIS
+Testing Power-Law vs Logarithmic Scaling Hypotheses
+======================================================================
+
+[Step 1] Computing primorial gap variance-to-mean ratios R(k)...
+
+Computed R(k) values:
+  k =  1: R(k) = nan
+  k =  2: R(k) = 0.166667
+  k =  3: R(k) = 0.740741
+  k =  4: R(k) = 1.515623
+  k =  5: R(k) = 3.132583
+  k =  6: R(k) = 5.094845
+  k =  7: R(k) = 7.664219
+  k =  8: R(k) = 10.467389
+
+[Step 2] Generating visualization...
+  Saved plot to 'primorial_gap_variance.png'
+
+[Step 3] Performing statistical hypothesis tests...
+
+----------------------------------------------------------------------
+HYPOTHESIS 1: Power-Law Dominance (β ≠ 0)
+----------------------------------------------------------------------
+  Estimated β = 2.615009
+  p-value = 0.000000
+  ✅ REJECT null hypothesis (β = 0) at α=0.05
+  → Evidence supports power-law scaling with non-zero exponent.
+
+----------------------------------------------------------------------
+HYPOTHESIS 2: Log Model Better Than Power-Law
+----------------------------------------------------------------------
+  AIC (power) = -4.10
+  AIC (log)   = -8.30
+  ΔAIC = AIC_power - AIC_log = 4.20
+  ✅ AIC favors log model (ΔAIC > 0)
+  BIC (power) = -4.21
+  BIC (log)   = -8.41
+  ΔBIC = BIC_power - BIC_log = 4.20
+  ✅ BIC favors log model (ΔBIC > 0)
+
+----------------------------------------------------------------------
+GOODNESS-OF-FIT COMPARISON
+----------------------------------------------------------------------
+  R² (power) = 0.998545
+  R² (log)   = 0.999202
+  → Log model explains more variance (higher R²)
+
+======================================================================
+CONCLUSIONS:
+======================================================================
+1. Evidence supports power-law scaling (β ≠ 0).
+2. Logarithmic model is statistically superior (AIC, BIC, and R²).
+
+Recommendation: Extend computation to k ≥ 13 to resolve ambiguity.
+======================================================================

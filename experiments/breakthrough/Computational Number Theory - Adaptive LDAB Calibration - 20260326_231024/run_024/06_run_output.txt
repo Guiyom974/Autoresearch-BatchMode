@@ -1,0 +1,23 @@
+Testing Hypothesis 1: The '0.80-scaling' of the variance-to-mean ratio of primorial gaps
+k=1: Not enough gaps sampled.
+k=2: Not enough gaps sampled.
+k=3: Not enough gaps sampled.
+k=4: Not enough gaps sampled.
+k =  5 | P_k =            2310 | Mean =   4.818 | Var =    6.311 | R(k) =  1.3099
+k =  6 | P_k =           30030 | Mean =   5.214 | Var =    8.344 | R(k) =  1.6003
+k =  7 | P_k =          510510 | Mean =   5.539 | Var =   10.240 | R(k) =  1.8485
+k =  8 | P_k =         9699690 | Mean =   5.847 | Var =   12.206 | R(k) =  2.0876
+k =  9 | P_k =       223092870 | Mean =   6.113 | Var =   14.055 | R(k) =  2.2993
+k = 10 | P_k =      6469693230 | Mean =   6.331 | Var =   15.685 | R(k) =  2.4774
+k = 11 | P_k =    200560490130 | Mean =   6.542 | Var =   17.341 | R(k) =  2.6507
+k = 12 | P_k =   7420738134810 | Mean =   6.724 | Var =   18.842 | R(k) =  2.8022
+
+--- Regression Results ---
+Slope (beta) : 0.5633
+Intercept    : -0.8517
+R-squared    : 0.9938
+Plot saved to hypothesis_scaling.png
+
+CONCLUSIONS:
+The calculated scaling exponent beta = 0.5633 falls outside the expected [0.76, 0.84] range.
+The exact 0.80 scaling is not supported by this windowed sample, suggesting further investigation is needed.

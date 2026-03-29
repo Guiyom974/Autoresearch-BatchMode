@@ -1,0 +1,18 @@
+{
+  "start_time": "2026-03-28T21:00:17.702104",
+  "mode": "standard",
+  "models": {},
+  "status": "completed",
+  "end_time": "2026-03-28T21:13:03.692781",
+  "evaluation": {
+    "summary": "The Shapley value's coefficient of variation rises sharply with heavier-tailed player weight distributions, reaching 0.82 for Dirichlet weights, revealing strong sensitivity to weight variability.",
+    "breakthrough_achieved": false,
+    "confidence": 0.42,
+    "publishability_score": 4.0,
+    "next_directions": [
+      "Extend analysis to larger player sets and cooperative structures beyond weight randomness.",
+      "Derive analytical bounds linking weight distribution moments to Shapley value variance.",
+      "Compare Shapley variance with alternative solution concepts (e.g., nucleolus, core) under stochastic weights."
+    ]
+  }
+}

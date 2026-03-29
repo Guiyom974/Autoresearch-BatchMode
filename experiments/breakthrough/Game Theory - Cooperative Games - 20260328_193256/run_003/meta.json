@@ -1,0 +1,18 @@
+{
+  "start_time": "2026-03-28T20:25:39.852133",
+  "mode": "standard",
+  "models": {},
+  "status": "completed",
+  "end_time": "2026-03-28T20:39:46.129752",
+  "evaluation": {
+    "summary": "The study verifies that simple weight-based constructions yield superadditive and monotonic characteristic functions for N\u22644, but offers no novel theoretical insight beyond known properties.",
+    "breakthrough_achieved": false,
+    "confidence": 0.7,
+    "publishability_score": 3.0,
+    "next_directions": [
+      "apply the framework to stochastic coalition formation with probabilistic weights",
+      "compare the weight-based characteristic functions with established solution concepts such as the Shapley value and nucleolus",
+      "explore algorithmic generation of coalition values for N>5 and assess scalability"
+    ]
+  }
+}

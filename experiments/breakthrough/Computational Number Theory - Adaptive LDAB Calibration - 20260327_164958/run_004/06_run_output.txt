@@ -1,0 +1,62 @@
+======================================================================
+TESTING LDAB EMPIRICAL CORRECTION FACTOR HYPOTHESES
+======================================================================
+Generated 348513 primes up to 5,000,000
+
+=== HYPOTHESIS 1: ALGEBRAIC TAUTOLOGY TEST ===
+Testing c_emp(t) for base=210, limit=5000000
+Min c_emp(t): 0.3071332639
+Max c_emp(t): 4204.6906364977
+Mean c_emp(t): 493.4300596172
+Std c_emp(t): 9.3757259354e+02
+
+Hypothesis 1 verdict: REJECTED
+Variance is zero (within 1e-10): False
+Mean is 1.0 (within 1e-10): False
+
+=== HYPOTHESIS 2: NUMERATOR/DENOMINATOR STRUCTURE TEST ===
+Testing sums for base=210, limit=5000000
+Numerator (primes): 24474.8003360680
+Denominator (integers): 79687.8853947752
+Ratio c_emp = 0.3071332639
+Prime count in residue class: 348509
+Integer count in residue class: 1142857
+Avg LDAB density per prime: 0.0702271687
+Avg LDAB density per integer: 0.0697269084
+Ratio of averages: 1.0071745654
+
+Hypothesis 2 verdict: REJECTED
+Numerator equals denominator (within 1e-10): False
+
+=== HYPOTHESIS 3: BASE-INDEPENDENCE TEST ===
+Base 210: c_emp = 0.3071332639
+Base 2310: c_emp = 0.3378412201
+Base 30030: c_emp = 0.3659892143
+
+Mean c_emp across bases: 0.3369878994
+Std c_emp across bases: 2.4035416098e-02
+
+Hypothesis 3 verdict: REJECTED
+Variance across bases is zero (within 1e-10): False
+
+=== HYPOTHESIS 4: DENSITY MODIFICATION TEST ===
+Original c_emp (LDAB/LDAB): 0.3071332639
+Modified c_emp (LDAB/modified): 0.8159879615
+Relative change: 165.68%
+
+Hypothesis 4 verdict: REJECTED
+c_emp=1.0 with LDAB density: False
+c_emp≠1.0 with modified density: True
+
+======================================================================
+CONCLUSIONS:
+======================================================================
+Hypothesis 1 (Algebraic tautology): NOT SUPPORTED
+Hypothesis 2 (Identical LDAB structure): NOT SUPPORTED
+Hypothesis 3 (Base independence): NOT SUPPORTED
+Hypothesis 4 (Density dependence): NOT SUPPORTED
+
+Neither tautology nor identical structure: c_emp(t)=1.0 may indicate a deeper property.
+
+Plots saved: hypothesis1_plot.png, hypothesis3_plot.png
+======================================================================

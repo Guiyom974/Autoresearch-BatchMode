@@ -1,0 +1,18 @@
+{
+  "start_time": "2026-03-28T22:42:55.515292",
+  "mode": "standard",
+  "models": {},
+  "status": "completed",
+  "end_time": "2026-03-28T22:55:09.852587",
+  "evaluation": {
+    "summary": "Transformers significantly outperform the VADER meta\u2011classifier ensemble on synthetic technical sentiment data, but the result is not novel.",
+    "breakthrough_achieved": false,
+    "confidence": 0.78,
+    "publishability_score": 4.0,
+    "next_directions": [
+      "Apply the benchmark to real-world domain corpora (e.g., biomedical, legal) to test generalizability",
+      "Investigate hybrid models that combine lexicon features with transformer embeddings",
+      "Conduct detailed error analysis to understand failure modes of the meta\u2011classifier"
+    ]
+  }
+}

@@ -1,0 +1,48 @@
+======================================================================
+HYPOTHESIS 1 TEST: Algebraic Isolation of Singularity Source
+======================================================================
+
+Original LDAB correction factor (c_orig):
+  x =      6: c_orig =          inf  (expected: singular)
+  x =     30: c_orig =          inf  (expected: singular)
+  x =    210: c_orig =          inf  (expected: singular)
+  x =   2310: c_orig =          inf  (expected: singular)
+
+Regularized LDAB correction factor (c_reg):
+  x =      6: c_reg  =     1.311667
+  x =     30: c_reg  =     0.506948
+  x =    210: c_reg  =    -0.466007
+  x =   2310: c_reg  =    -1.664955
+
+Number of singular/NaN points in original: 4
+Total test points: 20
+✅ Hypothesis 1 SUPPORTED: Singularity isolated in original; regularized version is finite.
+
+======================================================================
+HYPOTHESIS 2 TEST: Existence of Finite Limit at Primorials
+======================================================================
+
+Limit estimation at primorials (k ≥ 2):
+  p_2# =      6: limit ≈ 0.99969201
+  p_3# =     30: limit ≈ 0.99998824
+  p_4# =    210: limit ≈ 0.99999976
+  p_5# =   2310: limit ≈ 1.00000000
+
+Comparison with regularized formula:
+       6: reg=1.31166663, lim≈0.99969201, rel_err=31.21% ✗
+      30: reg=0.50694767, lim≈0.99998824, rel_err=49.30% ✗
+     210: reg=-0.46600740, lim≈0.99999976, rel_err=146.60% ✗
+    2310: reg=-1.66495504, lim≈1.00000000, rel_err=266.50% ✗
+
+⚠️  Hypothesis 2 inconclusive: limits not well-estimated or mismatched.
+
+======================================================================
+HYPOTHESIS 3 TEST: Robustness Across Grid Including Primorials
+======================================================================
+
+--- STDERR ---
+Traceback (most recent call last):
+  File "D:\LocalProjects\Python apps\AutoResearch\experiments\breakthrough\20260327_164958\run_009\_experiment_temp.py", line 199, in <module>
+    x_grid = np.unique(np.concatenate([x_grid, PRIMORIALS[2:6] + 1e-10, PRIMORIALS[2:6] - 1e-10]))
+                                               ~~~~~~~~~~~~~~~~^~~~~~~
+TypeError: can only concatenate list (not "float") to list

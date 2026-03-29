@@ -1,0 +1,17 @@
+{
+  "start_time": "2026-03-26T09:39:37.859658",
+  "mode": "standard",
+  "models": {},
+  "status": "completed",
+  "end_time": "2026-03-26T09:50:43.480738",
+  "evaluation": {
+    "summary": "The experiment confirms Chebyshev bias modulo 210 with non-residue classes averaging 7263.33 primes versus 7241.50 for quadratic residues, but the chi-square test shows perfect fit to uniform model (p=1.0), revealing a methodological contradiction that undermines the statistical framework.",
+    "breakthrough_achieved": false,
+    "confidence": 0.3,
+    "next_directions": [
+      "Reconcile the apparent contradiction between observed bias and perfect goodness-of-fit p-value",
+      "Implement proper variance estimation accounting for correlation between residue classes",
+      "Extend to q=2310 as originally proposed and validate against established Chebyshev bias literature"
+    ]
+  }
+}

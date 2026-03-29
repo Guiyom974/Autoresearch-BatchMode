@@ -1,0 +1,80 @@
+======================================================================
+MULTI-BASE SCALABILITY AND ASYMPTOTIC ANALYSIS OF LDAB CORRECTION FACTOR
+======================================================================
+
+Generating primes up to 10^7...
+Generated 664579 primes up to 10^7.
+
+Computing empirical correction factors c_emp(t)...
+
+Processing base 210 (P_4=210)...
+  Estimated limit L_210 ≈ 1.000000
+
+Processing base 2310 (P_5=2310)...
+  Estimated limit L_2310 ≈ 1.000000
+
+Processing base 30030 (P_6=30030)...
+  Estimated limit L_30030 ≈ 1.000000
+
+======================================================================
+HYPOTHESIS 1: L_k = α + β ln P_k (linear in log primorial)
+======================================================================
+Fitted model: L_k = 1.000000 + 0.000000·ln(P_k)
+Residual sum of squares: 0.00e+00
+Predicted values: [1. 1. 1.]
+Actual values:    [1. 1. 1.]
+Max absolute error: 0.000000
+R² = 0.000000
+
+HYPOTHESIS 1: FAIL (R² = 0.0000 < 0.95)
+
+======================================================================
+HYPOTHESIS 2: c_emp(t) converges monotonically to L_k
+======================================================================
+HYPOTHESIS 2: PASS
+
+======================================================================
+HYPOTHESIS 3: Scaling of correction factor variance decreases with base size
+======================================================================
+Variance of c_emp(t) over t:
+  P_4=210: 0.000000e+00
+  P_5=2310: 0.000000e+00
+  P_6=30030: 0.000000e+00
+Correlation between ln(P_k) and variance: nan
+HYPOTHESIS 3: FAIL (corr < -0.5)
+
+======================================================================
+HYPOTHESIS 4: Guarded log-gamma prevents overflow for all bases up to 30030
+======================================================================
+Overflow test at t=10000000: NOT DETECTED
+HYPOTHESIS 4: PASS
+
+======================================================================
+HYPOTHESIS 5: Asymptotic limit L_k satisfies L_{k+1}/L_k ≈ 1 + O(1/p_{k+1})
+======================================================================
+Ratio analysis:
+  L_2310/L_210 = 1.000000, expected ≈ 1.090909
+  L_30030/L_2310 = 1.000000, expected ≈ 1.076923
+Max relative error: 0.0833
+HYPOTHESIS 5: PASS (error < 10%)
+
+Generating plots...
+
+======================================================================
+CONCLUSIONS
+======================================================================
+Hypothesis 1 (Linear L_k vs ln P_k): REJECTED (R² = 0.0000)
+Hypothesis 2 (Monotonic convergence): SUPPORTED
+Hypothesis 3 (Variance decreases with base): REJECTED
+Hypothesis 4 (Guarded log-gamma prevents overflow): SUPPORTED
+Hypothesis 5 (Scaling ratio L_{k+1}/L_k ≈ 1 + 1/p_{k+1}): SUPPORTED
+
+Key findings:
+- Estimated asymptotic limits: P_4=210=1.000000, P_5=2310=1.000000, P_6=30030=1.000000
+- Linear fit parameters: α = 1.000000, β = 0.000000
+- All computations completed using guarded log-gamma without overflow.
+- Results saved to 'ldab_analysis.png'
+
+======================================================================
+END OF ANALYSIS
+======================================================================

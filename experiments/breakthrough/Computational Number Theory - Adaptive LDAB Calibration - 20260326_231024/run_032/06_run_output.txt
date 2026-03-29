@@ -1,0 +1,49 @@
+============================================================
+EXACT SYMBOLIC CORE: HYPOTHESIS VALIDATION
+============================================================
+
+=== HYPOTHESIS 1: Baseline Reproducibility (k ≤ 5) ===
+k=1: ERROR — unsupported format string passed to NoneType.__format__
+k=2: P_k=6, #gaps=2, mean=1.500000, var=0.250000, VMR=0.166667
+k=3: P_k=30, #gaps=9, mean=3.000000, var=2.222222, VMR=0.740741
+k=4: P_k=210, #gaps=45, mean=4.377778, var=6.635062, VMR=1.515623
+k=5: P_k=2310, #gaps=342, mean=6.745614, var=21.131194, VMR=3.132583
+VMR std across k=1..5: 1.114726
+⚠️ H1 PARTIAL: VMR varies slightly but within expected range
+
+=== HYPOTHESIS 2: Performance (k ≤ 7) ===
+k=1: 0.000s
+k=2: 0.000s
+k=3: 0.000s
+k=4: 0.000s
+k=5: 0.000s
+k=6: 0.001s
+k=7: 0.019s
+Total time for k=1..7: 0.02s
+✅ H2 CONFIRMED: Total runtime within 120s limit
+
+=== HYPOTHESIS 3: Memory Footprint (k ≤ 7) ===
+k=7: P_k=510510, #primes=42,331, gaps=42,330
+Memory: primes=330.7 KB, gaps=330.7 KB, total=661.4 KB
+✅ H3 CONFIRMED: Fits comfortably in RAM
+
+=== HYPOTHESIS 4: Scaling Law R(k) ∝ (log P_k)^0.80 ===
+k=1: ERROR — unsupported format string passed to NoneType.__format__
+k=2: log(P_k)=1.7918, R(k)=0.166667
+k=3: log(P_k)=3.4012, R(k)=0.740741
+k=4: log(P_k)=5.3471, R(k)=1.515623
+k=5: log(P_k)=7.7450, R(k)=3.132583
+k=6: log(P_k)=10.3100, R(k)=5.094845
+
+--- STDERR ---
+AttributeError: 'NoneType' object has no attribute 'log'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\LocalProjects\Python apps\AutoResearch\experiments\breakthrough\20260326_231024\run_032\_experiment_temp.py", line 306, in <module>
+    test_hypothesis_4()
+    ~~~~~~~~~~~~~~~~~^^
+  File "D:\LocalProjects\Python apps\AutoResearch\experiments\breakthrough\20260326_231024\run_032\_experiment_temp.py", line 187, in test_hypothesis_4
+    log_R = np.log(np.array(vmr_vals))
+TypeError: loop of ufunc does not support argument 0 of type NoneType which has no callable log method

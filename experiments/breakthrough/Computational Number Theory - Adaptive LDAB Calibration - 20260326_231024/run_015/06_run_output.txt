@@ -1,0 +1,76 @@
+STARTING EMPIRICAL VALIDATION OF PRIMORIAL GAP VARIANCE SCALING
+======================================================================
+
+Empirical R(k) values:
+  k= 2: R(k) = NaN (computation failed)
+  k= 3: R(k) = 1.3263888889
+  k= 4: R(k) = 1.5286503781
+  k= 5: R(k) = 1.3872314718
+  k= 6: R(k) = 1.3187612440
+  k= 7: R(k) = 1.2268939975
+  k= 8: R(k) = 1.1920573550
+
+Filtered data for k ≥ 6: 3 points
+k values: [6 7 8]
+R values: [1.31876124 1.226894   1.19205735]
+
+======================================================================
+MODEL FITTING RESULTS
+======================================================================
+
+Power-law model: R(k) = C * k^α + D
+  Parameters: C = 4197.368649, α = -5.688033, D = 1.161426
+  Max residual: 0.0000000000
+  Adjusted R²: -inf
+  AIC: inf, BIC: inf
+
+Logarithmic model: R(k) = A * ln(k) + B
+  Parameters: A = -0.444406, B = 2.107623
+  Max residual: 0.0159557596
+  Adjusted R²: -inf
+  AIC: -14.3883, BIC: -16.1911
+
+======================================================================
+HYPOTHESIS TESTING
+======================================================================
+
+Hypothesis 1: Power-law model superior to logarithmic model
+  Criterion: AIC_pl < AIC_log AND BIC_pl < BIC_log AND max_res < 1e-3
+  AIC_pl < AIC_log: False (inf < -14.3883)
+  BIC_pl < BIC_log: False (inf < -16.1911)
+  Max residual < 1e-3: True (0.0000000000)
+  RESULT: REJECTED
+
+Hypothesis 2: R(k) → 1 as k increases (convergence)
+  All |R(k) - 1| < 0.01: False
+  Monotonic increase toward 1: False
+  R values: [1.31876124 1.226894   1.19205735]
+  RESULT: REJECTED
+
+Hypothesis 3: Power-law exponent α < 0
+  α = -5.688033
+  RESULT: ACCEPTED
+
+Hypothesis 4: Log model exhibits systematic curvature (residual trend)
+  Slope of log residuals vs k: 0.000572
+  RESULT: REJECTED
+
+Generating plot...
+
+======================================================================
+CONCLUSIONS:
+======================================================================
+Hypothesis 1 (Power-law superior): NOT SUPPORTED
+Hypothesis 2 (Convergence to 1): NOT SUPPORTED
+Hypothesis 3 (Negative α): SUPPORTED
+Hypothesis 4 (Log model curvature): NOT SUPPORTED
+
+Recommendation:
+  Further data or refined models needed.
+
+Plot saved to 'primorial_gap_variance.png'
+SCRIPT COMPLETED SUCCESSFULLY.
+
+--- STDERR ---
+D:\LocalProjects\Python apps\AutoResearch\experiments\breakthrough\20260326_231024\run_015\_experiment_temp.py:140: OptimizeWarning: Covariance of the parameters could not be estimated
+  popt_pl, _ = curve_fit(power_law, k_vals, R_vals, p0=[1.0, -0.5, 1.0], maxfev=5000)

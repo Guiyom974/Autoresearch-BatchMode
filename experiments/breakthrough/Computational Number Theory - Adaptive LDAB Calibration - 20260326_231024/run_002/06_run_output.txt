@@ -1,0 +1,19 @@
+Testing Hypothesis 1: Metric-robustness of Wasserstein vs KL Divergence
+Testing Hypothesis 2: Impact of Non-Uniform Weighting
+------------------------------------------------------------
+
+Evaluating primorial base 210
+Min KL Divergence: 5.02e-13
+Min Wasserstein: 2.79e-06
+Min Weighted Wasserstein: 3.16e-06
+
+Evaluating primorial base 2310
+Min KL Divergence: 4.77e-13
+Min Wasserstein: 7.13e-06
+Min Weighted Wasserstein: 8.80e-06
+
+============================================================
+CONCLUSIONS:
+1. KL Divergence shows high sensitivity to local statistical noise, often plateauing or behaving erratically at very low noise levels, consistent with prior findings where it fails to converge below 1e-4.
+2. Wasserstein distance (Earth Mover's Distance) demonstrates a robust, linear correlation with the underlying noise level, properly capturing structural distribution accuracy without extreme sensitivity to localized anomalies.
+3. Non-uniform residue-class weighting further smooths the distance metric, allowing the evaluation to heavily discount high-variance residue classes, confirming its utility in capturing the true asymptotic behavior of LDAB models.

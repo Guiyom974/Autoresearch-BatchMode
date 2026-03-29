@@ -1,0 +1,18 @@
+{
+  "start_time": "2026-03-28T21:15:38.644457",
+  "mode": "standard",
+  "models": {},
+  "status": "completed",
+  "end_time": "2026-03-28T21:42:30.952957",
+  "evaluation": {
+    "summary": "VADER demonstrates significantly higher sentiment detection accuracy than a simple keyword\u2011summation approach on synthetic technical documents.",
+    "breakthrough_achieved": false,
+    "confidence": 0.6,
+    "publishability_score": 6.0,
+    "next_directions": [
+      "Validate the results on real-world technical corpora to assess generalizability",
+      "Investigate linguistic features that make VADER more effective for technical language",
+      "Develop hybrid sentiment models that integrate VADER with domain\u2011specific lexicons"
+    ]
+  }
+}
