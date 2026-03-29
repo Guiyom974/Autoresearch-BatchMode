@@ -1,4 +1,4 @@
-# AutoResearch
+# AutoResearch - Batch mode
 
 > **Built on the shoulders of giants.** This project is an extended fork of [autoresearch](https://github.com/karpathy/autoresearch) by [Andrej Karpathy](https://github.com/karpathy), whose original idea and architecture form the foundation of everything here. All conceptual credit belongs to him.
 
