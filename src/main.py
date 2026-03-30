@@ -213,34 +213,27 @@ FEATURES:
         resume = False
 
         if already_done:
+            remaining = len(problem_files) - len(already_done)
             console.print(
                 Panel(
                     f"[bold yellow]EXISTING RESULTS DETECTED[/bold yellow]\n\n"
-                    f"  {len(already_done)} of {len(problem_files)} problem(s) already have "
-                    f"complete experiment output on disk.\n\n"
-                    f"[bold](r)[/bold] Resume  — skip completed problems, run the rest\n"
-                    f"[bold](s)[/bold] Restart — run all problems (creates new experiment folders)\n"
-                    f"[bold](c)[/bold] Cancel",
+                    f"  Complete : {len(already_done)} / {len(problem_files)}\n"
+                    f"  Remaining: {remaining}\n\n"
+                    f"Skipping completed experiments and continuing with the {remaining} missing.\n"
+                    f"Type [bold]restart[/bold] to run everything from scratch instead.",
                     expand=False,
                 )
             )
 
-            while True:
-                choice = input("Choice (r/s/c): ").strip().lower()
-                if choice in ("r", "s", "c"):
-                    break
-                console.print("[yellow]Please enter r, s, or c[/yellow]")
+            choice = input("Press Enter to continue, or type 'restart': ").strip().lower()
 
-            if choice == "c":
-                console.print("[yellow]Cancelled.[/yellow]")
-                sys.exit(0)
-            elif choice == "r":
+            if choice == "restart":
+                console.print("[cyan][>] Starting fresh — all problems will be re-run[/cyan]")
+            else:
                 resume = True
                 console.print(
                     f"[cyan][>] Resuming — {len(already_done)} problem(s) will be skipped[/cyan]"
                 )
-            else:
-                console.print("[cyan][>] Starting fresh — all problems will be re-run[/cyan]")
 
         console.print(
             Panel(
