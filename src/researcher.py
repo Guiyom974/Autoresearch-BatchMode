@@ -265,6 +265,9 @@ For each hypothesis, explain:
 Note: If prior findings are present, build on them — do not repeat experiments that already produced clear results."""
 
     hypotheses = llm.reason(hypothesis_prompt)
+    if len(hypotheses.strip()) < 200:
+        console.print("[yellow][*] Hypothesis response too short — retrying with code generation model...[/yellow]")
+        hypotheses = llm.generate_code(hypothesis_prompt)
     tracker.log_step("hypotheses", hypotheses)
 
     # Step 4: Generate experiment code
