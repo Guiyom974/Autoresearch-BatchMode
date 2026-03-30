@@ -1,7 +1,6 @@
 """AutoResearch CLI entry point."""
 
 import argparse
-import json
 import sys
 from datetime import datetime
 from pathlib import Path
@@ -17,37 +16,8 @@ from .tracker import ExperimentTracker
 
 console = Console()
 
-# Batch state is persisted here so interrupted runs can be resumed
-_BATCH_STATE_FILE = Path("experiments") / ".batch_state.json"
 
-
-# ── Batch state helpers ───────────────────────────────────────────────────────
-
-def _load_batch_states() -> dict:
-    """Load the full batch state registry from disk."""
-    if not _BATCH_STATE_FILE.exists():
-        return {}
-    try:
-        return json.loads(_BATCH_STATE_FILE.read_text(encoding="utf-8"))
-    except Exception:
-        return {}
-
-
-def _save_batch_state(folder_key: str, state: dict) -> None:
-    """Persist state for one batch folder (keyed by its resolved absolute path)."""
-    states = _load_batch_states()
-    states[folder_key] = state
-    _BATCH_STATE_FILE.parent.mkdir(parents=True, exist_ok=True)
-    _BATCH_STATE_FILE.write_text(json.dumps(states, indent=2), encoding="utf-8")
-
-
-def _clear_batch_state(folder_key: str) -> None:
-    """Remove the state entry after a fully completed run."""
-    states = _load_batch_states()
-    if folder_key in states:
-        del states[folder_key]
-        _BATCH_STATE_FILE.write_text(json.dumps(states, indent=2), encoding="utf-8")
-
+# ── Completion detection ──────────────────────────────────────────────────────
 
 def _find_latest_experiment_dir(label: str, mode: str) -> Path | None:
     """Return the most recently created experiment directory for a given label and mode."""
@@ -59,11 +29,7 @@ def _find_latest_experiment_dir(label: str, mode: str) -> Path | None:
 
 
 def _is_experiment_complete(label: str, mode: str) -> bool:
-    """Return True only if the experiment produced complete output artifacts on disk.
-
-    Used to detect manually deleted files during a resume: even if a problem file
-    is listed as 'completed' in the state, we re-run it when the key artifact is gone.
-    """
+    """Return True only if the experiment produced complete output artifacts on disk."""
     folder = _find_latest_experiment_dir(label, mode)
     if folder is None:
         return False
@@ -78,7 +44,7 @@ def _is_experiment_complete(label: str, mode: str) -> bool:
     else:  # breakthrough
         if (folder / "report.html").exists():
             return True
-        # Fallback: check that the last run at least produced an evaluation
+        # Fallback: last run at least completed its evaluation
         runs = sorted(folder.glob("run_*"))
         if runs:
             eval_file = runs[-1] / "07_evaluation.md"
@@ -122,12 +88,6 @@ def label_from_problem_file(path: Path) -> str:
         ``Mathematics - Prime Numbers - problem.md`` → ``Mathematics - Prime Numbers``
         ``problem.md`` → ``problem``
         ``my_research.md`` → ``my_research``
-
-    Args:
-        path: Path to the problem markdown file.
-
-    Returns:
-        Label string to use in experiment folder names.
     """
     stem = path.stem  # e.g. "Mathematics - Prime Numbers - problem"
     parts = stem.rsplit(" - ", 1)
@@ -245,29 +205,21 @@ FEATURES:
             console.print(f"[red][!] No .md files found in {batch_folder}[/red]")
             sys.exit(1)
 
-        # ── Resume detection ──────────────────────────────────────────────────
-        folder_key = str(batch_folder.resolve())
-        prev_state = _load_batch_states().get(folder_key)
-        completed_files: set[str] = set()
-        failed_files: set[str] = set()
+        # ── Resume detection: scan experiment folders on disk ─────────────────
+        already_done = [
+            f for f in problem_files
+            if _is_experiment_complete(label_from_problem_file(f), args.mode)
+        ]
         resume = False
 
-        if prev_state:
-            n_done = len(prev_state.get("completed", []))
-            n_failed = len(prev_state.get("failed", []))
-            prev_updated = prev_state.get("updated_at", prev_state.get("started_at", "?"))
-            prev_mode = prev_state.get("mode", "?")
-            prev_iters = prev_state.get("iterations", "?")
-
+        if already_done:
             console.print(
                 Panel(
-                    f"[bold yellow]PREVIOUS BATCH STATE FOUND[/bold yellow]\n\n"
-                    f"  Last updated  : {prev_updated}\n"
-                    f"  Mode          : {prev_mode}  (iterations: {prev_iters})\n"
-                    f"  Completed     : {n_done} / {len(problem_files)}\n"
-                    f"  Failed        : {n_failed}\n\n"
-                    f"[bold](r)[/bold] Resume  — skip completed problems, re-run the rest\n"
-                    f"[bold](s)[/bold] Restart — clear state, start from scratch\n"
+                    f"[bold yellow]EXISTING RESULTS DETECTED[/bold yellow]\n\n"
+                    f"  {len(already_done)} of {len(problem_files)} problem(s) already have "
+                    f"complete experiment output on disk.\n\n"
+                    f"[bold](r)[/bold] Resume  — skip completed problems, run the rest\n"
+                    f"[bold](s)[/bold] Restart — run all problems (creates new experiment folders)\n"
                     f"[bold](c)[/bold] Cancel",
                     expand=False,
                 )
@@ -284,15 +236,11 @@ FEATURES:
                 sys.exit(0)
             elif choice == "r":
                 resume = True
-                completed_files = set(prev_state.get("completed", []))
-                failed_files = set(prev_state.get("failed", []))
                 console.print(
-                    f"[cyan][>] Resuming — {len(completed_files)} problem(s) will be skipped "
-                    f"(unless their output files were deleted)[/cyan]"
+                    f"[cyan][>] Resuming — {len(already_done)} problem(s) will be skipped[/cyan]"
                 )
             else:
-                _clear_batch_state(folder_key)
-                console.print("[cyan][>] Starting fresh[/cyan]")
+                console.print("[cyan][>] Starting fresh — all problems will be re-run[/cyan]")
 
         console.print(
             Panel(
@@ -304,36 +252,17 @@ FEATURES:
             )
         )
 
-        # Initialise (or continue) persisted state
-        now = datetime.now().isoformat(timespec="seconds")
-        state: dict = {
-            "mode": args.mode,
-            "iterations": args.iterations,
-            "batch_folder": str(batch_folder.resolve()),
-            "started_at": (prev_state.get("started_at", now) if resume and prev_state else now),
-            "updated_at": now,
-            "completed": list(completed_files),
-            "failed": list(failed_files),
-        }
-        _save_batch_state(folder_key, state)
-
         results: list[dict] = []
 
         for problem_file in problem_files:
             filename = problem_file.name
             label = label_from_problem_file(problem_file)
 
-            # Resume: skip completed problems — but re-run if output was manually deleted
-            if resume and filename in completed_files:
-                if _is_experiment_complete(label, args.mode):
-                    console.print(f"[dim][>] Skipping (already done): {filename}[/dim]")
-                    results.append({"file": filename, "status": "skipped"})
-                    continue
-                else:
-                    console.print(
-                        f"[yellow][>] Re-running (output missing or incomplete): {filename}[/yellow]"
-                    )
-                    completed_files.discard(filename)
+            # Resume: skip problems that already have complete output on disk
+            if resume and _is_experiment_complete(label, args.mode):
+                console.print(f"[dim][>] Skipping (already done): {filename}[/dim]")
+                results.append({"file": filename, "status": "skipped"})
+                continue
 
             console.print(f"\n[cyan][>] Processing:[/cyan] {filename}")
 
@@ -348,47 +277,27 @@ FEATURES:
                     run_breakthrough_research(
                         problem_md, label, session_config, llm, args.iterations
                     )
-
                 results.append({"file": filename, "status": "success"})
-                completed_files.add(filename)
-                failed_files.discard(filename)
 
             except KeyboardInterrupt:
                 console.print("\n[yellow][!] Batch interrupted (Ctrl+C)[/yellow]")
                 results.append({"file": filename, "status": "interrupted"})
-                state.update({
-                    "updated_at": datetime.now().isoformat(timespec="seconds"),
-                    "completed": list(completed_files),
-                    "failed": list(failed_files),
-                })
-                _save_batch_state(folder_key, state)
                 _print_batch_summary(results)
                 remaining = sum(
                     1 for f in problem_files
                     if f.name not in {r["file"] for r in results}
                 )
                 console.print(
-                    f"[yellow]Progress saved. {remaining} problem(s) remaining.[/yellow]\n"
-                    f"[yellow]Run the same command again to resume from here.[/yellow]"
+                    f"[yellow]{remaining} problem(s) remaining.[/yellow]\n"
+                    f"[yellow]Run the same command again — completed experiments will be detected "
+                    f"automatically and skipped.[/yellow]"
                 )
                 sys.exit(0)
 
             except Exception as e:
                 console.print(f"[red][!] Failed: {filename} — {e}[/red]")
                 results.append({"file": filename, "status": f"failed: {e}"})
-                failed_files.add(filename)
-                completed_files.discard(filename)
 
-            # Persist progress after every problem (success or failure)
-            state.update({
-                "updated_at": datetime.now().isoformat(timespec="seconds"),
-                "completed": list(completed_files),
-                "failed": list(failed_files),
-            })
-            _save_batch_state(folder_key, state)
-
-        # All problems processed — remove state so the next run starts fresh
-        _clear_batch_state(folder_key)
         _print_batch_summary(results)
         succeeded = sum(1 for r in results if r["status"] in ("success", "skipped"))
         sys.exit(0 if succeeded == len(results) else 1)
@@ -429,14 +338,7 @@ FEATURES:
 # ── Research runners ──────────────────────────────────────────────────────────
 
 def run_standard_research(problem_md: str, label: str, session_config: dict, llm: LLMRouter):
-    """Run standard mode research.
-
-    Args:
-        problem_md: Problem statement
-        label: Label derived from the problem file name (used in folder naming)
-        session_config: Session configuration dict
-        llm: LLMRouter instance
-    """
+    """Run standard mode research."""
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
     experiment_dir = Path("experiments") / "standard" / f"{label} - {timestamp}"
     experiment_dir.mkdir(parents=True, exist_ok=True)
@@ -472,15 +374,7 @@ def run_breakthrough_research(
     llm: LLMRouter,
     n_iterations: int,
 ):
-    """Run breakthrough mode research.
-
-    Args:
-        problem_md: Initial problem statement
-        label: Label derived from the problem file name (used in folder naming)
-        session_config: Session configuration dict
-        llm: LLMRouter instance
-        n_iterations: Number of iterations
-    """
+    """Run breakthrough mode research."""
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
     base_dir = Path("experiments") / "breakthrough" / f"{label} - {timestamp}"
     base_dir.mkdir(parents=True, exist_ok=True)
