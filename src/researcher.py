@@ -1,5 +1,7 @@
 """Research loop orchestration (standard and breakthrough modes)."""
 
+import json as _json
+import re as _re
 from pathlib import Path
 
 import openai
@@ -12,16 +14,98 @@ from .tracker import BreakthroughTracker, ExperimentTracker
 
 console = Console()
 
+_CONTEXT_ASSESSMENT_MODEL = "nemotron-cascade-2:latest"
+
+
+# ── Breakthrough resume helpers ───────────────────────────────────────────────
+
+def _read_problem_version(base_dir: Path, iteration: int) -> str | None:
+    """Read the problem statement logged at the start of a specific iteration.
+
+    Returns None if the entry is not found (e.g. interrupted before that iteration began).
+    """
+    history_file = base_dir / "history" / "problem_versions.md"
+    if not history_file.exists():
+        return None
+    text = history_file.read_text(encoding="utf-8", errors="replace")
+    pattern = (
+        rf"## Iteration {iteration} \[(?:ORIGINAL|REFORMULATED)\]\n"
+        rf"Timestamp:[^\n]*\n\n(.*?)(?=\n## Iteration |\Z)"
+    )
+    m = _re.search(pattern, text, _re.DOTALL)
+    return m.group(1).strip() if m else None
+
+
+def _load_run_history(base_dir: Path, up_to: int) -> list[dict]:
+    """Reconstruct the history list from completed run meta.json files."""
+    history = []
+    for i in range(1, up_to + 1):
+        meta_file = base_dir / f"run_{i:03d}" / "meta.json"
+        evaluation: dict = {}
+        if meta_file.exists():
+            try:
+                evaluation = _json.loads(
+                    meta_file.read_text(encoding="utf-8")
+                ).get("evaluation", {})
+            except Exception:
+                pass
+        history.append({"iteration": i, "evaluation": evaluation})
+    return history
+
+
+def _build_reformulation_prompt(
+    problem_md: str, current_problem: str, run_dir: Path, evaluation: dict
+) -> str:
+    """Build the problem reformulation prompt from a completed run's data."""
+    summary = evaluation.get("summary", "No findings")
+    next_dirs = evaluation.get("next_directions", [])
+    experiment_output = ""
+    output_file = run_dir / "06_run_output.txt"
+    if output_file.exists():
+        try:
+            experiment_output = output_file.read_text(encoding="utf-8", errors="replace")
+        except Exception:
+            pass
+    research_output = "\n".join(
+        line for line in experiment_output.splitlines()
+        if not any(kw in line for kw in ["FileNotFoundError", "Traceback", "Error:", "STDERR", ".py line"])
+    )[:1500]
+
+    return f"""You are a research director. Reformulate the research problem below to pursue a more promising direction based on experimental findings.
+
+ORIGINAL TOPIC (do NOT change the domain — stay on this research subject):
+{problem_md[:800]}
+
+CURRENT PROBLEM STATEMENT:
+{current_problem[:600]}
+
+FINDINGS FROM THIS ITERATION:
+{summary}
+
+SUGGESTED NEXT DIRECTIONS:
+{chr(10).join(f'- {d}' for d in next_dirs)}
+
+RESEARCH OUTPUT (partial):
+{research_output if research_output.strip() else "(experiment did not produce output — keep the same research domain, tighten scope)"}
+
+TASK:
+Write a new problem.md that:
+1. Stays strictly within the original research domain (do NOT introduce unrelated topics)
+2. Focuses on one of the suggested directions above
+3. Uses the same markdown sections: Objective, Research Questions, Methodology, Success Criteria, Constraints
+4. Is more specific and targeted than the previous version
+5. Ignores any Python or file-system errors — focus only on the science"""
+
 
 def build_past_context(problem_md: str, llm: LLMRouter) -> str:
     """Build relevant past-experiment context for a new problem using a two-step filter.
 
-    Step 1 — name filter: sends all experiment folder names to the context-assessment
-    model and asks which ones are likely relevant based on their Category - Topic label alone.
+    Step 1 — name filter: sends all experiment folder names to nemotron and asks
+    which ones are likely relevant based on their Category - Topic label alone.
     This is fast and requires no file I/O beyond a directory listing.
 
     Step 2 — content read: reads the final evaluation of each selected experiment's
-    last run, then asks the model to extract the specific insight that applies to
+    last run, then asks nemotron to extract the specific insight that applies to
     the current problem.
 
     Args:
@@ -34,8 +118,6 @@ def build_past_context(problem_md: str, llm: LLMRouter) -> str:
     experiments_dir = Path("experiments")
     if not experiments_dir.exists():
         return ""
-
-    context_model = llm.config.get("context_assessment_model", "llama3.2:latest")
 
     # ── Step 1: collect experiment folder names (Category - Topic - timestamp) ──
     experiment_folders = []
@@ -59,7 +141,7 @@ def build_past_context(problem_md: str, llm: LLMRouter) -> str:
 
     console.print(
         f"[cyan][*] Step 1: Screening {len(experiment_folders)} experiment folder(s) "
-        f"by name with {context_model}...[/cyan]"
+        f"by name with {_CONTEXT_ASSESSMENT_MODEL}...[/cyan]"
     )
 
     name_filter_prompt = f"""You are a research assistant screening past experiments by name.
@@ -80,7 +162,7 @@ If none are relevant, output: NONE"""
 
     try:
         name_resp = llm.ollama_client.chat.completions.create(
-            model=context_model,
+            model=_CONTEXT_ASSESSMENT_MODEL,
             messages=[{"role": "user", "content": name_filter_prompt}],
             temperature=0.1,
             extra_body={"options": {"num_ctx": 131_072}},
@@ -139,7 +221,7 @@ If none are relevant, output: NONE"""
         console.print("[cyan][*] Selected folders have no readable evaluations[/cyan]")
         return ""
 
-    # Ask the context model to extract the specific insight for each candidate
+    # Ask nemotron to extract the specific insight for each candidate
     runs_text = ""
     for i, run in enumerate(candidate_runs, 1):
         runs_text += (
@@ -166,7 +248,7 @@ Skip experiments with no usable finding. Be concise."""
 
     try:
         insight_resp = llm.ollama_client.chat.completions.create(
-            model=context_model,
+            model=_CONTEXT_ASSESSMENT_MODEL,
             messages=[{"role": "user", "content": insight_prompt}],
             temperature=0.2,
             extra_body={"options": {"num_ctx": 131_072}},
@@ -310,6 +392,7 @@ def run_breakthrough_loop(
     base_dir: Path,
     llm: LLMRouter,
     n_iterations: int = 3,
+    start_iteration: int = 1,
 ) -> list[dict]:
     """Run breakthrough research loop with iterative problem reformulation.
 
@@ -325,10 +408,32 @@ def run_breakthrough_loop(
     console.print(Panel(f"[bold]RESEARCH LOOP: BREAKTHROUGH MODE ({n_iterations} iterations)[/bold]", expand=False))
 
     bt_tracker = BreakthroughTracker(base_dir, mode="breakthrough")
-    history = []
-    current_problem = problem_md
 
-    for iteration in range(1, n_iterations + 1):
+    # ── Resume: reconstruct state from completed runs on disk ─────────────────
+    if start_iteration > 1:
+        history = _load_run_history(base_dir, start_iteration - 1)
+        console.print(
+            f"[cyan][>] Resuming from iteration {start_iteration} "
+            f"({start_iteration - 1} iteration(s) already complete)[/cyan]"
+        )
+        # Try to read the problem that was logged at the start of start_iteration
+        # (present when interrupted mid-iteration; absent when interrupted between iterations)
+        current_problem = _read_problem_version(base_dir, start_iteration)
+        if current_problem is None:
+            # Interrupted after last reformulation but before next iter began — re-generate
+            console.print("[cyan][*] Re-generating problem reformulation for resumed iteration...[/cyan]")
+            last_run_dir = base_dir / f"run_{start_iteration - 1:03d}"
+            last_problem = _read_problem_version(base_dir, start_iteration - 1) or problem_md
+            last_eval = history[-1]["evaluation"] if history else {}
+            reformulate_prompt = _build_reformulation_prompt(
+                problem_md, last_problem, last_run_dir, last_eval
+            )
+            current_problem = llm.reformulate(reformulate_prompt)
+    else:
+        history = []
+        current_problem = problem_md
+
+    for iteration in range(start_iteration, n_iterations + 1):
         console.print(f"\n[bold yellow]=== ITERATION {iteration}/{n_iterations} ===[/bold yellow]")
 
         # Create run directory
@@ -347,7 +452,7 @@ def run_breakthrough_loop(
         evaluation = run_standard_loop(current_problem, run_dir, llm, tracker, past_context=past_context)
         history.append({"iteration": iteration, "evaluation": evaluation})
 
-        # Check for breakthrough — requires LLM flag, confidence >= 90%, and publishability >= 7
+        # Check for breakthrough — requires LLM flag, confidence ≥ 90%, and publishability ≥ 7
         _CONFIDENCE_THRESHOLD = 0.90
         _PUBLISHABILITY_THRESHOLD = 7.0
         confidence = evaluation.get("confidence", 0.0)
@@ -362,7 +467,7 @@ def run_breakthrough_loop(
             console.print(
                 f"\n[yellow][~] LLM flagged breakthrough but did not meet thresholds "
                 f"(confidence={confidence:.0%}, publishability={pub_score:.1f}/10 "
-                f"— need >={_CONFIDENCE_THRESHOLD:.0%} and >={_PUBLISHABILITY_THRESHOLD})[/yellow]"
+                f"— need ≥{_CONFIDENCE_THRESHOLD:.0%} and ≥{_PUBLISHABILITY_THRESHOLD})[/yellow]"
             )
 
         if is_breakthrough:
@@ -384,43 +489,9 @@ def run_breakthrough_loop(
         # Reformulate problem for next iteration (if not last)
         if iteration < n_iterations:
             console.print("\n[bold cyan]Reformulating problem for next iteration...[/bold cyan]")
-
-            # Only pass research-relevant summary, not execution errors
-            summary = evaluation.get("summary", "No findings")
-            next_dirs = evaluation.get("next_directions", [])
-            experiment_output = (run_dir / "06_run_output.txt").read_text(encoding="utf-8") if (run_dir / "06_run_output.txt").exists() else ""
-
-            # Strip infrastructure errors from output before sending to reformulation
-            research_output = "\n".join(
-                line for line in experiment_output.splitlines()
-                if not any(kw in line for kw in ["FileNotFoundError", "Traceback", "Error:", "STDERR", ".py line"])
-            )[:1500]
-
-            reformulate_prompt = f"""You are a research director. Reformulate the research problem below to pursue a more promising direction based on experimental findings.
-
-ORIGINAL TOPIC (do NOT change the domain — stay on this research subject):
-{problem_md[:800]}
-
-CURRENT PROBLEM STATEMENT:
-{current_problem[:600]}
-
-FINDINGS FROM THIS ITERATION:
-{summary}
-
-SUGGESTED NEXT DIRECTIONS:
-{chr(10).join(f'- {d}' for d in next_dirs)}
-
-RESEARCH OUTPUT (partial):
-{research_output if research_output.strip() else "(experiment did not produce output — keep the same research domain, tighten scope)"}
-
-TASK:
-Write a new problem.md that:
-1. Stays strictly within the original research domain (do NOT introduce unrelated topics)
-2. Focuses on one of the suggested directions above
-3. Uses the same markdown sections: Objective, Research Questions, Methodology, Success Criteria, Constraints
-4. Is more specific and targeted than the previous version
-5. Ignores any Python or file-system errors — focus only on the science"""
-
+            reformulate_prompt = _build_reformulation_prompt(
+                problem_md, current_problem, run_dir, evaluation
+            )
             current_problem = llm.reformulate(reformulate_prompt)
 
     # Finalize without breakthrough

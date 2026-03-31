@@ -57,6 +57,27 @@ def _is_experiment_complete(label: str, mode: str) -> bool:
         return False
 
 
+def _find_partial_breakthrough(label: str) -> tuple[Path, int] | None:
+    """Return (base_dir, last_completed_iteration) for a partially-done breakthrough experiment.
+
+    Returns None if no partial experiment exists or if the experiment is already complete.
+    """
+    folder = _find_latest_experiment_dir(label, "breakthrough")
+    if folder is None:
+        return None
+    if (folder / "report.html").exists():
+        return None  # fully complete
+    completed_runs = [
+        run for run in sorted(folder.glob("run_*"))
+        if (run / "07_evaluation.md").exists()
+        and len((run / "07_evaluation.md").read_text(encoding="utf-8", errors="replace")) > 50
+    ]
+    if not completed_runs:
+        return None
+    last_iter = int(completed_runs[-1].name.split("_")[-1])  # "run_003" → 3
+    return folder, last_iter
+
+
 # ── Reporting ─────────────────────────────────────────────────────────────────
 
 def _print_batch_summary(results: list[dict]) -> None:
@@ -251,7 +272,7 @@ FEATURES:
             filename = problem_file.name
             label = label_from_problem_file(problem_file)
 
-            # Resume: skip problems that already have complete output on disk
+            # Resume: skip fully completed problems
             if resume and _is_experiment_complete(label, args.mode):
                 console.print(f"[dim][>] Skipping (already done): {filename}[/dim]")
                 results.append({"file": filename, "status": "skipped"})
@@ -267,8 +288,21 @@ FEATURES:
                     if args.iterations < 1:
                         console.print("[red][!] Iterations must be >= 1[/red]")
                         sys.exit(1)
+                    # Resume: pick up a partial breakthrough from its last completed iteration
+                    existing_dir = None
+                    start_iteration = 1
+                    if resume:
+                        partial = _find_partial_breakthrough(label)
+                        if partial:
+                            existing_dir, last_completed = partial
+                            start_iteration = last_completed + 1
+                            console.print(
+                                f"[yellow][>] Resuming breakthrough at iteration "
+                                f"{start_iteration} (iterations 1–{last_completed} already done)[/yellow]"
+                            )
                     run_breakthrough_research(
-                        problem_md, label, session_config, llm, args.iterations
+                        problem_md, label, session_config, llm, args.iterations,
+                        existing_dir=existing_dir, start_iteration=start_iteration,
                     )
                 results.append({"file": filename, "status": "success"})
 
@@ -366,11 +400,16 @@ def run_breakthrough_research(
     session_config: dict,
     llm: LLMRouter,
     n_iterations: int,
+    existing_dir: Path | None = None,
+    start_iteration: int = 1,
 ):
     """Run breakthrough mode research."""
-    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-    base_dir = Path("experiments") / "breakthrough" / f"{label} - {timestamp}"
-    base_dir.mkdir(parents=True, exist_ok=True)
+    if existing_dir is not None:
+        base_dir = existing_dir
+    else:
+        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+        base_dir = Path("experiments") / "breakthrough" / f"{label} - {timestamp}"
+        base_dir.mkdir(parents=True, exist_ok=True)
 
     console.print(
         Panel(
@@ -382,7 +421,9 @@ def run_breakthrough_research(
         )
     )
 
-    history = run_breakthrough_loop(problem_md, base_dir, llm, n_iterations=n_iterations)
+    history = run_breakthrough_loop(
+        problem_md, base_dir, llm, n_iterations=n_iterations, start_iteration=start_iteration
+    )
     report_file = generate_breakthrough_report(base_dir, problem_title=f"Research: {label}")
 
     breakthrough_achieved = any(r["evaluation"].get("breakthrough_achieved") for r in history)
