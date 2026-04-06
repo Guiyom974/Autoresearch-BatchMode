@@ -161,15 +161,25 @@ Output ONLY a comma-separated list of folder numbers, e.g.: 3, 7, 12
 If none are relevant, output: NONE"""
 
     try:
+        import httpx
         name_resp = llm.ollama_client.chat.completions.create(
             model=_CONTEXT_ASSESSMENT_MODEL,
             messages=[{"role": "user", "content": name_filter_prompt}],
             temperature=0.1,
-            extra_body={"options": {"num_ctx": 131_072}},
+            extra_body={"options": {"num_ctx": 131_072, "num_predict": 16_384}},
+            timeout=httpx.Timeout(600.0),
         )
         name_selection = name_resp.choices[0].message.content.strip()
-    except openai.APIError as e:
-        console.print(f"[yellow][!] Name-based screening failed ({e}) — skipping past context[/yellow]")
+    except Exception as e:
+        import httpx
+        if isinstance(e, httpx.TimeoutException):
+            console.print(f"[yellow][!] Name-based screening timed out ({e}) — skipping past context[/yellow]")
+        elif isinstance(e, httpx.ConnectError):
+            console.print(f"[yellow][!] Name-based screening connection error ({e}) — skipping past context[/yellow]")
+        elif isinstance(e, openai.APIError):
+            console.print(f"[yellow][!] Name-based screening failed ({e}) — skipping past context[/yellow]")
+        else:
+            console.print(f"[yellow][!] Name-based screening error ({type(e).__name__}: {e}) — skipping past context[/yellow]")
         return ""
 
     if "NONE" in name_selection.upper():
@@ -247,15 +257,25 @@ EXP <number> | RELEVANT | <one sentence: what finding is useful and why>
 Skip experiments with no usable finding. Be concise."""
 
     try:
+        import httpx
         insight_resp = llm.ollama_client.chat.completions.create(
             model=_CONTEXT_ASSESSMENT_MODEL,
             messages=[{"role": "user", "content": insight_prompt}],
             temperature=0.2,
-            extra_body={"options": {"num_ctx": 131_072}},
+            extra_body={"options": {"num_ctx": 131_072, "num_predict": 16_384}},
+            timeout=httpx.Timeout(600.0),
         )
         assessment = insight_resp.choices[0].message.content
-    except openai.APIError as e:
-        console.print(f"[yellow][!] Insight extraction failed ({e}) — skipping past context[/yellow]")
+    except Exception as e:
+        import httpx
+        if isinstance(e, httpx.TimeoutException):
+            console.print(f"[yellow][!] Insight extraction timed out ({e}) — skipping past context[/yellow]")
+        elif isinstance(e, httpx.ConnectError):
+            console.print(f"[yellow][!] Insight extraction connection error ({e}) — skipping past context[/yellow]")
+        elif isinstance(e, openai.APIError):
+            console.print(f"[yellow][!] Insight extraction failed ({e}) — skipping past context[/yellow]")
+        else:
+            console.print(f"[yellow][!] Insight extraction error ({type(e).__name__}: {e}) — skipping past context[/yellow]")
         return ""
 
     # Parse and build context string
@@ -332,22 +352,24 @@ def run_standard_loop(
 
     # Step 3: Formulate hypotheses
     console.print("\n[bold cyan]Step 2: Hypothesis Formulation[/bold cyan]")
-    hypothesis_prompt = f"""Given this research problem, search results, and any relevant prior findings, propose 3-5 testable hypotheses:
+    hypothesis_prompt = f"""Given this research problem, search results, and any relevant prior findings, propose 3-5 testable hypotheses.
 
 PROBLEM:
-{problem_md}
+{problem_md[:500]}
 
 CONTEXT (web search + prior findings):
-{full_context[:8000]}
+{full_context[:2000]}
 
-For each hypothesis, explain:
-1. The hypothesis statement
-2. Why it's testable
-3. What kind of experiment would test it
-Note: If prior findings are present, build on them — do not repeat experiments that already produced clear results."""
+For each hypothesis, provide:
+1. Hypothesis statement (1-2 sentences)
+2. Why it's testable (1 sentence)
+3. Experiment approach (1 sentence)
+
+BE CONCISE: Each hypothesis should be 1-4 lines total."""
 
     hypotheses = llm.reason(hypothesis_prompt)
-    if len(hypotheses.strip()) < 200:
+    # Only retry if response is genuinely too short (less than 100 chars)
+    if len(hypotheses.strip()) < 100:
         console.print("[yellow][*] Hypothesis response too short — retrying with code generation model...[/yellow]")
         hypotheses = llm.generate_code(hypothesis_prompt)
     tracker.log_step("hypotheses", hypotheses)
@@ -364,19 +386,40 @@ Note: If prior findings are present, build on them — do not repeat experiments
 
     # Step 5: Evaluate results
     console.print("\n[bold cyan]Step 4: Results Evaluation[/bold cyan]")
-    evaluation = llm.evaluate(output, problem_md)
+    
+    # Retry evaluation if it fails (up to 2 attempts)
+    max_eval_retries = 2
+    evaluation = None
+    for attempt in range(1, max_eval_retries + 1):
+        evaluation = llm.evaluate(output, problem_md)
+        # Check if evaluation is valid (has required keys)
+        if evaluation and evaluation.get('summary') and 'breakthrough_achieved' in evaluation:
+            break  # Success, exit retry loop
+        if attempt < max_eval_retries:
+            console.print(f"[yellow][*] Evaluation attempt {attempt} failed — retrying...[/yellow]")
+    
+    # If all retries failed, use default evaluation
+    if not evaluation or not evaluation.get('summary'):
+        console.print("[yellow][!] All evaluation attempts failed, using default evaluation[/yellow]")
+        evaluation = {
+            'summary': 'Evaluation unavailable after retries',
+            'breakthrough_achieved': False,
+            'confidence': 0.0,
+            'publishability_score': 0.0,
+            'next_directions': []
+        }
 
     eval_text = f"""## Evaluation Summary
 
-**Breakthrough Achieved**: {evaluation.get('breakthrough_achieved', False)}
-**Confidence**: {evaluation.get('confidence', 0.0):.1%}
-**Publishability Score**: {evaluation.get('publishability_score', 0.0):.1f}/10
+    **Breakthrough Achieved**: {evaluation.get('breakthrough_achieved', False)}
+    **Confidence**: {evaluation.get('confidence', 0.0):.1%}
+    **Publishability Score**: {evaluation.get('publishability_score', 0.0):.1f}/10
 
-**Summary**:
-{evaluation.get('summary', 'N/A')}
+    **Summary**:
+    {evaluation.get('summary', 'N/A')}
 
-**Next Directions**:
-{chr(10).join(f"- {d}" for d in evaluation.get('next_directions', []))}"""
+    **Next Directions**:
+    {chr(10).join(f"- {d}" for d in evaluation.get('next_directions', []))}"""
 
     tracker.log_step("evaluation", eval_text)
     tracker.finalize(

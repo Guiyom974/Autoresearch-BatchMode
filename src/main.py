@@ -9,7 +9,7 @@ from rich.console import Console
 from rich.panel import Panel
 
 from . import config
-from .llm import LLMRouter
+from .llm import LLMRouter as LLMRouter
 from .reporter import generate_breakthrough_report
 from .researcher import build_past_context, run_breakthrough_loop, run_standard_loop
 from .tracker import ExperimentTracker
