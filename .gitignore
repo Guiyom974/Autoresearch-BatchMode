@@ -21,6 +21,9 @@ experiments/**/
 experiments/standard/.gitkeep
 experiments/breakthrough/.gitkeep
 
+# Failure logs
+failures/
+
 # OS
 .DS_Store
 Thumbs.db

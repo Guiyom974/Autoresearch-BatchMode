@@ -53,7 +53,7 @@ class LLMRouter:
         self.ollama_client = openai.OpenAI(
             api_key="ollama",  # Ollama doesn't require a real API key
             base_url=config["ollama_base_url"],
-            timeout=httpx.Timeout(None),  # no timeout — local models can take arbitrarily long
+            timeout=httpx.Timeout(180.0),  # 3 min ceiling — local models are fast enough; avoids infinite hang
             max_retries=0,
         )
 
@@ -225,7 +225,11 @@ class LLMRouter:
                 messages=[{"role": "user", "content": prompt}],
                 temperature=0.8,
             )
-            result = response.choices[0].message.content
+            choice = response.choices[0]
+            if choice.finish_reason == "length":
+                console.print(f"[yellow][!] {model} hit output limit in reformulate (finish_reason=length)[/yellow]")
+                return "# TRUNCATED by API output limit"
+            result = choice.message.content
             console.print("[green][+][/green] Problem reformulated")
             return result
         except openai.APIError as e:
@@ -287,8 +291,8 @@ class LLMRouter:
 PROBLEM (first 300 chars):
 {problem[:300]}
 
-EXPERIMENT OUTPUT (first 1000 chars):
-{output[:1000]}
+EXPERIMENT OUTPUT (first 4000 chars):
+{output[:4000]}
 
 BREAKTHROUGH CRITERIA — set breakthrough_achieved=true ONLY if ALL of the following hold:
 1. NOVELTY: The finding is not a reproduction of a known result, and was not already established in prior literature.

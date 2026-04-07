@@ -9,6 +9,7 @@ from rich.console import Console
 from rich.panel import Panel
 
 from . import config
+from .failure_logger import FailureLogger, FAIL_BATCH
 from .llm import LLMRouter as LLMRouter
 from .reporter import generate_breakthrough_report
 from .researcher import build_past_context, run_breakthrough_loop, run_standard_loop
@@ -267,6 +268,7 @@ FEATURES:
         )
 
         results: list[dict] = []
+        batch_run_ts = datetime.now().strftime("%Y%m%d_%H%M%S")
 
         for problem_file in problem_files:
             filename = problem_file.name
@@ -280,10 +282,13 @@ FEATURES:
 
             console.print(f"\n[cyan][>] Processing:[/cyan] {filename}")
 
+            # Create failure logger for this problem
+            failure_logger = FailureLogger(problem_label=label, batch_run_ts=batch_run_ts)
+
             try:
                 problem_md = problem_file.read_text(encoding="utf-8")
                 if args.mode == "standard":
-                    run_standard_research(problem_md, label, session_config, llm)
+                    run_standard_research(problem_md, label, session_config, llm, failure_logger=failure_logger)
                 else:
                     if args.iterations < 1:
                         console.print("[red][!] Iterations must be >= 1[/red]")
@@ -303,8 +308,14 @@ FEATURES:
                     run_breakthrough_research(
                         problem_md, label, session_config, llm, args.iterations,
                         existing_dir=existing_dir, start_iteration=start_iteration,
+                        failure_logger=failure_logger,
                     )
                 results.append({"file": filename, "status": "success"})
+                # Flush any non-fatal failures logged during the run
+                if failure_logger.has_failures():
+                    paths = failure_logger.flush()
+                    if paths:
+                        console.print(f"[dim]  failure log: {paths[1].name}[/dim]")
 
             except KeyboardInterrupt:
                 console.print("\n[yellow][!] Batch interrupted (Ctrl+C)[/yellow]")
@@ -322,6 +333,10 @@ FEATURES:
                 sys.exit(0)
 
             except Exception as e:
+                failure_logger.record_batch_exception(filename, e)
+                paths = failure_logger.flush()
+                if paths:
+                    console.print(f"[dim]  failure log: {paths[1].name}[/dim]")
                 console.print(f"[red][!] Failed: {filename} — {e}[/red]")
                 results.append({"file": filename, "status": f"failed: {e}"})
 
@@ -364,7 +379,7 @@ FEATURES:
 
 # ── Research runners ──────────────────────────────────────────────────────────
 
-def run_standard_research(problem_md: str, label: str, session_config: dict, llm: LLMRouter):
+def run_standard_research(problem_md: str, label: str, session_config: dict, llm: LLMRouter, failure_logger: FailureLogger | None = None):
     """Run standard mode research."""
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
     experiment_dir = Path("experiments") / "standard" / f"{label} - {timestamp}"
@@ -381,7 +396,7 @@ def run_standard_research(problem_md: str, label: str, session_config: dict, llm
 
     past_context = build_past_context(problem_md, llm)
     tracker = ExperimentTracker(experiment_dir)
-    evaluation = run_standard_loop(problem_md, experiment_dir, llm, tracker, past_context=past_context)
+    evaluation = run_standard_loop(problem_md, experiment_dir, llm, tracker, past_context=past_context, failure_logger=failure_logger)
 
     console.print(
         Panel(
@@ -402,6 +417,7 @@ def run_breakthrough_research(
     n_iterations: int,
     existing_dir: Path | None = None,
     start_iteration: int = 1,
+    failure_logger: FailureLogger | None = None,
 ):
     """Run breakthrough mode research."""
     if existing_dir is not None:
@@ -422,7 +438,8 @@ def run_breakthrough_research(
     )
 
     history = run_breakthrough_loop(
-        problem_md, base_dir, llm, n_iterations=n_iterations, start_iteration=start_iteration
+        problem_md, base_dir, llm, n_iterations=n_iterations, start_iteration=start_iteration,
+        failure_logger=failure_logger
     )
     report_file = generate_breakthrough_report(base_dir, problem_title=f"Research: {label}")
 

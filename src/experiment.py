@@ -7,6 +7,7 @@ from pathlib import Path
 
 from rich.console import Console
 
+from .failure_logger import FailureLogger, FAIL_CODE_GEN, FAIL_EXECUTION
 from .llm import LLMRouter
 
 console = Console()
@@ -137,9 +138,10 @@ def _is_truncated(code: str) -> bool:
 class ExperimentRunner:
     """Generates and executes research experiments."""
 
-    def __init__(self, llm: LLMRouter, experiment_dir: Path):
+    def __init__(self, llm: LLMRouter, experiment_dir: Path, failure_logger: FailureLogger | None = None):
         self.llm = llm
         self.experiment_dir = Path(experiment_dir)
+        self.failure_logger = failure_logger
 
     def _code_prompt(self, problem: str, hypotheses: str, context: str = "") -> str:
         return f"""Write a self-contained Python script to test these research hypotheses.
@@ -159,12 +161,21 @@ STRICT REQUIREMENTS:
 2. Print clear labeled results for each hypothesis tested
 3. For plots: use matplotlib.use('Agg') then savefig() — NEVER plt.show()
 4. Print a CONCLUSIONS section at the end
-5. Max runtime: 2 minutes — use efficient algorithms (segmented sieve, vectorised numpy)
+5. Max runtime: 2 minutes — use efficient algorithms (segmented sieve, vectorised numpy).
+   CRITICAL RUNTIME RULE: Do NOT compute more than 10^4 digits of any mathematical constant
+   (Pi, e, phi, etc.) inline using pure Python loops or the `decimal` module with high precision.
+   For constants needing >10^4 digits use numpy's built-in constants (np.pi, np.e) or
+   pre-computed string slices of at most 10^4 chars — never a spigot/BBP loop at runtime.
 6. Handle all edge cases — no unhandled exceptions
 7. CRITICAL: The script MUST be complete and syntactically valid Python. Every function, class,
    and if-block must have a full body. Do not stop mid-function. If you are running long, simplify
    earlier sections — but always finish the script with the CONCLUSIONS print and a proper ending.
 8. Be CONCISE: Avoid verbose comments and unnecessary complexity. Focus on the core logic.
+9. FORBIDDEN APIs — do NOT use:
+   - np.fromstring(data, dtype=np.uint8) in binary mode (removed in NumPy 1.24+);
+     use np.frombuffer() instead
+   - decimal.Decimal operations without first setting decimal.getcontext().prec explicitly
+     at the top of the script (causes silent InvalidOperation for large precision work)
 
 OUTPUT FORMAT:
 You MUST wrap the complete Python script between exactly two {CODE_TAG} markers:
@@ -183,9 +194,14 @@ IMPORTANT: Generate the COMPLETE script in one response. Do not truncate or stop
     def _fix_prompt(self, code: str, error_output: str, problem: str) -> str:
         is_timeout = "[TIMEOUT]" in error_output
         timeout_rule = (
-            "\n- TIMEOUT: The script ran too long. Drastically simplify: reduce N (e.g. primes up to 10^5 not 10^6), "
-            "use faster algorithms (segmented sieve, vectorised numpy), remove nested loops over large arrays. "
-            "Ensure total runtime is well under 4 minutes."
+            "\n- TIMEOUT: The script ran too long. You MUST make it complete in under 90 seconds. "
+            "Do ALL of the following:\n"
+            "  * If computing digits of Pi, e, phi or any constant: REMOVE the digit generation entirely. "
+            "Use np.pi / np.e directly, or a hardcoded string of at most 200 chars. "
+            "Do NOT use decimal.Decimal loops, spigot algorithms, or mpmath for large digit counts.\n"
+            "  * Reduce all iteration limits (e.g. primes/sequences up to 10^5 not 10^6).\n"
+            "  * Replace any pure-Python loops over large arrays with vectorised numpy.\n"
+            "  * Remove any nested loops over arrays larger than 10^4 elements."
             if is_timeout else ""
         )
         return f"""Fix this failing Python script so it runs without errors.
@@ -243,6 +259,13 @@ Do NOT output anything before the first {CODE_TAG} or after the last {CODE_TAG}.
 
         if _is_failed_code(code):
             console.print("[red][!] Could not generate valid code[/red]")
+            if self.failure_logger:
+                self.failure_logger.record(
+                    FAIL_CODE_GEN,
+                    step="generate_code",
+                    error="All code generation strategies failed",
+                    artifacts={"raw_response": raw[:1000]},
+                )
             return "# No code generated\nprint('Code generation failed')"
 
         return code
@@ -333,6 +356,22 @@ Do NOT output anything before the first {CODE_TAG} or after the last {CODE_TAG}.
         """
         code = self.generate_code(problem, hypotheses, context)
         output, success = self.run_code(code, timeout)
+        attempts = []
+
+        # Early-exit: if output is empty/whitespace and code is non-trivial, this is a
+        # silent crash (import error, div-by-zero swallowed, etc.). Retrying a fix with
+        # no error output would be useless — return now so the evaluator sees a clean
+        # "no output" signal rather than triggering cascading empty evaluation retries.
+        if not success and not output.strip() and not _is_failed_code(code):
+            console.print("[red][!] Silent crash — no output and no error text. Skipping fix retry.[/red]")
+            if self.failure_logger:
+                self.failure_logger.record(
+                    FAIL_EXECUTION,
+                    step="run_full_experiment",
+                    error="Silent crash: script exited with no stdout and no stderr",
+                    artifacts={"code_snippet": code[:400]},
+                )
+            return code, "[SILENT CRASH] Script produced no output. Likely an import error or unhandled exception before any print statement.", False
 
         if not success:
             for attempt in range(1, max_retries + 1):
@@ -340,6 +379,15 @@ Do NOT output anything before the first {CODE_TAG} or after the last {CODE_TAG}.
                     f"[yellow][*] Retry {attempt}/{max_retries} — sending error to Gemini-3.1-Pro[/yellow]"
                 )
                 console.print(f"[dim]  Error: {output[:150].strip()}[/dim]")
+
+                # Track this attempt
+                attempts.append({
+                    "attempt": attempt,
+                    "strategy": "regenerate" if _is_failed_code(code) else "fix",
+                    "error": output[:500],
+                    "code": code[:300],
+                    "output": output[:300],
+                })
 
                 # If code is a policy block / empty, regenerate fully instead of trying to fix
                 if _is_failed_code(code):
@@ -357,5 +405,13 @@ Do NOT output anything before the first {CODE_TAG} or after the last {CODE_TAG}.
                 output = fixed_output
 
             console.print("[red][!] Experiment still failing after retry[/red]")
+            # Log execution failure if logger is available
+            if attempts and self.failure_logger:
+                self.failure_logger.record_retry_sequence(
+                    FAIL_EXECUTION,
+                    step="run_full_experiment",
+                    attempts=attempts,
+                    context={"problem_snippet": problem[:200]},
+                )
 
         return code, output, success

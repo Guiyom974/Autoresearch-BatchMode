@@ -9,6 +9,7 @@ from rich.console import Console
 from rich.panel import Panel
 
 from .experiment import ExperimentRunner
+from .failure_logger import FailureLogger, FAIL_EVALUATION
 from .llm import LLMRouter
 from .tracker import BreakthroughTracker, ExperimentTracker
 
@@ -313,6 +314,7 @@ def run_standard_loop(
     llm: LLMRouter,
     tracker: ExperimentTracker,
     past_context: str = "",
+    failure_logger: FailureLogger | None = None,
 ) -> dict:
     """Run a single standard research loop.
 
@@ -322,6 +324,7 @@ def run_standard_loop(
         llm: LLMRouter instance
         tracker: ExperimentTracker instance
         past_context: Relevant findings from past runs (injected into hypothesis + code gen)
+        failure_logger: Optional FailureLogger for batch mode
 
     Returns:
         Evaluation dict
@@ -368,15 +371,20 @@ For each hypothesis, provide:
 BE CONCISE: Each hypothesis should be 1-4 lines total."""
 
     hypotheses = llm.reason(hypothesis_prompt)
-    # Only retry if response is genuinely too short (less than 100 chars)
-    if len(hypotheses.strip()) < 100:
-        console.print("[yellow][*] Hypothesis response too short — retrying with code generation model...[/yellow]")
+    # Detect API error sentinels or suspiciously short response — retry with codegen model
+    _hypotheses_is_error = (
+        hypotheses.strip().startswith("API error:")
+        or hypotheses.strip().startswith("Failed to")
+        or len(hypotheses.strip()) < 100
+    )
+    if _hypotheses_is_error:
+        console.print("[yellow][*] Hypothesis response invalid or too short — retrying with code generation model...[/yellow]")
         hypotheses = llm.generate_code(hypothesis_prompt)
     tracker.log_step("hypotheses", hypotheses)
 
     # Step 4: Generate experiment code
     console.print("\n[bold cyan]Step 3: Code Generation[/bold cyan]")
-    runner = ExperimentRunner(llm, experiment_dir)
+    runner = ExperimentRunner(llm, experiment_dir, failure_logger=failure_logger)
     code, output, success = runner.run_full_experiment(
         problem_md, hypotheses, full_context
     )
@@ -401,6 +409,13 @@ BE CONCISE: Each hypothesis should be 1-4 lines total."""
     # If all retries failed, use default evaluation
     if not evaluation or not evaluation.get('summary'):
         console.print("[yellow][!] All evaluation attempts failed, using default evaluation[/yellow]")
+        if failure_logger:
+            failure_logger.record(
+                FAIL_EVALUATION,
+                step="evaluate_results",
+                error="All evaluation attempts failed",
+                context={"problem_snippet": problem_md[:200], "output_snippet": output[:300]},
+            )
         evaluation = {
             'summary': 'Evaluation unavailable after retries',
             'breakthrough_achieved': False,
@@ -436,6 +451,7 @@ def run_breakthrough_loop(
     llm: LLMRouter,
     n_iterations: int = 3,
     start_iteration: int = 1,
+    failure_logger: FailureLogger | None = None,
 ) -> list[dict]:
     """Run breakthrough research loop with iterative problem reformulation.
 
@@ -444,6 +460,8 @@ def run_breakthrough_loop(
         base_dir: Base directory for breakthrough experiments
         llm: LLMRouter instance
         n_iterations: Max iterations (may stop early if breakthrough achieved)
+        start_iteration: Iteration to start from (for resume)
+        failure_logger: Optional FailureLogger for batch mode
 
     Returns:
         List of evaluation dicts from each iteration
@@ -492,7 +510,7 @@ def run_breakthrough_loop(
 
         # Run standard loop
         tracker = ExperimentTracker(run_dir)
-        evaluation = run_standard_loop(current_problem, run_dir, llm, tracker, past_context=past_context)
+        evaluation = run_standard_loop(current_problem, run_dir, llm, tracker, past_context=past_context, failure_logger=failure_logger)
         history.append({"iteration": iteration, "evaluation": evaluation})
 
         # Check for breakthrough — requires LLM flag, confidence ≥ 90%, and publishability ≥ 7
