@@ -15,7 +15,7 @@ console = Console()
 _OLLAMA_NUM_CTX = 131_072
 
 
-def _handle_api_error(e: openai.APIError, service: str = "Cloud API") -> str:
+def _handle_api_error(e: openai.APIError, service: str = "Poe") -> str:
     """Handle API errors with clear messages. Exits on auth errors."""
     if isinstance(e, openai.AuthenticationError):
         console.print(
@@ -29,7 +29,7 @@ def _handle_api_error(e: openai.APIError, service: str = "Cloud API") -> str:
 
 
 class LLMRouter:
-    """Routes requests to the configured cloud API or Ollama based on task type."""
+    """Routes requests to Poe API or Ollama based on task type."""
 
     def __init__(self, config: dict):
         """Initialize LLM router with session config.
@@ -44,16 +44,16 @@ class LLMRouter:
                 - ollama_base_url
         """
         self.config = config
-        self.cloud_client = openai.OpenAI(
-            api_key=config["cloud_api_key"],
-            base_url=config["cloud_base_url"],
+        self.poe_client = openai.OpenAI(
+            api_key=config["poe_api_key"],
+            base_url="https://api.poe.com/v1",
             timeout=120.0,  # cloud API — 2 min is generous
             max_retries=0,  # we handle retries ourselves; don't double-wait on failures
         )
         self.ollama_client = openai.OpenAI(
             api_key="ollama",  # Ollama doesn't require a real API key
             base_url=config["ollama_base_url"],
-            timeout=httpx.Timeout(None),  # no timeout — local models can take arbitrarily long
+            timeout=httpx.Timeout(180.0),  # 3 min ceiling — local models are fast enough; avoids infinite hang
             max_retries=0,
         )
 
@@ -64,7 +64,7 @@ class LLMRouter:
         Returns a list of query strings (up to 3).
         """
         model = self.config["websearch_model"]
-        console.print(f"[cyan][*] Generating search queries with {model} (cloud)...[/cyan]")
+        console.print(f"[cyan][*] Generating search queries with {model} (poe)...[/cyan]")
 
         prompt = (
             f"Generate exactly 3 web search queries to find academic and technical information "
@@ -77,7 +77,7 @@ class LLMRouter:
             f"Do not number them, do not use bullets, do not add any other text."
         )
         try:
-            response = self.cloud_client.chat.completions.create(
+            response = self.poe_client.chat.completions.create(
                 model=model,
                 messages=[{"role": "user", "content": prompt}],
                 temperature=0.3,
@@ -136,7 +136,7 @@ class LLMRouter:
         console.print(f"[cyan][*] Web search:[/cyan] {query[:80]}...")
 
         try:
-            response = self.cloud_client.chat.completions.create(
+            response = self.poe_client.chat.completions.create(
                 model=self.config["websearch_model"],
                 messages=[
                     {
@@ -154,7 +154,7 @@ class LLMRouter:
             if "500" in str(e) or "Internal Server Error" in str(e):
                 console.print(f"[yellow][!] Model {self.config['websearch_model']} might not support web_search flag. Retrying without it...[/yellow]")
                 try:
-                    response = self.cloud_client.chat.completions.create(
+                    response = self.poe_client.chat.completions.create(
                         model=self.config["websearch_model"],
                         messages=[
                             {
@@ -191,8 +191,8 @@ class LLMRouter:
         backend = self.config["reasoning_backend"]
         console.print(f"[cyan][*] Reasoning with {model} ({backend})...[/cyan]")
 
-        client = self.cloud_client if backend == "cloud" else self.ollama_client
-        extra = {"options": {"num_ctx": _OLLAMA_NUM_CTX}} if backend != "cloud" else {}
+        client = self.poe_client if backend == "poe" else self.ollama_client
+        extra = {"options": {"num_ctx": _OLLAMA_NUM_CTX}} if backend != "poe" else {}
 
         try:
             response = client.chat.completions.create(
@@ -216,16 +216,20 @@ class LLMRouter:
         Returns:
             Reformulated problem statement
         """
-        model = self.config["cloud_model_reformulate"]
+        model = self.config["poe_model_reformulate"]
         console.print(f"[cyan][*] Reformulating problem with {model}...[/cyan]")
 
         try:
-            response = self.cloud_client.chat.completions.create(
+            response = self.poe_client.chat.completions.create(
                 model=model,
                 messages=[{"role": "user", "content": prompt}],
                 temperature=0.8,
             )
-            result = response.choices[0].message.content
+            choice = response.choices[0]
+            if choice.finish_reason == "length":
+                console.print(f"[yellow][!] {model} hit output limit in reformulate (finish_reason=length)[/yellow]")
+                return "# TRUNCATED by API output limit"
+            result = choice.message.content
             console.print("[green][+][/green] Problem reformulated")
             return result
         except openai.APIError as e:
@@ -249,8 +253,8 @@ class LLMRouter:
         backend = self.config["codegen_backend"]
         console.print(f"[cyan][*] Generating code with {model} ({backend})...[/cyan]")
 
-        client = self.cloud_client if backend == "cloud" else self.ollama_client
-        extra = {"options": {"num_ctx": _OLLAMA_NUM_CTX}} if backend != "cloud" else {}
+        client = self.poe_client if backend == "poe" else self.ollama_client
+        extra = {"options": {"num_ctx": _OLLAMA_NUM_CTX}} if backend != "poe" else {}
 
         try:
             response = client.chat.completions.create(
@@ -287,8 +291,8 @@ class LLMRouter:
 PROBLEM (first 300 chars):
 {problem[:300]}
 
-EXPERIMENT OUTPUT (first 1000 chars):
-{output[:1000]}
+EXPERIMENT OUTPUT (first 4000 chars):
+{output[:4000]}
 
 BREAKTHROUGH CRITERIA — set breakthrough_achieved=true ONLY if ALL of the following hold:
 1. NOVELTY: The finding is not a reproduction of a known result, and was not already established in prior literature.
@@ -374,8 +378,8 @@ Fill in the JSON above with your evaluation. Output ONLY the !@#$ block — no o
         backend = self.config["eval_backend"]
         console.print(f"[cyan][*] Evaluating results with {model} ({backend})...[/cyan]")
 
-        client = self.cloud_client if backend == "cloud" else self.ollama_client
-        extra = {"options": {"num_ctx": _OLLAMA_NUM_CTX}} if backend != "cloud" else {}
+        client = self.poe_client if backend == "poe" else self.ollama_client
+        extra = {"options": {"num_ctx": _OLLAMA_NUM_CTX}} if backend != "poe" else {}
         raw_output = None
         try:
             resp = client.chat.completions.create(
@@ -464,7 +468,7 @@ The new problem must:
 
 Output ONLY the problem.md content. No preamble, no explanation."""
 
-        client = self.cloud_client if backend == "cloud" else self.ollama_client
+        client = self.poe_client if backend == "poe" else self.ollama_client
         try:
             response = client.chat.completions.create(
                 model=model,
