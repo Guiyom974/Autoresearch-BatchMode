@@ -171,28 +171,42 @@ STRICT REQUIREMENTS:
    and if-block must have a full body. Do not stop mid-function. If you are running long, simplify
    earlier sections — but always finish the script with the CONCLUSIONS print and a proper ending.
 8. Be CONCISE: Avoid verbose comments and unnecessary complexity. Focus on the core logic.
-9. FORBIDDEN APIs — do NOT use:
+9. CRITICAL COMPATIBILITY RULES for scipy (API changes):
+   - Do NOT use scipy.special.li() — it's been removed; use Taylor series or pre-computed values
+   - Do NOT use scipy.special.log10() — use numpy.log10() instead
+   - Do NOT use scipy.signal.cwt() — use scipy.signal.morlet2() or compute manually instead
+   - Stick to: scipy.stats, scipy.integrate, scipy.optimize, scipy.linalg (these are stable)
+   - For scipy.stats distributions, ALWAYS use dtype=np.float64 (not float32)
+10. FORBIDDEN APIs — do NOT use:
    - np.fromstring(data, dtype=np.uint8) in binary mode (removed in NumPy 1.24+);
      use np.frombuffer() instead
    - decimal.Decimal operations without first setting decimal.getcontext().prec explicitly
      at the top of the script (causes silent InvalidOperation for large precision work)
+   - Integer indexing with floating point values — convert with int() first
+   - Calling .sqrt() or .log() on Python int objects — wrap in Decimal/mpmath or use numpy
 
 OUTPUT FORMAT:
 You MUST wrap the complete Python script between exactly two {CODE_TAG} markers:
 {CODE_TAG}
 import sys
 sys.stdout.reconfigure(encoding='utf-8', errors='replace')
+print("[START]", flush=True)
 import numpy as np
 # ... rest of your code ...
-print("CONCLUSIONS: ...")
+print("\\nCONCLUSIONS: ...")
 {CODE_TAG}
 The {CODE_TAG} markers must appear on their own line.
 Do NOT output anything before the first {CODE_TAG} or after the last {CODE_TAG}.
 
-IMPORTANT: Generate the COMPLETE script in one response. Do not truncate or stop mid-code."""
+IMPORTANT: Generate the COMPLETE script in one response. Do not truncate or stop mid-code.
+Always include print("[START]") as first executable line to detect silent crashes."""
 
     def _fix_prompt(self, code: str, error_output: str, problem: str) -> str:
         is_timeout = "[TIMEOUT]" in error_output
+        is_syntax = "SyntaxError" in error_output
+        is_import = "ImportError" in error_output or "ModuleNotFoundError" in error_output
+        is_silent = "[SILENT CRASH]" in error_output
+
         timeout_rule = (
             "\n- TIMEOUT: The script ran too long. You MUST make it complete in under 90 seconds. "
             "Do ALL of the following:\n"
@@ -204,6 +218,41 @@ IMPORTANT: Generate the COMPLETE script in one response. Do not truncate or stop
             "  * Remove any nested loops over arrays larger than 10^4 elements."
             if is_timeout else ""
         )
+
+        syntax_rule = (
+            "\n- SYNTAX ERROR: The code has incomplete/malformed syntax. You MUST:\n"
+            "  * Make sure ALL function/class/if/for/while blocks have complete bodies (not ':'  at end of file)\n"
+            "  * Match ALL quotes (\", ', \"\"\", ''')\n"
+            "  * Match ALL brackets/parens/braces\n"
+            "  * Check f-strings are closed\n"
+            "  * Ensure every statement is on its own line"
+            if is_syntax else ""
+        )
+
+        import_rule = (
+            "\n- IMPORT ERROR: Do NOT use removed scipy/numpy functions:\n"
+            "  * scipy.special.li() → REMOVED, use Taylor series or hardcode value\n"
+            "  * scipy.special.log10() → Use numpy.log10() instead\n"
+            "  * scipy.signal.cwt() → REMOVED, use scipy.signal.morlet2() or compute manually\n"
+            "  * np.fromstring() → REMOVED in NumPy 1.24+, use np.frombuffer() instead\n"
+            "  * Stick to: scipy.stats, scipy.integrate, scipy.optimize, scipy.linalg (stable APIs)"
+            if is_import else ""
+        )
+
+        silent_rule = (
+            "\n- SILENT CRASH: Code runs but produces no output. The error happens before first print. You MUST:\n"
+            "  * Add print('[STARTUP]', flush=True) IMMEDIATELY after imports, before any other code\n"
+            "  * Check all imports are valid — no typos in module names\n"
+            "  * Wrap main logic in try-except to catch errors:\n"
+            "    try:\n"
+            "        # your code\n"
+            "    except Exception as e:\n"
+            "        print(f'ERROR: {{e}}')\n"
+            "        import traceback\n"
+            "        traceback.print_exc()"
+            if is_silent else ""
+        )
+
         return f"""Fix this failing Python script so it runs without errors.
 
 RESEARCH PROBLEM (do NOT change domain — only fix the code):
@@ -222,10 +271,14 @@ RULES:
 - All imports must be at the top
 - No plt.show() — use savefig() instead
 - Script must be fully self-contained
-- Use sys.stdout.reconfigure(encoding='utf-8', errors='replace') right after imports to avoid encoding errors{timeout_rule}
+- Use sys.stdout.reconfigure(encoding='utf-8', errors='replace') right after imports to avoid encoding errors
+- Always include print('[STARTUP]', flush=True) as FIRST line after imports{timeout_rule}{syntax_rule}{import_rule}{silent_rule}
 
 OUTPUT FORMAT — wrap the complete corrected script between exactly two {CODE_TAG} markers:
 {CODE_TAG}
+import sys
+sys.stdout.reconfigure(encoding='utf-8', errors='replace')
+print('[STARTUP]', flush=True)
 # fixed code here
 {CODE_TAG}
 The {CODE_TAG} markers must appear on their own line.
@@ -300,6 +353,27 @@ Do NOT output anything before the first {CODE_TAG} or after the last {CODE_TAG}.
             console.print(f"[red][!] Syntax error before execution: {e}[/red]")
             return err, False
 
+        # Additional validation: check for common issues that break after parse
+        _code_issues = []
+        if code.count('"') % 2 != 0 or code.count("'") % 2 != 0:
+            _code_issues.append("mismatched quotes")
+        if '"""' in code:
+            # Count unescaped triple quotes
+            lines = code.split('"""')
+            if len(lines) % 2 == 0:
+                _code_issues.append("unterminated triple-quoted string")
+        if code.strip().endswith((":","\\","(","[","{")):
+            _code_issues.append("incomplete trailing syntax")
+
+        if _code_issues:
+            err = f"--- STDERR ---\nCode validation failed: {', '.join(_code_issues)}\n\nCode length: {len(code)} chars\nCode preview:\n{code[-300:]}"
+            console.print(f"[red][!] Code validation error: {', '.join(_code_issues)}[/red]")
+            return err, False
+
+        # Verify code has a [START] marker or will print something early
+        if "[START]" not in code and "print(" not in code[:200]:
+            console.print("[yellow][!] Warning: code has no early print statements (may cause silent crash)[/yellow]")
+
         console.print("[cyan][*] Executing experiment code...[/cyan]")
 
         self.experiment_dir.mkdir(parents=True, exist_ok=True)
@@ -326,6 +400,11 @@ Do NOT output anything before the first {CODE_TAG} or after the last {CODE_TAG}.
                 output += f"\n--- STDERR ---\n{result.stderr}"
 
             success = result.returncode == 0
+
+            # Detect if code ran but produced no output (silent crash)
+            if not output.strip() and result.returncode != 0:
+                output = "[SILENT CRASH] Code exited with error but produced no output. Likely an import error or early exception."
+
             console.print(
                 "[green][+][/green] Experiment completed"
                 if success
