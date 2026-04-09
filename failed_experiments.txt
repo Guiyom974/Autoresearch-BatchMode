@@ -1,0 +1,473 @@
+Total failed experiments: 228
+
+Failed Experiments List:
+
+========================================================================================================================
+
+Analytic Number Theory - Chebyshev Bias Higher Primorials - 20260325_144807
+------------------------------------------------------------------------------------------------------------------------
+  run_001: Empty output
+
+Analytic Number Theory - Chebyshev Bias Higher Primorials - 20260325_151112
+------------------------------------------------------------------------------------------------------------------------
+  run_001: Empty output
+  run_002: Empty output
+  run_003: Empty output
+  run_004: Empty output
+  run_005: Contains error/traceback
+  run_006: Empty output
+  run_007: Empty output
+  run_008: Empty output
+  run_009: Empty output
+  run_010: Empty output
+
+Analytic Number Theory - LDAB Model Validation Scale - 20260326_092633
+------------------------------------------------------------------------------------------------------------------------
+  run_001: Contains error/traceback
+
+Analytic Number Theory - Prime Pattern Discovery - 20260325_132053
+------------------------------------------------------------------------------------------------------------------------
+  run_001: Empty output
+  run_003: Empty output
+
+Analytic Number Theory - Primorial Distribution Asymmetries - 20260326_080610
+------------------------------------------------------------------------------------------------------------------------
+  run_003: Contains error/traceback
+  run_004: Contains error/traceback
+  run_006: Contains error/traceback
+  run_007: Contains error/traceback
+
+Analytic Number Theory - RMT Chebyshev Bias Validation - 20260326_113434
+------------------------------------------------------------------------------------------------------------------------
+  run_003: Missing run output
+
+Analytic Number Theory - RMT Chebyshev Bias Validation - 20260326_131148
+------------------------------------------------------------------------------------------------------------------------
+  run_001: Contains error/traceback
+
+Analytic Number Theory - RMT Chebyshev Bias Validation - 20260326_161330
+------------------------------------------------------------------------------------------------------------------------
+  run_001: Missing run output
+
+Analytic Number Theory - RMT Chebyshev Bias Validation - 20260326_162419
+------------------------------------------------------------------------------------------------------------------------
+  run_001: Contains error/traceback
+  run_002: Missing run output
+
+Analytic Number Theory - RMT Chebyshev Bias Validation - 20260326_165458
+------------------------------------------------------------------------------------------------------------------------
+  run_001: Contains error/traceback
+  run_002: Contains error/traceback
+
+Analytic Number Theory - RMT Chebyshev Bias Validation - 20260326_213821
+------------------------------------------------------------------------------------------------------------------------
+  run_001: Contains error/traceback
+
+Computational Number Theory - Adaptive LDAB Calibration - 20260326_231024
+------------------------------------------------------------------------------------------------------------------------
+  run_005: Contains error/traceback
+  run_008: Contains error/traceback
+  run_010: Empty output
+  run_011: Contains error/traceback
+  run_013: Empty output
+  run_015: Contains error/traceback
+  run_016: Contains error/traceback
+  run_018: Contains error/traceback
+  run_019: Empty output
+  run_021: Contains error/traceback
+  run_022: Empty output
+  run_029: Contains error/traceback
+  run_030: Empty output
+  run_031: Empty output
+  run_032: Contains error/traceback
+  run_033: Contains error/traceback
+  run_038: Contains error/traceback
+  run_039: Empty output
+  run_040: Contains error/traceback
+  run_041: Contains error/traceback
+  run_042: Contains error/traceback
+  run_043: Contains error/traceback
+  run_044: Contains error/traceback
+  run_045: Contains error/traceback
+  run_046: Contains error/traceback
+  run_047: Contains error/traceback
+  run_048: Contains error/traceback
+  run_049: Empty output
+  run_050: Contains error/traceback
+
+Computational Number Theory - Adaptive LDAB Calibration - 20260327_164958
+------------------------------------------------------------------------------------------------------------------------
+  run_001: Contains error/traceback
+  run_003: Contains error/traceback
+  run_005: Contains error/traceback
+  run_006: Contains error/traceback
+  run_007: Contains error/traceback
+  run_008: Contains error/traceback
+  run_009: Contains error/traceback
+  run_010: Contains error/traceback
+
+Computational Number Theory - Digit Distribution Patterns - 20260325_203340
+------------------------------------------------------------------------------------------------------------------------
+  run_001: Contains error/traceback
+  run_002: Contains error/traceback
+  run_003: Contains error/traceback
+  run_004: Contains error/traceback
+  run_005: Contains error/traceback
+  run_006: Contains error/traceback
+  run_007: Contains error/traceback
+  run_008: Contains error/traceback
+  run_009: Contains error/traceback
+  run_010: Contains error/traceback
+
+Computational Number Theory - Digit Distribution Patterns - 20260325_214906
+------------------------------------------------------------------------------------------------------------------------
+  run_001: Missing run output
+
+Computational Number Theory - Digit Distribution Patterns - 20260325_215922
+------------------------------------------------------------------------------------------------------------------------
+  run_001: Contains error/traceback
+  run_002: Missing run output
+
+Computational Number Theory - Digit Distribution Patterns - 20260325_221244
+------------------------------------------------------------------------------------------------------------------------
+  run_001: Contains error/traceback
+  run_002: Missing run output
+
+Computational Number Theory - Digit Distribution Patterns - 20260325_222753
+------------------------------------------------------------------------------------------------------------------------
+  run_001: Contains error/traceback
+  run_002: Contains error/traceback
+
+Computational Number Theory - Digit Distribution Patterns - 20260325_225056
+------------------------------------------------------------------------------------------------------------------------
+  run_001: Contains error/traceback
+  run_002: Missing run output
+
+Computational Number Theory - Digit Distribution Patterns - 20260325_231158
+------------------------------------------------------------------------------------------------------------------------
+  run_002: Contains error/traceback
+  run_005: Contains error/traceback
+  run_007: Contains error/traceback
+  run_008: Contains error/traceback
+
+Constants - Apery's Constant - 20260330_103454
+------------------------------------------------------------------------------------------------------------------------
+  run_001: Missing run output
+
+Constants - Apery's Constant - 20260330_133330
+------------------------------------------------------------------------------------------------------------------------
+  run_004: Contains error/traceback
+  run_005: Contains error/traceback
+  run_007: Contains error/traceback
+
+Constants - Chaitin's Constant - 20260330_160402
+------------------------------------------------------------------------------------------------------------------------
+  run_001: Contains error/traceback
+  run_003: Contains error/traceback
+  run_004: Contains error/traceback
+  run_005: Contains error/traceback
+  run_007: Contains error/traceback
+
+Constants - Champernowne Constant - 20260330_173558
+------------------------------------------------------------------------------------------------------------------------
+  run_001: Contains error/traceback
+  run_002: Contains error/traceback
+  run_003: Contains error/traceback
+  run_004: Contains error/traceback
+  run_005: Contains error/traceback
+  run_007: Contains error/traceback
+
+Constants - Copeland-Erdős Constant - 20260330_192726
+------------------------------------------------------------------------------------------------------------------------
+  run_001: Contains error/traceback
+  run_002: Contains error/traceback
+  run_004: Contains error/traceback
+  run_006: Missing run output
+
+Constants - Copeland-Erdős Constant - 20260330_211322
+------------------------------------------------------------------------------------------------------------------------
+  run_001: Contains error/traceback
+
+Constants - Euler-Mascheroni Constant - 20260331_232602
+------------------------------------------------------------------------------------------------------------------------
+  run_002: Contains error/traceback
+  run_003: Contains error/traceback
+  run_004: Contains error/traceback
+  run_005: Contains error/traceback
+  run_006: Contains error/traceback
+  run_007: Contains error/traceback
+
+Constants - Golden Ratio - Continued Fractions - 20260401_000820
+------------------------------------------------------------------------------------------------------------------------
+  run_001: Contains error/traceback
+  run_002: Contains error/traceback
+  run_003: Contains error/traceback
+  run_005: Contains error/traceback
+
+Constants - Khinchin's Constant - 20260401_013527
+------------------------------------------------------------------------------------------------------------------------
+  run_001: Contains error/traceback
+
+Constants - Pi - Continued Fractions - 20260401_022423
+------------------------------------------------------------------------------------------------------------------------
+  run_003: Contains error/traceback
+
+Constants - Pi Digits - Benford - 20260401_031146
+------------------------------------------------------------------------------------------------------------------------
+  run_010: Contains error/traceback
+
+Constants - Pi Digits - Consecutive - 20260402_082110
+------------------------------------------------------------------------------------------------------------------------
+  run_001: Contains error/traceback
+  run_005: Contains error/traceback
+
+Constants - Pi Digits - Entropy - 20260403_194331
+------------------------------------------------------------------------------------------------------------------------
+  run_001: Missing run output
+
+Constants - Pi Digits - Entropy - 20260403_195507
+------------------------------------------------------------------------------------------------------------------------
+  run_005: Contains error/traceback
+
+Constants - Pi Digits - Frequency - 20260403_210633
+------------------------------------------------------------------------------------------------------------------------
+  run_001: Missing run output
+
+Constants - Pi Digits - Frequency - 20260403_212501
+------------------------------------------------------------------------------------------------------------------------
+  run_001: Contains error/traceback
+
+Constants - Pi Digits - Frequency - 20260403_220042
+------------------------------------------------------------------------------------------------------------------------
+  run_001: Missing run output
+
+Constants - Pi Digits - Frequency - 20260403_221656
+------------------------------------------------------------------------------------------------------------------------
+  run_001: Contains error/traceback
+  run_003: Contains error/traceback
+  run_007: Contains error/traceback
+
+Constants - Pi Digits - Gap Distances - 20260404_011009
+------------------------------------------------------------------------------------------------------------------------
+  run_002: Contains error/traceback
+  run_006: Contains error/traceback
+  run_007: Contains error/traceback
+
+Constants - Pi Digits - Random Walk - 20260404_060537
+------------------------------------------------------------------------------------------------------------------------
+  run_001: Contains error/traceback
+  run_003: Contains error/traceback
+
+Constants - Pi Digits - Spectral - 20260405_010737
+------------------------------------------------------------------------------------------------------------------------
+  run_002: Contains error/traceback
+
+Constants - Pi Digits - String Matching - 20260405_034207
+------------------------------------------------------------------------------------------------------------------------
+  run_001: Contains error/traceback
+  run_004: Contains error/traceback
+  run_005: Contains error/traceback
+  run_007: Contains error/traceback
+
+Constants - Sqrt(3) - Digits - 20260405_124440
+------------------------------------------------------------------------------------------------------------------------
+  run_002: Contains error/traceback
+
+Constants - e - Continued Fractions - 20260331_191338
+------------------------------------------------------------------------------------------------------------------------
+  run_001: Contains error/traceback
+  run_002: Contains error/traceback
+  run_007: Contains error/traceback
+
+Constants - e Digits - Consecutive - 20260331_200601
+------------------------------------------------------------------------------------------------------------------------
+  run_006: Contains error/traceback
+
+Constants - e Digits - Frequency - 20260331_211752
+------------------------------------------------------------------------------------------------------------------------
+  run_003: Contains error/traceback
+  run_004: Contains error/traceback
+  run_006: Contains error/traceback
+
+Constants - e Digits - Random Walk - 20260331_223357
+------------------------------------------------------------------------------------------------------------------------
+  run_001: Contains error/traceback
+  run_004: Contains error/traceback
+  run_006: Contains error/traceback
+  run_007: Contains error/traceback
+
+Fractals - Barnsley Fern - IFS Density - 20260405_155058
+------------------------------------------------------------------------------------------------------------------------
+  run_006: Contains error/traceback
+
+Fractals - Burning Ship Fractal - 20260406_022839
+------------------------------------------------------------------------------------------------------------------------
+  run_004: Contains error/traceback
+  run_007: Contains error/traceback
+
+Fractals - Cantor Set - Measure Zero - 20260406_051424
+------------------------------------------------------------------------------------------------------------------------
+  run_004: Contains error/traceback
+  run_005: Contains error/traceback
+  run_006: Contains error/traceback
+  run_007: Contains error/traceback
+
+Fractals - Clifford Attractor - 20260406_081741
+------------------------------------------------------------------------------------------------------------------------
+  run_002: Contains error/traceback
+
+Fractals - Collatz Fractal - 20260406_110358
+------------------------------------------------------------------------------------------------------------------------
+  run_001: Missing run output
+
+Fractals - Collatz Fractal - 20260406_111445
+------------------------------------------------------------------------------------------------------------------------
+  run_001: Contains error/traceback
+  run_004: Contains error/traceback
+  run_005: Contains error/traceback
+
+Fractals - Hénon Map - Strange Attractor - 20260406_150953
+------------------------------------------------------------------------------------------------------------------------
+  run_001: Contains error/traceback
+  run_005: Contains error/traceback
+
+Fractals - Koch Snowflake - Perimeter - 20260406_182513
+------------------------------------------------------------------------------------------------------------------------
+  run_001: Contains error/traceback
+
+Fractals - Logistic Map - Feigenbaum - 20260406_204114
+------------------------------------------------------------------------------------------------------------------------
+  run_001: Contains error/traceback
+  run_002: Contains error/traceback
+  run_003: Contains error/traceback
+  run_004: Contains error/traceback
+  run_005: Contains error/traceback
+
+Fractals - Lorenz Attractor - Dimension - 20260406_214738
+------------------------------------------------------------------------------------------------------------------------
+  run_001: Missing run output
+
+Fractals - Lorenz Attractor - Dimension - 20260406_220050
+------------------------------------------------------------------------------------------------------------------------
+  run_001: Contains error/traceback
+  run_005: Contains error/traceback
+
+Fractals - Mandelbrot - Area Estimation - 20260406_225527
+------------------------------------------------------------------------------------------------------------------------
+  run_002: Contains error/traceback
+  run_004: Contains error/traceback
+  run_005: Contains error/traceback
+  run_006: Contains error/traceback
+  run_007: Contains error/traceback
+
+Fractals - Menger Sponge - Volume - 20260407_004513
+------------------------------------------------------------------------------------------------------------------------
+  run_006: Contains error/traceback
+
+Fractals - Sierpinski Triangle - Cellular Automata - 20260407_035531
+------------------------------------------------------------------------------------------------------------------------
+  run_001: Contains error/traceback
+  run_003: Contains error/traceback
+  run_004: Contains error/traceback
+  run_006: Contains error/traceback
+  run_007: Contains error/traceback
+
+Fractals - Tent Map - Iteration - 20260407_053541
+------------------------------------------------------------------------------------------------------------------------
+  run_003: Contains error/traceback
+  run_004: Contains error/traceback
+  run_005: Contains error/traceback
+  run_006: Contains error/traceback
+
+Game Theory - Cooperative Games - 20260328_193256
+------------------------------------------------------------------------------------------------------------------------
+  run_001: Contains error/traceback
+  run_002: Contains error/traceback
+  run_004: Contains error/traceback
+
+Linguistics - Sentiment Analysis - 20260328_211303
+------------------------------------------------------------------------------------------------------------------------
+  run_001: Contains error/traceback
+
+Number Theory - Abundant Numbers - 20260407_072624
+------------------------------------------------------------------------------------------------------------------------
+  run_006: Contains error/traceback
+
+Number Theory - Bell Numbers - 20260407_115812
+------------------------------------------------------------------------------------------------------------------------
+  run_003: Contains error/traceback
+  run_005: Contains error/traceback
+  run_006: Contains error/traceback
+  run_007: Contains error/traceback
+
+Number Theory - Carmichael Numbers - 20260408_072430
+------------------------------------------------------------------------------------------------------------------------
+  run_001: Contains error/traceback
+  run_002: Contains error/traceback
+  run_003: Contains error/traceback
+  run_004: Contains error/traceback
+  run_005: Contains error/traceback
+  run_006: Contains error/traceback
+
+Number Theory - Catalan Numbers - 20260408_075614
+------------------------------------------------------------------------------------------------------------------------
+  run_001: Contains error/traceback
+  run_003: Contains error/traceback
+  run_005: Contains error/traceback
+  run_006: Contains error/traceback
+  run_007: Contains error/traceback
+
+Number Theory - Collatz Conjecture - 20260408_171828
+------------------------------------------------------------------------------------------------------------------------
+  run_001: Contains error/traceback
+  run_002: Contains error/traceback
+
+Number Theory - Deficient Numbers - 20260408_111106
+------------------------------------------------------------------------------------------------------------------------
+  run_006: Empty output
+
+Number Theory - Erdős-Woods Numbers - 20260408_113954
+------------------------------------------------------------------------------------------------------------------------
+  run_003: Contains error/traceback
+  run_006: Contains error/traceback
+
+Number Theory - Happy Numbers - 20260408_191739
+------------------------------------------------------------------------------------------------------------------------
+  run_001: Contains error/traceback
+
+Number Theory - Hardy-Ramanujan Numbers - 20260408_194349
+------------------------------------------------------------------------------------------------------------------------
+  run_002: Contains error/traceback
+
+Number Theory - Kaprekar Constants - 20260408_204130
+------------------------------------------------------------------------------------------------------------------------
+  run_007: Contains error/traceback
+
+Number Theory - Kaprekar Numbers - 20260408_211042
+------------------------------------------------------------------------------------------------------------------------
+  run_005: Contains error/traceback
+
+Number Theory - Lychrel Numbers - 20260408_214255
+------------------------------------------------------------------------------------------------------------------------
+  run_007: Contains error/traceback
+
+Number Theory - Motzkin Numbers - 20260408_222308
+------------------------------------------------------------------------------------------------------------------------
+  run_006: Contains error/traceback
+  run_007: Contains error/traceback
+
+Number Theory - Poulet Numbers - 20260409_003019
+------------------------------------------------------------------------------------------------------------------------
+  run_004: Contains error/traceback
+
+Prime Numbers - Brocard's Conjecture - 20260409_050728
+------------------------------------------------------------------------------------------------------------------------
+  run_005: Contains error/traceback
+  run_007: Contains error/traceback
+
+Prime Numbers - Cousin Primes - 20260409_063207
+------------------------------------------------------------------------------------------------------------------------
+  run_002: Contains error/traceback
+  run_003: Contains error/traceback
+  run_004: Contains error/traceback
+  run_007: Missing run output

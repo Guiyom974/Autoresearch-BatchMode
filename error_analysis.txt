@@ -1,0 +1,187 @@
+Error Pattern Analysis
+====================================================================================================
+
+ValueError: 16 occurrences
+Other - SyntaxError: invalid syntax: 11 occurrences
+AttributeError: 11 occurrences
+TypeError: 9 occurrences
+IndexError: 5 occurrences
+KeyError: 2 occurrences
+Other - ERROR during hypothesis testing: UnicodeEncodeError: 'charmap' codec can't encod: 1 occurrences
+Other - Sequential (fp32) Sum  : 54.836029 | Error: 0.3127% | Time: 0.4499s: 1 occurrences
+Other - 4. Further access to exact LMFDB L-function zeros is required to strictly valida: 1 occurrences
+Other - Variance Error: 94.77%: 1 occurrences
+Other - Relative error:     28268.00%: 1 occurrences
+Other - Relative error:     99.93%: 1 occurrences
+Other -   Relative error: 76.36%: 1 occurrences
+Other - Relative error: 0.4951: 1 occurrences
+Other - Leave-One-Out Cross-Validation Errors:: 1 occurrences
+Other - k=10: ERROR: 1 occurrences
+Other - ERROR: No gaps computed: 1 occurrences
+Other - Max absolute error: 0.00e+00: 1 occurrences
+Other - Testing Hypothesis 1: Truncation error of asymptotic expansion at k=5 (x=2310) d: 1 occurrences
+Other - Testing Research Hypotheses: Primorial Scaling ↔ LDAB Error Decay: 1 occurrences
+Other - LDAB ERROR DECAY RATE ANALYSIS ACROSS PRIMORIAL INDICES: 1 occurrences
+Other - LDAB ERROR MODELING: NUMERICAL ARTIFACT MITIGATION TEST SUITE: 1 occurrences
+Other - LDAB CALIBRATION ERROR MODEL HYPOTHESIS TESTING SUITE: 1 occurrences
+Other - HYPOTHESIS 3: Relative error in double vs arbitrary precision: 1 occurrences
+Other - Relative error = 5.66e-01: 1 occurrences
+Other - Max relative error in gamma term up to k=16: 0.00e+00 at k=1: 1 occurrences
+Other - Max absolute error: 0.000000: 1 occurrences
+Other - ImportError: cannot import name 'li' from 'scipy.special' (C:\Users\User\AppData: 1 occurrences
+Other - Relative error = 9.27e-05: 1 occurrences
+Other - RESEARCH PROBLEM: Error Bounding & Convergence of LDAB Correction: 1 occurrences
+Other - Maximum absolute error from 1.0: 2.166767e-03: 1 occurrences
+Other - SyntaxError: unterminated triple-quoted string literal (detected at line 160): 1 occurrences
+Other - SyntaxError (pre-execution check): expected ':' (<unknown>, line 160): 1 occurrences
+Other - SyntaxError (pre-execution check): invalid syntax (<unknown>, line 1): 1 occurrences
+Other - SyntaxError (pre-execution check): expected an indented block after 'if' stateme: 1 occurrences
+Other - SyntaxError (pre-execution check): unterminated f-string literal (detected at li: 1 occurrences
+Other -     return codecs.charmap_encode(input,self.errors,encoding_table)[0]: 1 occurrences
+Other - -> Standard Error: 0.0031: 1 occurrences
+Other - Hypothesis Statement: Converting synchronous API endpoints that execute tasks lo: 1 occurrences
+Other - Null Hypothesis (H0): Errors follow expected normal distribution centered at 0: 1 occurrences
+Other - HYPOTHESIS 4: Approximation Error Bounds: 1 occurrences
+Other - Result: PASS  (max relative error < 5 %): 1 occurrences
+Other - 2. The asymptotic floor α > 0 indicates irreducible approximation error.: 1 occurrences
+Other -   Standard Error: 0.009211: 1 occurrences
+Other - Error in Hypothesis 4: module 'scipy.stats' has no attribute 'chsambernowne': 1 occurrences
+Other -   Relative Error = 0.9382 (93.82%): 1 occurrences
+Other -   Relative error     : 0.0000000000000000e+00: 1 occurrences
+Other -            N    k   Theoretical     Empirical      RelError: 1 occurrences
+Other -          C_k=4.593707e-08, mean relative error=4638.8174: 1 occurrences
+Other - Standard error of slope   : 0.0008: 1 occurrences
+Other - Decay rates (b) and standard errors:: 1 occurrences
+Other - [ERROR] An error occurred during analysis: The binary mode of fromstring is remo: 1 occurrences
+Other - Error at start: 7.18e-01: 1 occurrences
+Other - HYPOTHESIS 4: Refined baseline reduces model error: 1 occurrences
+Other -   Standard error: 0.010001: 1 occurrences
+Other - Standard error (white noise): 0.010000: 1 occurrences
+Other -    - Algorithmic errors or precision loss: 1 occurrences
+Other -   n=  100: error=4.99e-03, trailing_zeros=0: 1 occurrences
+Other - using Brent-McMillan-like acceleration, the error is bounded and decreases: 1 occurrences
+Other - HYPOTHESIS 1: Exponential Decay of Error: 1 occurrences
+Other - Precision (bits)     Error (Low)               Error (High)             : 1 occurrences
+Other - First 5 errors: [0.61803399 0.38196601 0.11803399 0.04863268 0.01803399]: 1 occurrences
+Other - HYPOTHESIS 2: NORMALIZED ERROR HYPOTHESIS: 1 occurrences
+Other - Computing continued fractions and convergent errors...: 1 occurrences
+Other - Mean error (small segments, n<100): 0.425117: 1 occurrences
+Other - ImportError: cannot import name 'log10' from 'scipy.special' (C:\Users\User\AppD: 1 occurrences
+Other - Error during execution: operands could not be broadcast together with shapes (10: 1 occurrences
+Other - An error occurred: [<class 'decimal.InvalidOperation'>]: 1 occurrences
+Other - An error occurred: Exceeds the limit (4300 digits) for integer string conversion: 1 occurrences
+Other - An error occurred: module 'scipy.signal' has no attribute 'cwt': 1 occurrences
+Other - An error occurred during execution: operands could not be broadcast together wit: 1 occurrences
+Other - Error generating data: 'decimal.Decimal' object has no attribute 'atan': 1 occurrences
+Other - An error occurred during execution: setting an array element with a sequence. Th: 1 occurrences
+Other - Mean estimation error over 100 random states: 18.69: 1 occurrences
+Other - Mean Error: 1669.70: 1 occurrences
+Other - Processed N=10000: Mean Additive Error = 0.00: 1 occurrences
+Other - ERROR: No points escaped in this grid range.: 1 occurrences
+Other -    - Analysis: Detected maximum error at beta = 0.9500: 1 occurrences
+Other - 2. The standard 64-bit floating point arithmetic accumulates rounding errors dur: 1 occurrences
+Other -    the Mean Absolute Error (MAE) between Float64 and arbitrary precision calcula: 1 occurrences
+Other - Hypothesis 3 (Error Propagation): Significant error detected at iteration 7.: 1 occurrences
+Other - An error occurred during execution: [Errno 2] No such file or directory: '/mnt/d: 1 occurrences
+Other - 2. The 'halo' of differing escape times grows as iteration depth increases, conf: 1 occurrences
+Other - Hypothesis 1 is SUPPORTED: The majority of the halo regions are computational ar: 1 occurrences
+Other - --- Testing Hypothesis 2: Iteration-Dependent Error Bounding ---: 1 occurrences
+Other - N = 1000   | Estimated Dimension = 1.1249 ± 0.0130 | Error from 1.21 = 0.0851: 1 occurrences
+Other - Lorenz Attractor: Estimated D2 = 1.986, Theoretical D2 = 2.06, Error = 3.61%: 1 occurrences
+Other - Standard Error of slope:           0.000000e+00: 1 occurrences
+Other - Calculated Deltas and Errors:: 1 occurrences
+Other - n     | R_n                  | delta_n              | Error |delta_n - delta|  : 1 occurrences
+Other - n    | Float Delta          | MP Delta             | Rel Error           : 1 occurrences
+Other - n	Delta (High Prec)	Delta (Double Prec)	Relative Error: 1 occurrences
+Other - Simulating minimum bit-depths for 12 < n <= 25 based on theoretical error growth: 1 occurrences
+Other - Standard GP D2: 2.4064 (Error: 0.3464): 1 occurrences
+Other - Hypothesis 1 (Optimal m=3): The results show the Mean Absolute Error (MAE) of th: 1 occurrences
+Other - Mean Error (Sobol): 8.680852e-03: 1 occurrences
+Other - 1. Hypothesis 1 (Convergence Speed): The plot 'mandelbrot_convergence.png' shows: 1 occurrences
+Other - 1. Hypothesis 1: The QMC method generally exhibits a steeper (more negative) slo: 1 occurrences
+Other - Hypothesis 2 (Metric Calculation): The empirical standard deviation of the area : 1 occurrences
+Other - Uniform Area (200 iters): 1.522750 | Error: 0.016625: 1 occurrences
+Other - Absolute Error: 0.0000: 1 occurrences
+Other - Absolute Error: 0.0721: 1 occurrences
+Other - Hypothesis 1: The results show variations in the estimated fractal dimension (D): 1 occurrences
+Other - Periodic Boundary FD: 1.5850 (Error: 0.0000): 1 occurrences
+Other -   Absolute Error from 1.5850: 0.0697: 1 occurrences
+Other - The Kantz-Grassberger relation d_H = 1 - Gamma/lambda holds with a mean absolute: 1 occurrences
+Other - Hypothesis 1: As iterations increase, the finite number of points and floating-p: 1 occurrences
+Other - Hypothesis 2: Lower precision floating-point numbers (float32) suffer from sever: 1 occurrences
+Other - 1. Hypothesis 1 (Static Arbitrary-Precision): High precision arithmetic alters t: 1 occurrences
+Other - Analyzing error distributions...: 1 occurrences
+Other - 2. Hypothesis 2 (Quota Growth): The analysis of simulated point usage shows a st: 1 occurrences
+Other - Statement: The pattern suggests that 402 errors for free users correlate strongl: 1 occurrences
+Other - API Error Diagnostic Test Suite (402 Insufficient Quota): 1 occurrences
+Other - STARTING API ERROR 402 HYPOTHESIS TESTING SUITE: 1 occurrences
+Other - TESTING HYPOTHESIS 1: Bursting Usage & Quota Errors: 1 occurrences
+Other - Absolute Rounding Error:        1.02e-03: 1 occurrences
+Other -    Conclusion: The system correctly returns a 402 'insufficient_quota' error whe: 1 occurrences
+Other - ✅ Hypothesis 1 Supported: The 402 error occurred precisely when the remaining cr: 1 occurrences
+Other - R-squared: 0.9768, Std Error: 0.0064: 1 occurrences
+Other -   - Not all tested intervals deviated from the baseline by more than 2 standard : 1 occurrences
+Other - 1. Hypothesis 1 is supported by the simulation: A hard ceiling on tokens per min: 1 occurrences
+Other - Max Error (vs Exact): 0: 1 occurrences
+Other - Conclusion: The empirical simulation matches the theoretical Markov chain steady: 1 occurrences
+Other - 2. Hypothesis 2 (Finite-bound correction): The Mean Squared Error for the standa: 1 occurrences
+Other - Mean Squared Error of fit: 2307.6783: 1 occurrences
+Other - CONCLUSIONS: The script successfully computed prime counts in Brocard intervals : 1 occurrences
+Other - 1. The error term Delta(N) appears to be bounded by N/(log N)^3, supporting H1.: 1 occurrences
+Other - Testing H1: Error term Delta(N) remains negative (Cousin primes stay below HL pr: 1 occurrences
+Other - 1. Hypothesis 1: The normalized bias for cousin primes was compared against twin: 1 occurrences
+
+
+Sample Errors:
+====================================================================================================
+
+ValueError:
+  Path: D:\LocalProjects\Python apps\AutoResearch\experiments\breakthrough\Analytic Number Theory - LDAB Model Validation Scale - 20260326_092633\run_001
+  Snippet: py.py", line 7179, in _power_divergence
+    raise ValueError(msg)
+ValueError: For each axis slice, the sum of the observed frequencies must agree with the sum of the expected frequencies to a relative tolerance of 1.4901161193847656e-08, but the percent differences are:
+9.000000000000002
+
+
+  Path: D:\LocalProjects\Python apps\AutoResearch\experiments\breakthrough\Analytic Number Theory - Primorial Distribution Asymmetries - 20260326_080610\run_006
+  Snippet: 81, in numpy.random._bounded_integers._rand_int32
+ValueError: high is out of bounds for int32
+
+
+
+TypeError:
+  Path: D:\LocalProjects\Python apps\AutoResearch\experiments\breakthrough\Computational Number Theory - Adaptive LDAB Calibration - 20260326_231024\run_008
+  Snippet: (primes[:k]))
+                         ~~~~~~^^^^
+TypeError: only integer scalar arrays can be converted to a scalar index
+
+
+  Path: D:\LocalProjects\Python apps\AutoResearch\experiments\breakthrough\Computational Number Theory - Adaptive LDAB Calibration - 20260326_231024\run_041
+  Snippet:              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: unsupported format string passed to NoneType.__format__
+
+
+
+AttributeError:
+  Path: D:\LocalProjects\Python apps\AutoResearch\experiments\breakthrough\Computational Number Theory - Adaptive LDAB Calibration - 20260326_231024\run_032
+  Snippet: : log(P_k)=10.3100, R(k)=5.094845
+
+--- STDERR ---
+AttributeError: 'NoneType' object has no attribute 'log'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\LocalProjects\Python apps\AutoResearch\experiments\breakthrough\20260326_231
+
+  Path: D:\LocalProjects\Python apps\AutoResearch\experiments\breakthrough\Constants - e - Continued Fractions - 20260331_191338\run_007
+  Snippet: which has no callable sqrt method
+
+--- STDERR ---
+AttributeError: 'int' object has no attribute 'sqrt'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\LocalProjects\Python apps\AutoResearch\experiments\breakthrough\Constants - e - 
+
